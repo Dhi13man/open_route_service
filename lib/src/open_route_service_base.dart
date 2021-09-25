@@ -6,6 +6,14 @@ import 'package:open_route_service/src/models/basic_models.dart';
 
 export 'package:open_route_service/src/models/basic_models.dart';
 
+part 'package:open_route_service/src/services/directions.dart';
+part 'package:open_route_service/src/services/elevation.dart';
+part 'package:open_route_service/src/services/geocode.dart';
+part 'package:open_route_service/src/services/isochrones.dart';
+part 'package:open_route_service/src/services/matrix.dart';
+part 'package:open_route_service/src/services/optimization.dart';
+part 'package:open_route_service/src/services/pois.dart';
+
 /// This class is used to fetch the data from the OpenRouteService API
 /// and parse it to a list of [Coordinate] objects which can be used to draw
 /// a polyline on the map.
@@ -15,26 +23,19 @@ export 'package:open_route_service/src/models/basic_models.dart';
 class OpenRouteService {
   OpenRouteService({
     required String apiKey,
-    this.pathParam = 'foot-walking',
-  }) : _apiKey = apiKey {
-    if (!supportedPathParams.contains(pathParam)) {
-      throw ArgumentError.value(
-        pathParam,
-        'pathParam',
-        'pathParam must be one of ${supportedPathParams.join(', ')}',
-      );
-    }
+    String pathParam = 'foot-walking',
+  })  : _apiKey = apiKey,
+        _pathParam = pathParam {
+    _checkIfValidPathParameter(pathParam);
+    // Initialize HTTP client
+    _client = http.Client();
   }
 
   /// The API key used to authenticate the request.
   final String _apiKey;
 
-  /// The endpoint of the OpenRouteService API.
-  static const String _directionsEndpointURL =
-      'https://api.openrouteservice.org/v2/directions/';
-
   /// The path parameter determines the routing method.
-  final String pathParam;
+  String _pathParam;
 
   /// Supported path parameters for the OpenRouteService API.
   static const List<String> supportedPathParams = [
@@ -48,60 +49,80 @@ class OpenRouteService {
     'wheelchair',
   ];
 
-  /// Fetches the data from the OpenRouteService API and parses it to a list
-  /// of [Coordinate] objects.
-  Future<List<Coordinate>> getRouteCoordinates({
-    required Coordinate startCoordinate,
-    required Coordinate endCoordinate,
-    String? pathParameterOverride,
-  }) async {
-    // If a path parameter override is provided, use it.
-    final String chosenPathParam = pathParameterOverride ?? pathParam;
-    
-    // Extract coordinate information.
-    final double startLat = startCoordinate.latitude;
-    final double startLng = startCoordinate.longitude;
-    final double endLat = endCoordinate.latitude;
-    final double endLng = endCoordinate.longitude;
+  /// HTTP Client used to persistently make the request.
+  late http.Client _client;
 
-    // Build the request URL.
-    final Uri uri = Uri.parse(
-      '$_directionsEndpointURL$chosenPathParam?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
-    );
+  /// Get current path parameter.
+  String get pathParam => _pathParam;
+
+  /// Change the path parameter.
+  set setPathParam(String newPathParam) {
+    _checkIfValidPathParameter(newPathParam);
+    _pathParam = newPathParam;
+  }
+
+  /// Checks if the given [pathParam] is supported by the API.
+  /// If not, an [ArgumentError] is thrown.
+  void _checkIfValidPathParameter(String pathParam) {
+    if (!supportedPathParams.contains(pathParam)) {
+      throw ArgumentError.value(
+        pathParam,
+        'pathParam',
+        'pathParam must be one of ${supportedPathParams.join(', ')}',
+      );
+    }
+  }
+
+  /// Performs a GET request on the OpenRouteService API endpoint [uri].
+  ///
+  /// Returns a [Future] that resolves to json-decoded [http.Response] object body.
+  /// Throws an [HttpException] if the request fails.
+  Future<dynamic> _openRouteServiceGet({required Uri uri}) async {
     // Fetch the data.
-    final http.Response response = await http.get(uri);
+    final http.Response response = await _client.get(uri);
+    // Check if the request was successful.
     if (response.statusCode == 200) {
       final String data = response.body;
-      return _parseResponse(jsonDecode(data));
+      return jsonDecode(data);
     } else {
       final dynamic errorData = jsonDecode(response.body);
       throw HttpException(
-        'Failed to load data. Status: ${errorData['error']} Code: ${response.statusCode}',
+        'Failed! Status: ${errorData['error']} Code: ${response.statusCode}',
         uri: uri,
       );
     }
   }
 
-  /// Parses the response from the OpenRouteService API and returns a list of
-  /// [Coordinate] objects to be used to draw a polyline on the map.
-  List<Coordinate> _parseResponse(dynamic responseBody) {
-    // For holding coordinates of the route from the response body
-    // as primitive list of double pairs.
-    final List<dynamic> linePointsRaw =
-        responseBody['features'][0]['geometry']['coordinates'];
-    // Parse dynamics into proper data types.
-    final List<List<double>> linePoints = [];
-    for (List<dynamic> unparsedPoints in linePointsRaw) {
-      linePoints.add(
-        unparsedPoints
-            .map<double>((dynamic point) => point.toDouble())
-            .toList(),
+  /// Performs a POST request on the OpenRouteService API endpoint [uri] with
+  /// the given [data] and [headers].
+  ///
+  /// Returns a [Future] that resolves to json-decoded [http.Response] object body.
+  /// Throws an [HttpException] if the request fails.
+  Future<dynamic> _openRouteServicePost({
+    required Uri uri,
+    required Map<String, dynamic> data,
+  }) async {
+    // Fetch the data.
+    final http.Response response = await _client.post(
+      uri,
+      body: jsonEncode(data),
+      headers: {
+        'Accept':
+            'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+        'Authorization': _apiKey,
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    );
+    // Check if the request was successful.
+    if (response.statusCode == 200) {
+      final String data = response.body;
+      return jsonDecode(data);
+    } else {
+      final dynamic errorData = jsonDecode(response.body);
+      throw HttpException(
+        'Failed! Status: ${errorData['error']} Code: ${response.statusCode}',
+        uri: uri,
       );
     }
-
-    // Make a list of [Coordinate] objects from the raw coordinates.
-    return linePoints
-        .map<Coordinate>((linePoint) => Coordinate(linePoint[1], linePoint[0]))
-        .toList();
   }
 }

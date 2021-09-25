@@ -27,3 +27,13 @@ class Coordinate {
   @override
   String toString() => toJson().toString();
 }
+
+class RouteSegment {
+  const RouteSegment(this.coordinates, this.distance, this.duration);
+
+  final List<Coordinate> coordinates;
+
+  final double distance;
+
+  final double duration;
+}

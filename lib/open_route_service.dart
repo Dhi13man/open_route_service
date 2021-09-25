@@ -1,8 +1,7 @@
-/// Support for doing something awesome.
+/// An encapsulation made around OpenRouteService API for Dart and Flutter projects.
 ///
-/// More dartdocs go here.
+/// Made for easy generation of Directions, Isochrones, Time-Distance Matrix,
+/// Pelias Geocoding, etc. using their amazing API.
 library open_route_service;
 
 export 'src/open_route_service_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.

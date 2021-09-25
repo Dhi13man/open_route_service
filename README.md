@@ -59,13 +59,13 @@ Future<void> main() async {
   // Print the route coordinates
   routeCoordinates.forEach(print);
 
-  // Map route coordinates to a list of LatLng
-  // to be used in Polyline
+  // Map route coordinates to a list of LatLng (requires google_maps_flutter package)
+  // to be used in the Map route Polyline.
   final List<LatLng> routePoints = routeCoordinates
       .map((coordinate) => LatLng(coordinate.latitude, coordinate.longitude))
       .toList();
 
-  // Create Polyline
+  // Create Polyline (requires Material UI for Color)
   final Polyline routePolyline = Polyline(
     polylineId: PolylineId('route'),
     visible: true,
