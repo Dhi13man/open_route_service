@@ -1,7 +1,7 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension OpenRouteServiceDirections on OpenRouteService {
-  /// The endpoint of the OpenRouteService API.
+  /// The endpoint of the OpenRouteService Directions API.
   static const String _directionsEndpointURL =
       'https://api.openrouteservice.org/v2/directions/';
 
@@ -33,6 +33,8 @@ extension OpenRouteServiceDirections on OpenRouteService {
     final Uri uri = Uri.parse(
       '$_directionsEndpointURL$chosenPathParam?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
     );
+
+    // Fetch the data.
     return await _openRouteServiceGet(uri: uri);
   }
 
@@ -51,7 +53,8 @@ extension OpenRouteServiceDirections on OpenRouteService {
     String? pathParameterOverride,
   }) async {
     // Fetch and parse the data.
-    final Map<String, dynamic> unparsedOutput = await getRouteDirectionsUnparsed(
+    final Map<String, dynamic> unparsedOutput =
+        await getRouteDirectionsUnparsed(
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,
       pathParameterOverride: pathParameterOverride,
@@ -100,7 +103,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
     final Uri uri =
         Uri.parse('$_directionsEndpointURL$chosenPathParam/geojson');
 
-    // Fetch and parse the data.
+    // Ready data to be sent.
     final Map<String, dynamic> sendData = <String, dynamic>{
       "coordinates": coordinates
           .map<List<double>>(
@@ -129,6 +132,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
       "maximum_speed": maximumSpeed,
     }..removeWhere((key, value) => value == null);
 
+    // Fetch the data.
     return await _openRouteServicePost(uri: uri, data: sendData);
   }
 
@@ -213,7 +217,10 @@ extension OpenRouteServiceDirections on OpenRouteService {
 
     // Make a list of [Coordinate] objects from the raw coordinates.
     return linePoints
-        .map<Coordinate>((linePoint) => Coordinate(linePoint[1], linePoint[0]))
+        .map<Coordinate>(
+          (linePoint) =>
+              Coordinate(latitude: linePoint[1], longitude: linePoint[0]),
+        )
         .toList();
   }
 }

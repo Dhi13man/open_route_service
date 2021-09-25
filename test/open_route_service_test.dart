@@ -2,16 +2,19 @@ import 'package:open_route_service/open_route_service.dart';
 import 'package:test/test.dart';
 
 import 'services/directions_tests.dart';
+import 'services/elevation_tests.dart';
 
 Future<void> main() async {
-  const String apiKey = 'test';
+  const String apiKey = '5b3ce3597851110001cf6248823cf6d4c1a344448fb62d263e54cb82';
   // Dummy Start and Destination Points
   const double startLat = 37.4220698;
   const double startLng = -122.0862784;
   const double endLat = 37.4111466;
   const double endLng = -122.0792365;
-  const Coordinate startCoordinate = Coordinate(startLat, startLng);
-  const Coordinate endCoordinate = Coordinate(endLat, endLng);
+  const Coordinate startCoordinate =
+      Coordinate(latitude: startLat, longitude: startLng);
+  const Coordinate endCoordinate =
+      Coordinate(latitude: endLat, longitude: endLng);
 
   final OpenRouteService service = OpenRouteService(apiKey: apiKey);
   group('Initial test', () {
@@ -27,5 +30,10 @@ Future<void> main() async {
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,
     ),
+  );
+
+  group(
+    'Elevation API tests:',
+    () => elevationTests(service: service, coordinate: startCoordinate),
   );
 }

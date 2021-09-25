@@ -12,8 +12,8 @@ Future<void> main() async {
 
   // Form Route between coordinates
   final List<Coordinate> routeCoordinates = await client.getRouteDirections(
-    startCoordinate: Coordinate(startLat, startLng),
-    endCoordinate: Coordinate(endLat, endLng),
+    startCoordinate: Coordinate(latitude: startLat, longitude: startLng),
+    endCoordinate: Coordinate(latitude: endLat, longitude: endLng),
   );
 
   // Print the route coordinates

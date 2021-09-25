@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:open_route_service/src/models/basic_models.dart';
 
-export 'package:open_route_service/src/models/basic_models.dart';
+import 'package:open_route_service/src/models/coordinate_model.dart';
+import 'package:open_route_service/src/models/elevation_data_model.dart';
 
 part 'package:open_route_service/src/services/directions.dart';
 part 'package:open_route_service/src/services/elevation.dart';

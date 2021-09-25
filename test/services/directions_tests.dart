@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:test/test.dart';
 import 'package:open_route_service/open_route_service.dart';
+import 'package:test/test.dart';
 
 void directionsTests({
   required OpenRouteService service,
@@ -11,7 +11,8 @@ void directionsTests({
   test(
     'Fetch and parse route for 2 points',
     () async {
-      final List<Coordinate> routeCoordinates = await service.getRouteDirections(
+      final List<Coordinate> routeCoordinates =
+          await service.getRouteDirections(
         startCoordinate: startCoordinate,
         endCoordinate: endCoordinate,
       );
@@ -23,8 +24,9 @@ void directionsTests({
   test(
     'Error Validation for 2 point route in first and last path points',
     () async {
-      final List<Coordinate> routeCoordinates = await service.getRouteDirections(
-          startCoordinate: startCoordinate, endCoordinate: endCoordinate);
+      final List<Coordinate> routeCoordinates =
+          await service.getRouteDirections(
+              startCoordinate: startCoordinate, endCoordinate: endCoordinate);
       final Coordinate first = routeCoordinates.first,
           last = routeCoordinates.last;
 
@@ -75,8 +77,7 @@ void directionsTests({
     final int minLength =
         min(routeCoordinates.length, routeCoordinatesMulti.length);
     for (int i = 0; i < minLength; i++) {
-      expect(routeCoordinates[i].latitude, routeCoordinatesMulti[i].latitude);
-      expect(routeCoordinates[i].longitude, routeCoordinatesMulti[i].longitude);
+      expect(routeCoordinates[i], routeCoordinatesMulti[i]);
     }
   });
 }
