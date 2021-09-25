@@ -5,7 +5,7 @@ import 'services/directions_tests.dart';
 import 'services/elevation_tests.dart';
 
 Future<void> main() async {
-  const String apiKey = '5b3ce3597851110001cf6248823cf6d4c1a344448fb62d263e54cb82';
+  const String apiKey = 'test';
   // Dummy Start and Destination Points
   const double startLat = 37.4220698;
   const double startLng = -122.0862784;
