@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:test/test.dart';
 import 'package:open_route_service/open_route_service.dart';
 
@@ -9,8 +11,7 @@ void directionsTests({
   test(
     'Fetch and parse route for 2 points',
     () async {
-      final List<Coordinate> routeCoordinates =
-          await service.getRouteCoordinates(
+      final List<Coordinate> routeCoordinates = await service.getRouteDirections(
         startCoordinate: startCoordinate,
         endCoordinate: endCoordinate,
       );
@@ -22,9 +23,8 @@ void directionsTests({
   test(
     'Error Validation for 2 point route in first and last path points',
     () async {
-      final List<Coordinate> routeCoordinates =
-          await service.getRouteCoordinates(
-              startCoordinate: startCoordinate, endCoordinate: endCoordinate);
+      final List<Coordinate> routeCoordinates = await service.getRouteDirections(
+          startCoordinate: startCoordinate, endCoordinate: endCoordinate);
       final Coordinate first = routeCoordinates.first,
           last = routeCoordinates.last;
 
@@ -54,10 +54,29 @@ void directionsTests({
 
   test('Fetch and parse route for multiple points', () async {
     final List<Coordinate> routeCoordinates =
-        await service.getMultiRouteCoordinates(
-      coordinates: [startCoordinate, endCoordinate],
-      shouldParse: true,
+        await service.getMultiRouteDirections(
+      coordinates: [startCoordinate, endCoordinate, startCoordinate],
     );
     expect(routeCoordinates.length, greaterThan(0));
+  });
+
+  test('Cross-validate getDirections and getMultiRouteDirections', () async {
+    final List<Coordinate> routeCoordinates = await service.getRouteDirections(
+      startCoordinate: startCoordinate,
+      endCoordinate: endCoordinate,
+    );
+    final List<Coordinate> routeCoordinatesMulti =
+        await service.getMultiRouteDirections(
+      coordinates: [startCoordinate, endCoordinate],
+    );
+
+    // Validate that the route coordinates are the same as in each case route
+    // will be same despite using different APIs.
+    final int minLength =
+        min(routeCoordinates.length, routeCoordinatesMulti.length);
+    for (int i = 0; i < minLength; i++) {
+      expect(routeCoordinates[i].latitude, routeCoordinatesMulti[i].latitude);
+      expect(routeCoordinates[i].longitude, routeCoordinatesMulti[i].longitude);
+    }
   });
 }

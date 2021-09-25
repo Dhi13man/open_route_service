@@ -1,6 +1,6 @@
 /// A Coordinate Data Model independent of any other external libraries.
 /// Contains a [double] Latitude and a [double] Longitude value.
-/// 
+///
 /// Should be easily convertible to a LatLng, GeoPoint etc for use in projects.
 class Coordinate {
   /// Generates a coordinate from a [latitude] and [longitude].
@@ -23,6 +23,14 @@ class Coordinate {
         'latitude': latitude,
         'longitude': longitude,
       };
+
+  /// Adding two coordinates.
+  Coordinate operator +(Coordinate other) =>
+      Coordinate(latitude + other.latitude, longitude + other.longitude);
+
+  /// Subtracting two coordinates.
+  Coordinate operator -(Coordinate other) =>
+      Coordinate(latitude - other.latitude, longitude - other.longitude);
 
   @override
   String toString() => toJson().toString();

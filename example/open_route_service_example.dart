@@ -11,7 +11,7 @@ Future<void> main() async {
   const double endLng = -122.0792365;
 
   // Form Route between coordinates
-  final List<Coordinate> routeCoordinates = await client.getRouteCoordinates(
+  final List<Coordinate> routeCoordinates = await client.getRouteDirections(
     startCoordinate: Coordinate(startLat, startLng),
     endCoordinate: Coordinate(endLat, endLng),
   );

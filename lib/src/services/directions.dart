@@ -6,19 +6,18 @@ extension OpenRouteServiceDirections on OpenRouteService {
       'https://api.openrouteservice.org/v2/directions/';
 
   /// Fetches the Direction Route coordinates for the route between
-  /// [startCoordinate] and [endCoordinate] from the OpenRouteService API, and
-  /// parses it to a list of [Coordinate] objects.
+  /// [startCoordinate] and [endCoordinate] from the OpenRouteService API,
+  /// and directly returns the entire unparsed response object.
   ///
-  /// If [shouldParse] is true, the coordinates will be parsed to a list of
-  /// [Coordinate] objects. Otherwise, the entire response object will be
-  /// returned.
+  /// To get only the parsed route coordinates,
+  /// use [OpenRouteServiceDirections.getRouteDirections].
   ///
+  /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
-  Future<dynamic> getRouteCoordinates({
+  Future<Map<String, dynamic>> getRouteDirectionsUnparsed({
     required Coordinate startCoordinate,
     required Coordinate endCoordinate,
     String? pathParameterOverride,
-    bool shouldParse = true,
   }) async {
     // If a path parameter override is provided, use it.
     final String chosenPathParam = pathParameterOverride ?? _pathParam;
@@ -34,24 +33,42 @@ extension OpenRouteServiceDirections on OpenRouteService {
     final Uri uri = Uri.parse(
       '$_directionsEndpointURL$chosenPathParam?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
     );
-
-    // Fetch and parse the data.
-    dynamic unparsedOutput = await _openRouteServiceGet(uri: uri);
-    return shouldParse
-        ? _parseRouteCoordinates(unparsedOutput)
-        : unparsedOutput;
+    return await _openRouteServiceGet(uri: uri);
   }
 
-  /// Fetches the Direction Route coordinates for the route connecting the
-  /// various [coordinates] from the OpenRouteService API, and then parses
-  /// it to a list of [Coordinate] objects.
+  /// Fetches the Direction Route coordinates for the route between
+  /// [startCoordinate] and [endCoordinate] from the OpenRouteService API, and
+  /// parses it to a [List] of [Coordinate] objects.
   ///
-  /// If [shouldParse] is true, the coordinates will be parsed to a list of
-  /// [Coordinate] objects. Otherwise, the entire response object will be
-  /// returned.
+  /// To return the entire unparsed response object,
+  /// use [OpenRouteServiceDirections.getRouteDirectionsUnparsed].
   ///
+  /// Information about the endpoint and all the parameters can be found at:
+  /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
+  Future<List<Coordinate>> getRouteDirections({
+    required Coordinate startCoordinate,
+    required Coordinate endCoordinate,
+    String? pathParameterOverride,
+  }) async {
+    // Fetch and parse the data.
+    final Map<String, dynamic> unparsedOutput = await getRouteDirectionsUnparsed(
+      startCoordinate: startCoordinate,
+      endCoordinate: endCoordinate,
+      pathParameterOverride: pathParameterOverride,
+    );
+    return _parseRouteCoordinates(unparsedOutput);
+  }
+
+  /// Fetches the Direction Route info for the route connecting the
+  /// various [coordinates] from the OpenRouteService API, and directly returns
+  /// the entire unparsed response object.
+  ///
+  /// To get only the parsed route coordinates,
+  /// use [OpenRouteServiceDirections.getMultiRouteDirections].
+  ///
+  /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
-  Future<dynamic> getMultiRouteCoordinates({
+  Future<Map<String, dynamic>> getMultiRouteDirectionsUnparsed({
     required List<Coordinate> coordinates,
     Object? alternativeRoutes,
     List<String>? attributes,
@@ -74,20 +91,17 @@ extension OpenRouteServiceDirections on OpenRouteService {
     bool geometry = true,
     int? maximumSpeed,
     String? pathParameterOverride,
-    bool shouldParse = true,
   }) async {
     // If a path parameter override is provided, use it.
     final String chosenPathParam = pathParameterOverride ?? _pathParam;
     _checkIfValidPathParameter(chosenPathParam);
-
-    // Extract coordinate information.
 
     // Build the request URL.
     final Uri uri =
         Uri.parse('$_directionsEndpointURL$chosenPathParam/geojson');
 
     // Fetch and parse the data.
-    Map<String, dynamic> sendData = <String, dynamic>{
+    final Map<String, dynamic> sendData = <String, dynamic>{
       "coordinates": coordinates
           .map<List<double>>(
             (coordinate) => <double>[coordinate.longitude, coordinate.latitude],
@@ -115,17 +129,74 @@ extension OpenRouteServiceDirections on OpenRouteService {
       "maximum_speed": maximumSpeed,
     }..removeWhere((key, value) => value == null);
 
-    // Fetch and parse the data.
-    dynamic unparsedOutput =
-        await _openRouteServicePost(uri: uri, data: sendData);
-    return shouldParse
-        ? _parseRouteCoordinates(unparsedOutput)
-        : unparsedOutput;
+    return await _openRouteServicePost(uri: uri, data: sendData);
   }
 
-  /// Parses the response from the OpenRouteService API and returns a list of
+  /// Fetches the Direction Route coordinates for the route connecting the
+  /// various [coordinates] from the OpenRouteService API, and then parses
+  /// it to a [List] of [Coordinate] objects.
+  ///
+  /// To return the entire unparsed response object,
+  /// use [OpenRouteServiceDirections.getRouteDirectionsUnparsed].
+  ///
+  /// Information about the endpoint and all the parameters can be found at:
+  /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
+  Future<List<Coordinate>> getMultiRouteDirections({
+    required List<Coordinate> coordinates,
+    Object? alternativeRoutes,
+    List<String>? attributes,
+    bool continueStraight = false,
+    bool? elevation,
+    List<String>? extraInfo,
+    bool geometrySimplify = false,
+    String? id,
+    bool instructions = true,
+    String instructionsFormat = 'text',
+    String language = 'en',
+    bool maneuvers = false,
+    Object? options,
+    String preference = 'recommended',
+    List<int>? radiuses,
+    bool roundaboutExits = false,
+    List<int>? skipSegments,
+    bool suppressWarnings = false,
+    String units = 'm',
+    bool geometry = true,
+    int? maximumSpeed,
+    String? pathParameterOverride,
+  }) async {
+    // Fetch and parse the data.
+    final Map<String, dynamic> unparsedOutput =
+        await getMultiRouteDirectionsUnparsed(
+      coordinates: coordinates,
+      alternativeRoutes: alternativeRoutes,
+      attributes: attributes,
+      continueStraight: continueStraight,
+      elevation: elevation,
+      extraInfo: extraInfo,
+      geometrySimplify: geometrySimplify,
+      id: id,
+      instructions: instructions,
+      instructionsFormat: instructionsFormat,
+      language: language,
+      maneuvers: maneuvers,
+      options: options,
+      preference: preference,
+      radiuses: radiuses,
+      roundaboutExits: roundaboutExits,
+      skipSegments: skipSegments,
+      suppressWarnings: suppressWarnings,
+      units: units,
+      geometry: geometry,
+      maximumSpeed: maximumSpeed,
+      pathParameterOverride: pathParameterOverride,
+    );
+    return _parseRouteCoordinates(unparsedOutput);
+  }
+
+  /// Parses the response from the OpenRouteService API and returns a [List] of
   /// [Coordinate] objects to be used to draw a polyline on the map.
-  List<Coordinate> _parseRouteCoordinates(dynamic responseBody) {
+  List<Coordinate> _parseRouteCoordinates(Map<String, dynamic> responseBody) {
     // For holding coordinates of the route from the response body
     // as primitive list of double pairs.
     final List<dynamic> linePointsRaw =
