@@ -3,7 +3,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 extension OpenRouteServiceElevation on OpenRouteService {
   /// The endpoint of the OpenRouteService Elevation API.
   static const String _elevationEndpointURL =
-      'https://api.openrouteservice.org/elevation/';
+      '${OpenRouteService._baseURL}/elevation';
 
   /// Fetches the [ElevationData] by taking a 2D [geometry] and enriching it
   /// with  elevation from a variety of datasets. Uses the GET method for the
@@ -22,7 +22,7 @@ extension OpenRouteServiceElevation on OpenRouteService {
 
     // Build the request URL.
     final Uri uri = Uri.parse(
-      '${_elevationEndpointURL}point?api_key=$_apiKey&geometry=$lng,$lat&format_out=$formatOut&dataset=$dataset',
+      '$_elevationEndpointURL/point?api_key=$_apiKey&geometry=$lng,$lat&format_out=$formatOut&dataset=$dataset',
     );
     final Map<String, dynamic> data = await _openRouteServiceGet(uri: uri);
     return ElevationData.fromJson(data);
@@ -41,7 +41,7 @@ extension OpenRouteServiceElevation on OpenRouteService {
     String dataset = 'srtm',
   }) async {
     // Build the request URL.
-    final Uri uri = Uri.parse('${_elevationEndpointURL}point');
+    final Uri uri = Uri.parse('$_elevationEndpointURL/point');
 
     // Ready data to be sent.
     final Map<String, dynamic> sendData = <String, dynamic>{
@@ -84,7 +84,7 @@ extension OpenRouteServiceElevation on OpenRouteService {
       );
     }
     // Build the request URL.
-    final Uri uri = Uri.parse('${_elevationEndpointURL}line');
+    final Uri uri = Uri.parse('$_elevationEndpointURL/line');
 
     // Ready data to be sent.
     final Map<String, dynamic> sendData = <String, dynamic>{

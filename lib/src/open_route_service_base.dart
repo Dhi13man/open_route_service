@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:open_route_service/src/models/coordinate_model.dart';
 import 'package:open_route_service/src/models/elevation_data_model.dart';
+import 'package:open_route_service/src/models/isochrone_data_models.dart';
 
 part 'package:open_route_service/src/services/directions.dart';
 part 'package:open_route_service/src/services/elevation.dart';
@@ -30,6 +31,9 @@ class OpenRouteService {
     // Initialize HTTP client
     _client = http.Client();
   }
+
+  static const String _baseURL =
+      'https://api.openrouteservice.org';
 
   /// The API key used to authenticate the request.
   final String _apiKey;

@@ -17,13 +17,20 @@ With all of their internal Optimizations, this includes:
     | ------------------------------------ |
     | ![Route Drawn on Map](screenshots/directions_map.png) |
 
-2. **Isochrones:**
+2. **Elevation:**
+    Get the elevation of a coordinate or a list of coordinates. Fetches the [ElevationData] by taking a 2D [coordinate] and enriching it with  elevation from a variety of datasets. Uses the POST method for the endpoint.
 
-3. **Time-Distance Matrix:**
+    | Elevation Response Received |
+    | --------------------------- |
+    | ![Sample Elevation Response](screenshots/elevation_response.png) |
 
-4. **Pelias Geocoding:**
+3. **Isochrones:**
 
-5. **POIs:**
+4. **Time-Distance Matrix:**
+
+5. **Pelias Geocoding:**
+
+6. **POIs:**
 
 ## Getting started
 

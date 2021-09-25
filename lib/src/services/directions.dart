@@ -3,7 +3,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 extension OpenRouteServiceDirections on OpenRouteService {
   /// The endpoint of the OpenRouteService Directions API.
   static const String _directionsEndpointURL =
-      'https://api.openrouteservice.org/v2/directions/';
+      '${OpenRouteService._baseURL}/v2/directions';
 
   /// Fetches the Direction Route coordinates for the route between
   /// [startCoordinate] and [endCoordinate] from the OpenRouteService API,
@@ -31,7 +31,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
 
     // Build the request URL.
     final Uri uri = Uri.parse(
-      '$_directionsEndpointURL$chosenPathParam?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
+      '$_directionsEndpointURL/$chosenPathParam?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
     );
 
     // Fetch the data.
@@ -101,7 +101,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
 
     // Build the request URL.
     final Uri uri =
-        Uri.parse('$_directionsEndpointURL$chosenPathParam/geojson');
+        Uri.parse('$_directionsEndpointURL/$chosenPathParam/geojson');
 
     // Ready data to be sent.
     final Map<String, dynamic> sendData = <String, dynamic>{
