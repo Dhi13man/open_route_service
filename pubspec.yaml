@@ -1,0 +1,14 @@
+name: open_route_service
+description: An encapsulation made around OpenRouteService API for Dart and Flutter projects, for easy generation of Directions, Isochrones, Time-Distance Matrix, Pelias Geocoding, etc. using their amazing API.
+version: 1.0.0
+homepage: https://www.example.com
+
+environment:
+  sdk: '>=2.14.2 <3.0.0'
+
+dependencies: 
+  http: ^0.13.3
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0
