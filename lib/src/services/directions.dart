@@ -1,12 +1,12 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSDirections on OpenRouteService {
-  /// The endpoint of the OpenRouteService Directions API.
+  /// The endpoint of the openrouteservice Directions API.
   static const String _directionsEndpointURL =
       '${OpenRouteService._baseURL}/v2/directions';
 
   /// Fetches the Direction Route information for the route between
-  /// [startCoordinate] and [endCoordinate] from the OpenRouteService API,
+  /// [startCoordinate] and [endCoordinate] from the openrouteservice API,
   /// and returns the entire geojson [GeoJsonFeatureCollection] containing the data.
   ///
   /// To get only the parsed route coordinates,
@@ -39,7 +39,7 @@ extension ORSDirections on OpenRouteService {
   }
 
   /// Fetches the Direction Route information for the route between
-  /// [startCoordinate] and [endCoordinate] from the OpenRouteService API, and
+  /// [startCoordinate] and [endCoordinate] from the openrouteservice API, and
   /// parses it's coordinates to a [List] of [Coordinate] objects.
   ///
   /// To return the entire [GeoJsonFeatureCollection] containing the response data,
@@ -63,7 +63,7 @@ extension ORSDirections on OpenRouteService {
   }
 
   /// Fetches the Direction Route information for the route connecting the
-  /// various [coordinates] from the OpenRouteService API, and returns the
+  /// various [coordinates] from the openrouteservice API, and returns the
   /// entire geojson [GeoJsonFeatureCollection] containing the response data.
   ///
   /// To get only the parsed route coordinates,
@@ -139,7 +139,7 @@ extension ORSDirections on OpenRouteService {
   }
 
   /// Fetches the Direction Route information for the route connecting the
-  /// various given [coordinates], from the OpenRouteService API, and then
+  /// various given [coordinates], from the openrouteservice API, and then
   /// parses it's coordinates to a [List] of [Coordinate] objects.
   ///
   /// To return the entire [GeoJsonFeatureCollection] containing the response data,
@@ -201,7 +201,7 @@ extension ORSDirections on OpenRouteService {
   }
 
   /// Fetches the Direction Route information for the route connecting the
-  /// various [coordinates] from the OpenRouteService API, and returns the
+  /// various [coordinates] from the openrouteservice API, and returns the
   /// entire geojson [DirectionRouteData] containing the response data.
   ///
   /// To get the geojson [GeoJsonFeatureCollection] containing the response data,
