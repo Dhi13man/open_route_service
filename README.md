@@ -2,20 +2,20 @@
 
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
 
-An encapsulation made around [Openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects. The package was created for the easy integration of the OpenRouteService API for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
+An encapsulation made around [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects. The package was created for the easy integration of the openrouteservice API for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
 
-For more information about the API, view [Openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
+For more information about the API, view [openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
 
 ## Features
 
-The goal is to develop an all-encompassing package that can encapsulate everything OpenRouteService API offers.
+The goal is to develop an all-encompassing package that can encapsulate everything openrouteservice API offers.
 
 With all of their internal Optimizations, this includes:
 
 1. **[Directions](https://openrouteservice.org/dev/#/api-docs/v2/directions/):**
    Route Generation between any two or more coordinates for any mode of transportation. For example, from a starting point to a destination on `'foot-walking'`.
 
-   Eg. `OpenRouteServiceDirections.getRouteCoordinates` gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
+   Eg. `ORSDirections.getRouteCoordinates` gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
 
     | Route Drawn on Map using Coordinates |
     | ------------------------------------ |
@@ -53,7 +53,7 @@ Appropriate tests have also been written for each of the above APIs and can be u
 ## Usage
 
 1. Import the package: `import 'package:open_route_service/open_route_service.dart';` where needed.
-2. Create a new instance of the class with your [OpenRouteService API Key](https://openrouteservice.org/dev/#/signup): `OpenRouteService openRouteService = OpenRouteService(apiKey: 'YOUR-API-KEY');`
+2. Create a new instance of the class with your [openrouteservice API Key](https://openrouteservice.org/dev/#/signup): `OpenRouteService openrouteservice = OpenRouteService(apiKey: 'YOUR-API-KEY');`
 3. Use the handy class methods to easily generate Directions, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation and routing Optimizations etc, letting the package handle all the complex HTTP requests in the background for you.
 
 Example of how to use the package to use [openrouteservice's Directions API](https://openrouteservice.org/dev/#/api-docs/v2/directions):
@@ -62,7 +62,7 @@ Example of how to use the package to use [openrouteservice's Directions API](htt
 import 'package:open_route_service/open_route_service.dart';
 
 Future<void> main() async {
-  // Initialize the OpenRouteService with your API key.
+  // Initialize the openrouteservice with your API key.
   final OpenRouteService client = OpenRouteService(apiKey: 'YOUR-API-KEY');
 
   // Example coordinates to test between
@@ -139,8 +139,8 @@ Future<void> main() async {
 
 ## Additional information
 
-- Please [contribute to OpenRouteService API by donating](https://openrouteservice.org/donations/) to help keep the service free and accessible to everyone.
+- Please [contribute to openrouteservice API by donating](https://openrouteservice.org/donations/) to help keep the service free and accessible to everyone.
 
-- Go through the full documentation here: [OpenRouteService API Documentation](https://openrouteservice.org/dev/#/api-docs/v2/directions)
+- Go through the full documentation here: [openrouteservice API Documentation](https://openrouteservice.org/dev/#/api-docs/v2/directions)
 
 - Reach out to me directly @dhi13man on [Twitter](https://twitter.com/dhi13man) or [GitHub](https://www.github.com/dhi13man) if you have any general questions or suggestions.
