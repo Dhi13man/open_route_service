@@ -154,4 +154,4 @@ Future<void> main() async {
 
 ### Sponsor Message
 
- The first release of this package was sponsored by [Cashtic](https://cashtic.com/) a Cross-Platform peer-to-peer ATM cash network for Android and Web. Get it on [Google Play!](https://play.google.com/store/apps/details?id=com.cashtic&hl=en&gl=US)
+ The first release of this package was sponsored by [Cashtic](https://cashtic.com/), a Cross-Platform peer-to-peer ATM cash network for Android and Web. Get it on [Google Play!](https://play.google.com/store/apps/details?id=com.cashtic&hl=en&gl=US)
