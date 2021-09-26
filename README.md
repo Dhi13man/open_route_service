@@ -1,6 +1,6 @@
 # open_route_service
 
-An encapsulation made around [OpenRouteService API](https://openrouteservice.org) for Dart and Flutter projects. Made for easy generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation and routing Optimizations using their amazing API.
+An encapsulation made around [OpenRouteService API](https://openrouteservice.org) for Dart and Flutter projects. Made for the easy generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation and routing Optimizations using their amazing API.
 
 ## Features
 
@@ -15,14 +15,14 @@ With all of their internal Optimizations, this includes:
 
     | Route Drawn on Map using Coordinates |
     | ------------------------------------ |
-    | ![Route Drawn on Map](screenshots/directions_map.png) |
+    | ![Route Drawn on Map](https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/directions_map.png) |
 
 2. **[Elevation](https://openrouteservice.org/dev/#/api-docs/elevation/):**
     Get the elevation of a coordinate or a list of coordinates. Fetches the [ElevationData] by taking a 2D [coordinate] and enriching it with  elevation from a variety of datasets. Uses the POST method for the endpoint.
 
     | Elevation Response Received |
     | --------------------------- |
-    | ![Sample Elevation Response](screenshots/elevation_response.png) |
+    | ![Sample Elevation Response](https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/elevation_response.png) |
 
 3. **[Isochrones](https://openrouteservice.org/dev/#/api-docs/v2/isochrones/):**
     Obtain Isochrone (areas of reachability) Data for the locations given. The isochrone is a polygon that encloses a given point and is bounded by a given time.
@@ -31,7 +31,7 @@ With all of their internal Optimizations, this includes:
 
     | Isochrone Drawn on Map |
     | ---------------------- |
-    | ![Isochrone Drawn on Map](screenshots/isochrone_map.png) |
+    | ![Isochrone Drawn on Map](https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/isochrone_map.png) |
 
 4. **Time-Distance Matrix:**
 
@@ -67,7 +67,7 @@ Future<void> main() async {
   const double endLng = -122.0792365;
 
   // Form Route between coordinates
-  final List<Coordinate> routeCoordinates = await client.getRouteCoordinates(
+  final List<Coordinate> routeCoordinates = await client.getRouteDirections(
     startCoordinate: Coordinate(startLat, startLng),
     endCoordinate: Coordinate(endLat, endLng),
   );
@@ -97,8 +97,8 @@ Future<void> main() async {
 
 ## Dependencies
 
-- [Dart](https://www.dartlang.org/), for the Dart SDK which this obviously runs on.
-- [http](https://pub.dev/packages/http), for making HTTP requests to the API endpoints.
+- [Dart,](https://www.dartlang.org/) for the Dart SDK which this obviously runs on.
+- [http,](https://pub.dev/packages/http) for making HTTP requests to the API endpoints.
 
 ## Contribution Guidelines
 
@@ -111,3 +111,5 @@ Future<void> main() async {
 - Please [contribute to OpenRouteService API by donating](https://openrouteservice.org/donations/) to help keep the service free and accessible to everyone.
 
 - Go through the full documentation here: [OpenRouteService API Documentation](https://openrouteservice.org/dev/#/api-docs/v2/directions)
+
+- Reach out to me directly @dhi13man on [Twitter](https://twitter.com/dhi13man) or [GitHub](https://www.github.com/dhi13man) if you have any general questions or suggestions.

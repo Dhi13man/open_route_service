@@ -70,7 +70,7 @@ class Feature {
         'properties': properties.toJson(),
         'geometry': geometry.toJson(),
       };
-  
+
   @override
   String toString() => 'Feature(properties: $properties, geometry: $geometry)';
 }

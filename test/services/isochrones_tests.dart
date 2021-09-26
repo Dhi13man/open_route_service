@@ -1,7 +1,6 @@
 import 'package:open_route_service/open_route_service.dart';
 import 'package:test/test.dart';
 
-
 void isochronesTests({
   required OpenRouteService service,
   required List<Coordinate> coordinates,
