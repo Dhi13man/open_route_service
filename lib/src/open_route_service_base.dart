@@ -7,6 +7,7 @@ import 'package:open_route_service/src/models/direction_data_models.dart';
 import 'package:open_route_service/src/models/elevation_data_models.dart';
 import 'package:open_route_service/src/models/feature_data_models.dart';
 import 'package:open_route_service/src/models/matrix_data_models.dart';
+import 'package:open_route_service/src/models/pois_data_models.dart';
 
 part 'package:open_route_service/src/services/directions.dart';
 part 'package:open_route_service/src/services/elevation.dart';
@@ -44,6 +45,7 @@ class OpenRouteService {
     _client = http.Client();
   }
 
+  /// The base URL of all the endpoints, https://api.openrouteservice.org
   static const String _baseURL = 'https://api.openrouteservice.org';
 
   /// The API key used to authenticate the request.

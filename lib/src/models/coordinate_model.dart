@@ -11,7 +11,7 @@ class Coordinate {
     this.altitude = 0,
   });
 
-  /// Generates a [Coordinate] from a [Map] having [String] keys 
+  /// Generates a [Coordinate] from a [Map] having [String] keys
   /// 'latitude' and 'longitude', respectively each having [double] values.
   factory Coordinate.fromJson(Map<String, dynamic> json) => Coordinate(
         latitude: json['latitude']! as double,

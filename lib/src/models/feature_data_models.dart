@@ -24,11 +24,11 @@ class GeoJsonFeatureCollection {
             .toList(),
       );
 
-  // The bounding box of the requested Isochrone's area.
+  // The bounding box of the requested feature collection's area.
   // Should have 2 coordinates.
   final List<Coordinate> bbox;
 
-  // The list of features of the requested Isochrone.
+  // The list of features of the requested feature collection.
   final List<GeoJsonFeature> features;
 
   /// Converts the [GeoJsonFeatureCollection] to a [Map] with keys 'type',
@@ -83,12 +83,17 @@ class GeoJsonFeature {
 
 /// Properties of a [GeoJsonFeature].
 ///
-/// Includes its [groupIndex], [value] and [center] coordinates.
+/// Has a variety of feature properties data, all optional, with no set schema.
 class GeoJsonFeatureProperties {
   const GeoJsonFeatureProperties({
     this.groupIndex,
     this.value,
     this.center,
+    this.osmId,
+    this.osmType,
+    this.distance,
+    this.categoryIds,
+    this.osmTags,
   });
 
   GeoJsonFeatureProperties.fromJson(Map<String, dynamic> json)
@@ -99,7 +104,12 @@ class GeoJsonFeatureProperties {
             : Coordinate(
                 longitude: json['center'][0],
                 latitude: json['center'][1],
-              );
+              ),
+        osmId = json['osm_id'],
+        osmType = json['osm_type'],
+        distance = json['distance'],
+        categoryIds = json['category_ids'],
+        osmTags = json['osm_tags'];
 
   /// The index of the group of the feature.
   final int? groupIndex;
@@ -109,6 +119,21 @@ class GeoJsonFeatureProperties {
 
   /// The center [Coordinate] of the feature.
   final Coordinate? center;
+
+  /// The OSM id of the feature.
+  final int? osmId;
+
+  /// The OSM type of the feature.
+  final int? osmType;
+
+  /// The distance to the feature.
+  final double? distance;
+
+  /// The category ids of the feature.
+  final Map<String, dynamic>? categoryIds;
+
+  /// The OSM tags of the feature.
+  final Map<String, dynamic>? osmTags;
 
   /// Converts the [GeoJsonFeatureProperties] to a [Map] with keys 'groupIndex',
   /// 'value' and 'center'.
@@ -120,13 +145,22 @@ class GeoJsonFeatureProperties {
         'center': center == null
             ? null
             : <double>[center!.longitude, center!.latitude],
-      };
+        'osm_id': osmId,
+        'osm_type': osmType,
+        'distance': distance,
+        'category_ids': categoryIds,
+        'osm_tags': osmTags,
+      }..removeWhere((key, value) => value == null);
 
   @override
   String toString() => toJson().toString();
 }
 
 /// The geometry of a [GeoJsonFeature].
+///
+/// Once again, apology for the completely unreadable code, but the Feature
+/// Geometry data model is very inconsistent with what it wants [coordinates]
+/// to be.
 ///
 /// Includes its [type] and [List] of [Coordinate], [coordinates].
 class GeoJsonFeatureGeometry {
@@ -135,26 +169,41 @@ class GeoJsonFeatureGeometry {
   /// Generate a [GeoJsonFeatureGeometry] from a received [Map].
   GeoJsonFeatureGeometry.fromJson(Map<String, dynamic> json)
       : type = json['type'],
-        coordinates = (((json['coordinates'] as List<dynamic>).first as List)
-                .first is List)
-            ? (json['coordinates'] as List<dynamic>)
-                .map<List<Coordinate>>(
-                  (dynamic coords) => (coords as List<dynamic>)
-                      .map<Coordinate>(
-                        (c) => Coordinate(longitude: c[0], latitude: c[1]),
-                      )
-                      .toList(),
-                )
-                .toList()
-            : [
-                (json['coordinates'] as List<dynamic>)
-                    .map<Coordinate>(
-                      (dynamic c) => Coordinate(
-                        longitude: c[0],
-                        latitude: c[1],
-                      ),
+        coordinates = (json['coordinates'] as List<dynamic>).first is List
+            ?
+            // For Isochrone feature geometry.
+            (((json['coordinates'] as List<dynamic>).first as List).first
+                    is List)
+                ? (json['coordinates'] as List<dynamic>)
+                    .map<List<Coordinate>>(
+                      (dynamic coords) => (coords as List<dynamic>)
+                          .map<Coordinate>(
+                            (c) => Coordinate(longitude: c[0], latitude: c[1]),
+                          )
+                          .toList(),
                     )
                     .toList()
+                :
+                // For direction feature geometry
+                <List<Coordinate>>[
+                    (json['coordinates'] as List<dynamic>)
+                        .map<Coordinate>(
+                          (dynamic c) => Coordinate(
+                            longitude: c[0],
+                            latitude: c[1],
+                          ),
+                        )
+                        .toList()
+                  ]
+            :
+            // For POIs feature geometry
+            <List<Coordinate>>[
+                <Coordinate>[
+                  Coordinate(
+                    longitude: json['coordinates'][0],
+                    latitude: json['coordinates'][1],
+                  ),
+                ]
               ];
 
   /// Coordinates associated with the feature geometry.

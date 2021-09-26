@@ -11,7 +11,6 @@ void matrixTests({
       for (ORSProfile profile in ORSProfile.values) {
         final Matrix matrix = await service.getMatrix(
           locations: locations,
-          
           profileOverride: profile,
         );
 

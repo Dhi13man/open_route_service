@@ -43,6 +43,13 @@ With all of their internal Optimizations, this includes:
 5. **Pelias Geocoding:**
 
 6. **POIs:**
+   Obtains information about the Points of Interest (POIs) in the area surrounding a geometry which can either be a bounding box, polygon or buffered linestring, or point.
+
+   The Points of Interest can be marked on a map in a Flutter Application, or their properties and information visualized in various ways, or anything else you can think of.
+
+    | Points of Interest Drawn on Map |
+    | ------------------------------- |
+    | ![POI Drawn on Map](https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/pois_map.png) |
 
 Appropriate tests have also been written for each of the above APIs and can be used to check if the package and/or API are functioning properly.
 
@@ -144,3 +151,7 @@ Future<void> main() async {
 - Go through the full documentation here: [openrouteservice API Documentation](https://openrouteservice.org/dev/#/api-docs/v2/directions)
 
 - Reach out to me directly @dhi13man on [Twitter](https://twitter.com/dhi13man) or [GitHub](https://www.github.com/dhi13man) if you have any general questions or suggestions.
+
+### Sponsor Message
+
+ The first release of this package was sponsored by [Cashtic](https://cashtic.com/) a Cross-Platform peer-to-peer ATM cash network for Android and Web. Get it on [Google Play!](https://play.google.com/store/apps/details?id=com.cashtic&hl=en&gl=US)
