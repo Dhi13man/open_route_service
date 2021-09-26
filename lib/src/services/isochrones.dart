@@ -1,9 +1,69 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension OpenRouteServiceIsochrones on OpenRouteService {
-  String get isochronesUrl => '${OpenRouteService._baseURL}/v2/isochrones';
+  static const String _isochronesEndpointURL =
+      '${OpenRouteService._baseURL}/v2/isochrones';
 
   /// Obtain Isochrones (areas of reachability) from given locations as [List]
   /// of [Coordinate].
-  Future<void> getIsochrones() async {}
+  ///
+  /// The Isochrone Service supports time and distance analyses for one single
+  /// or multiple locations.
+  ///
+  /// You may also specify the isochrone interval or provide multiple exact
+  /// isochrone range values.
+  ///
+  /// The isochrone service supports the following [attributes]: 'area',
+  /// 'reachfactor', 'total_pop'.
+  ///
+  /// Information about the endpoint, parameters, response etc. can be found at:
+  /// https://openrouteservice.org/dev/#/api-docs/v2/isochrones/{profile}/post
+  Future<IsochroneData> getIsochrones({
+    required List<Coordinate> locations,
+    required List<int> range,
+    List<String> attributes = const <String>[],
+    String? id,
+    bool intersections = false,
+    int? interval,
+    String locationType = 'start',
+    Map<String, dynamic>? options,
+    String rangeType = 'time',
+    int? smoothing,
+    String areaUnits = 'm',
+    String units = 'm',
+    OpenRouteServiceProfile? profileOverride,
+  }) async {
+    // If a path parameter override is provided, use it.
+    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
+
+    // Build the request URL.
+    final Uri uri = Uri.parse(
+      '$_isochronesEndpointURL/${OpenRouteService.getProfileString(chosenPathParam)}',
+    );
+
+    // Ready data to be sent.
+    final Map<String, dynamic> queryParameters = <String, dynamic>{
+      'locations': locations
+          .map<List<double>>(
+            (coordinate) => <double>[coordinate.longitude, coordinate.latitude],
+          )
+          .toList(),
+      'range': range,
+      'attributes': attributes,
+      'id': id,
+      'intersections': intersections,
+      'interval': interval,
+      'location_type': locationType,
+      'options': options,
+      'range_type': rangeType,
+      'smoothing': smoothing,
+      'area_units': areaUnits,
+      'units': units,
+    }..removeWhere((key, value) => value == null);
+
+    // Fetch and parse the data.
+    final Map<String, dynamic> data =
+        await _openRouteServicePost(uri: uri, data: queryParameters);
+    return IsochroneData.fromJson(data);
+  }
 }

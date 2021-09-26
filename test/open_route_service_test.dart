@@ -3,18 +3,19 @@ import 'package:test/test.dart';
 
 import 'services/directions_tests.dart';
 import 'services/elevation_tests.dart';
+import 'services/isochrones_tests.dart';
 
 Future<void> main() async {
   const String apiKey = 'test';
-  // Dummy Start and Destination Points
-  const double startLat = 37.4220698;
-  const double startLng = -122.0862784;
-  const double endLat = 37.4111466;
-  const double endLng = -122.0792365;
-  const Coordinate startCoordinate =
-      Coordinate(latitude: startLat, longitude: startLng);
-  const Coordinate endCoordinate =
-      Coordinate(latitude: endLat, longitude: endLng);
+  // Dummy Coordinates
+  const Coordinate dirStartCoordinate =
+      Coordinate(latitude: 37.4220698, longitude: -122.0862784);
+  const Coordinate dirEndCoordinate =
+      Coordinate(latitude: 37.4111466, longitude: -122.0792365);
+  const Coordinate isochroneStartCoordinate =
+      Coordinate(latitude: 49.41461, longitude: 8.681495);
+  const Coordinate isochroneEndCoordinate =
+      Coordinate(latitude: 49.41943, longitude: 8.686507);
 
   final OpenRouteService service = OpenRouteService(apiKey: apiKey);
   group('Initial test', () {
@@ -27,13 +28,24 @@ Future<void> main() async {
     'Directions API tests:',
     () => directionsTests(
       service: service,
-      startCoordinate: startCoordinate,
-      endCoordinate: endCoordinate,
+      startCoordinate: dirStartCoordinate,
+      endCoordinate: dirEndCoordinate,
     ),
   );
 
   group(
     'Elevation API tests:',
-    () => elevationTests(service: service, coordinate: startCoordinate),
+    () => elevationTests(service: service, coordinate: dirStartCoordinate),
+  );
+
+  group(
+    'Isochrones API tests:',
+    () => isochronesTests(
+      service: service,
+      coordinates: <Coordinate>[
+        isochroneStartCoordinate,
+        isochroneEndCoordinate,
+      ],
+    ),
   );
 }

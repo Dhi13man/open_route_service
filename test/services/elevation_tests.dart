@@ -10,7 +10,7 @@ void elevationTests({
   required Coordinate coordinate,
 }) {
   test(
-    'Fetch Elevation using GET Method getElevationDataGet',
+    'Fetch Elevation using GET Method [getElevationDataGet]',
     () async {
       // Attempt 1 using geojson format.
       const String formatOut1 = 'geojson';
@@ -48,7 +48,7 @@ void elevationTests({
   );
 
   test(
-    'Fetch Elevation using POST Method getElevationDataPost',
+    'Fetch Elevation using POST Method [getElevationDataPost]',
     () async {
       // Attempt 1 using geojson format.
       const String formatOut1 = 'geojson';
@@ -107,7 +107,7 @@ void elevationTests({
   );
 
   test(
-    'Fetch Elevation through getElevationDataLine using planar 2D Line Geometry',
+    'Fetch Elevation through planar 2D Line Geometry using [getElevationDataLine]',
     () async {
       final ElevationData elevationData = await service.getElevationDataLine(
         geometry: 'u`rgFswjpAKD',

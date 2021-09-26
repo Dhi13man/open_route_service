@@ -24,58 +24,62 @@ part 'package:open_route_service/src/services/pois.dart';
 class OpenRouteService {
   OpenRouteService({
     required String apiKey,
-    String pathParam = 'foot-walking',
+    OpenRouteServiceProfile profile = OpenRouteServiceProfile.footWalking,
   })  : _apiKey = apiKey,
-        _pathParam = pathParam {
-    _checkIfValidPathParameter(pathParam);
+        _profile = profile {
     // Initialize HTTP client
     _client = http.Client();
   }
 
-  static const String _baseURL =
-      'https://api.openrouteservice.org';
+  static const String _baseURL = 'https://api.openrouteservice.org';
 
   /// The API key used to authenticate the request.
   final String _apiKey;
 
   /// The path parameter determines the routing method.
-  String _pathParam;
+  OpenRouteServiceProfile _profile;
 
-  /// Supported path parameters for the OpenRouteService API.
-  static const List<String> supportedPathParams = [
-    'driving-car',
-    'driving-hgv',
-    'cycling-road',
-    'cycling-mountain',
-    'cycling-electric',
-    'foot-walking',
-    'foot-hiking',
-    'wheelchair',
-  ];
+  /// Converts the enum [profile] to a [String] which can be used in API request
+  static String getProfileString(OpenRouteServiceProfile profile) {
+    switch (profile) {
+      case OpenRouteServiceProfile.drivingCar:
+        return 'driving-car';
+
+      case OpenRouteServiceProfile.drivingHgv:
+        return 'driving-hgv';
+
+      case OpenRouteServiceProfile.cyclingRoad:
+        return 'cycling-road';
+
+      case OpenRouteServiceProfile.cyclingMountain:
+        return 'cycling-mountain';
+
+      case OpenRouteServiceProfile.cyclingElectric:
+        return 'cycling-electric';
+
+      case OpenRouteServiceProfile.footWalking:
+        return 'foot-walking';
+
+      case OpenRouteServiceProfile.footHiking:
+        return 'foot-hiking';
+
+      case OpenRouteServiceProfile.wheelchair:
+        return 'wheelchair';
+
+      default:
+        return 'foot-walking';
+    }
+  }
 
   /// HTTP Client used to persistently make the request.
   late http.Client _client;
 
-  /// Get current path parameter.
-  String get pathParam => _pathParam;
+  /// Get current profile/path parameter.
+  OpenRouteServiceProfile get profile => _profile;
 
-  /// Change the path parameter.
-  set setPathParam(String newPathParam) {
-    _checkIfValidPathParameter(newPathParam);
-    _pathParam = newPathParam;
-  }
-
-  /// Checks if the given [pathParam] is supported by the API.
-  /// If not, an [ArgumentError] is thrown.
-  void _checkIfValidPathParameter(String pathParam) {
-    if (!supportedPathParams.contains(pathParam)) {
-      throw ArgumentError.value(
-        pathParam,
-        'pathParam',
-        'pathParam must be one of ${supportedPathParams.join(', ')}',
-      );
-    }
-  }
+  /// Change the profile/path parameter.
+  set setProfile(OpenRouteServiceProfile newPathParam) =>
+      _profile = newPathParam;
 
   /// Performs a GET request on the OpenRouteService API endpoint [uri].
   ///
@@ -129,4 +133,17 @@ class OpenRouteService {
       );
     }
   }
+}
+
+/// OpenRouteService API profiles as enum values to prevent typos in direct
+/// [String] usage.
+enum OpenRouteServiceProfile {
+  drivingCar,
+  drivingHgv,
+  cyclingRoad,
+  cyclingMountain,
+  cyclingElectric,
+  footWalking,
+  footHiking,
+  wheelchair,
 }

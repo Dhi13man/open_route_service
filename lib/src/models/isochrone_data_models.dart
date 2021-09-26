@@ -42,6 +42,9 @@ class IsochroneData {
             .map<Map<String, dynamic>>((feature) => feature.toJson())
             .toList(),
       };
+
+  @override
+  String toString() => toJson().toString();
 }
 
 /// A feature of an Isochrone.
@@ -67,6 +70,9 @@ class Feature {
         'properties': properties.toJson(),
         'geometry': geometry.toJson(),
       };
+  
+  @override
+  String toString() => 'Feature(properties: $properties, geometry: $geometry)';
 }
 
 /// Properties of a [Feature].
@@ -91,7 +97,7 @@ class FeatureProperties {
   final int groupIndex;
 
   /// The value of the feature.
-  final int value;
+  final double value;
 
   /// The center [Coordinate] of the feature.
   final Coordinate center;
@@ -105,6 +111,9 @@ class FeatureProperties {
         'value': value,
         'center': [center.longitude, center.latitude],
       };
+
+  @override
+  String toString() => toJson().toString();
 }
 
 /// The geometry of a [Feature].
@@ -147,4 +156,7 @@ class FeatureGeometry {
             )
             .toList(),
       };
+
+  @override
+  String toString() => toJson().toString();
 }

@@ -17,11 +17,10 @@ extension OpenRouteServiceDirections on OpenRouteService {
   Future<Map<String, dynamic>> getRouteDirectionsUnparsed({
     required Coordinate startCoordinate,
     required Coordinate endCoordinate,
-    String? pathParameterOverride,
+    OpenRouteServiceProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final String chosenPathParam = pathParameterOverride ?? _pathParam;
-    _checkIfValidPathParameter(chosenPathParam);
+    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
 
     // Extract coordinate information.
     final double startLat = startCoordinate.latitude;
@@ -31,7 +30,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
 
     // Build the request URL.
     final Uri uri = Uri.parse(
-      '$_directionsEndpointURL/$chosenPathParam?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
+      '$_directionsEndpointURL/${OpenRouteService.getProfileString(chosenPathParam)}?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
     );
 
     // Fetch the data.
@@ -50,14 +49,14 @@ extension OpenRouteServiceDirections on OpenRouteService {
   Future<List<Coordinate>> getRouteDirections({
     required Coordinate startCoordinate,
     required Coordinate endCoordinate,
-    String? pathParameterOverride,
+    OpenRouteServiceProfile? profileOverride,
   }) async {
     // Fetch and parse the data.
     final Map<String, dynamic> unparsedOutput =
         await getRouteDirectionsUnparsed(
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,
-      pathParameterOverride: pathParameterOverride,
+      profileOverride: profileOverride,
     );
     return _parseRouteCoordinates(unparsedOutput);
   }
@@ -93,18 +92,18 @@ extension OpenRouteServiceDirections on OpenRouteService {
     String units = 'm',
     bool geometry = true,
     int? maximumSpeed,
-    String? pathParameterOverride,
+    OpenRouteServiceProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final String chosenPathParam = pathParameterOverride ?? _pathParam;
-    _checkIfValidPathParameter(chosenPathParam);
+    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
-    final Uri uri =
-        Uri.parse('$_directionsEndpointURL/$chosenPathParam/geojson');
+    final Uri uri = Uri.parse(
+      '$_directionsEndpointURL/${OpenRouteService.getProfileString(chosenPathParam)}/geojson',
+    );
 
     // Ready data to be sent.
-    final Map<String, dynamic> sendData = <String, dynamic>{
+    final Map<String, dynamic> queryParameters = <String, dynamic>{
       "coordinates": coordinates
           .map<List<double>>(
             (coordinate) => <double>[coordinate.longitude, coordinate.latitude],
@@ -133,7 +132,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
     }..removeWhere((key, value) => value == null);
 
     // Fetch the data.
-    return await _openRouteServicePost(uri: uri, data: sendData);
+    return await _openRouteServicePost(uri: uri, data: queryParameters);
   }
 
   /// Fetches the Direction Route coordinates for the route connecting the
@@ -167,7 +166,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
     String units = 'm',
     bool geometry = true,
     int? maximumSpeed,
-    String? pathParameterOverride,
+    OpenRouteServiceProfile? profileOverride,
   }) async {
     // Fetch and parse the data.
     final Map<String, dynamic> unparsedOutput =
@@ -193,7 +192,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
       units: units,
       geometry: geometry,
       maximumSpeed: maximumSpeed,
-      pathParameterOverride: pathParameterOverride,
+      profileOverride: profileOverride,
     );
     return _parseRouteCoordinates(unparsedOutput);
   }

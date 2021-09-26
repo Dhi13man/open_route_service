@@ -9,7 +9,7 @@ void directionsTests({
   required Coordinate endCoordinate,
 }) {
   test(
-    'Fetch and parse route for 2 points',
+    'Fetch and parse route for 2 points using [getRouteDirections]',
     () async {
       final List<Coordinate> routeCoordinates =
           await service.getRouteDirections(
@@ -54,7 +54,9 @@ void directionsTests({
     },
   );
 
-  test('Fetch and parse route for multiple points', () async {
+  test(
+      'Fetch and parse route for multiple points using [getMultiRouteDirections]',
+      () async {
     final List<Coordinate> routeCoordinates =
         await service.getMultiRouteDirections(
       coordinates: [startCoordinate, endCoordinate, startCoordinate],
@@ -62,7 +64,8 @@ void directionsTests({
     expect(routeCoordinates.length, greaterThan(0));
   });
 
-  test('Cross-validate getDirections and getMultiRouteDirections', () async {
+  test('Cross-validate [getDirections] and [getMultiRouteDirections]',
+      () async {
     final List<Coordinate> routeCoordinates = await service.getRouteDirections(
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,

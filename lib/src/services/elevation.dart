@@ -44,7 +44,7 @@ extension OpenRouteServiceElevation on OpenRouteService {
     final Uri uri = Uri.parse('$_elevationEndpointURL/point');
 
     // Ready data to be sent.
-    final Map<String, dynamic> sendData = <String, dynamic>{
+    final Map<String, dynamic> queryParameters = <String, dynamic>{
       'format_in': formatIn,
       'format_out': formatOut,
       'dataset': dataset,
@@ -58,7 +58,7 @@ extension OpenRouteServiceElevation on OpenRouteService {
 
     // Fetch and parse the data.
     final Map<String, dynamic> data =
-        await _openRouteServicePost(uri: uri, data: sendData);
+        await _openRouteServicePost(uri: uri, data: queryParameters);
     return ElevationData.fromJson(data);
   }
 
@@ -87,7 +87,7 @@ extension OpenRouteServiceElevation on OpenRouteService {
     final Uri uri = Uri.parse('$_elevationEndpointURL/line');
 
     // Ready data to be sent.
-    final Map<String, dynamic> sendData = <String, dynamic>{
+    final Map<String, dynamic> queryParameters = <String, dynamic>{
       'format_in': formatIn,
       'format_out': formatOut,
       'dataset': dataset,
@@ -96,7 +96,7 @@ extension OpenRouteServiceElevation on OpenRouteService {
 
     // Fetch and parse the data.
     final Map<String, dynamic> data =
-        await _openRouteServicePost(uri: uri, data: sendData);
+        await _openRouteServicePost(uri: uri, data: queryParameters);
     return ElevationData.fromJson(data);
   }
 }
