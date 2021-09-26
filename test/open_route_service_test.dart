@@ -6,7 +6,9 @@ import 'services/elevation_tests.dart';
 import 'services/isochrones_tests.dart';
 
 Future<void> main() async {
+  // TODO: Change the API key to your own API key to ensure that package works.
   const String apiKey = 'test';
+
   // Dummy Coordinates
   const Coordinate dirStartCoordinate =
       Coordinate(latitude: 37.4220698, longitude: -122.0862784);

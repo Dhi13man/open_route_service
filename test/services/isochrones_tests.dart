@@ -1,9 +1,6 @@
 import 'package:open_route_service/open_route_service.dart';
 import 'package:test/test.dart';
 
-double percentageError(double a, double b) {
-  return (a - b).abs() / a * 100;
-}
 
 void isochronesTests({
   required OpenRouteService service,

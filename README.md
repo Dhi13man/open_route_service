@@ -8,7 +8,7 @@ The goal is to develop an all-encompassing package that can encapsulate everythi
 
 With all of their internal Optimizations, this includes:
 
-1. **Directions:**
+1. **[Directions](https://openrouteservice.org/dev/#/api-docs/v2/directions/):**
    Route Generation between any two or more coordinates for any mode of transportation. For example, from a starting point to a destination on `'foot-walking'`.
 
    This gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
@@ -17,20 +17,29 @@ With all of their internal Optimizations, this includes:
     | ------------------------------------ |
     | ![Route Drawn on Map](screenshots/directions_map.png) |
 
-2. **Elevation:**
+2. **[Elevation](https://openrouteservice.org/dev/#/api-docs/elevation/):**
     Get the elevation of a coordinate or a list of coordinates. Fetches the [ElevationData] by taking a 2D [coordinate] and enriching it with  elevation from a variety of datasets. Uses the POST method for the endpoint.
 
     | Elevation Response Received |
     | --------------------------- |
     | ![Sample Elevation Response](screenshots/elevation_response.png) |
 
-3. **Isochrones:**
+3. **[Isochrones](https://openrouteservice.org/dev/#/api-docs/v2/isochrones/):**
+    Obtain Isochrone (areas of reachability) Data for the locations given. The isochrone is a polygon that encloses a given point and is bounded by a given time.
+
+    The isochrone data can be used to draw them on a map in a Flutter Application, or anything else you can think of.
+
+    | Isochrone Drawn on Map |
+    | ---------------------- |
+    | ![Isochrone Drawn on Map](screenshots/isochrone_map.png) |
 
 4. **Time-Distance Matrix:**
 
 5. **Pelias Geocoding:**
 
 6. **POIs:**
+
+Appropriate tests have also been written for each of the above APIs and can be used to check if the package and/or API are functioning properly.
 
 ## Getting started
 
@@ -91,10 +100,14 @@ Future<void> main() async {
 - [Dart](https://www.dartlang.org/), for the Dart SDK which this obviously runs on.
 - [http](https://pub.dev/packages/http), for making HTTP requests to the API endpoints.
 
-## Additional information
+## Contribution Guidelines
 
-- Contributions are welcome on [GitHub](https://www.github.com/dhi13man/open_route_service). File any issues or feature requests there or help me resolve existing ones. :)
+- Contributions are welcome on [GitHub](https://www.github.com/dhi13man/open_route_service). Please ensure all the tests are running before pushing your changes. Write your own tests too!
+
+- File any [issues or feature requests here](https://www.github.com/dhi13man/open_route_service/issues) or help me resolve existing ones. :)
+
+## Additional information
 
 - Please [contribute to OpenRouteService API by donating](https://openrouteservice.org/donations/) to help keep the service free and accessible to everyone.
 
-- Go through the documentation here: [OpenRouteService API Documentation](https://openrouteservice.org/dev/#/api-docs/v2/directions)
+- Go through the full documentation here: [OpenRouteService API Documentation](https://openrouteservice.org/dev/#/api-docs/v2/directions)

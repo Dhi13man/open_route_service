@@ -11,13 +11,16 @@ void directionsTests({
   test(
     'Fetch and parse route for 2 points using [getRouteDirections]',
     () async {
-      final List<Coordinate> routeCoordinates =
-          await service.getRouteDirections(
-        startCoordinate: startCoordinate,
-        endCoordinate: endCoordinate,
-      );
-      // routeCoordinates.forEach(print);
-      expect(routeCoordinates.length, greaterThan(0));
+      // Validate API for each profile
+      for (OpenRouteServiceProfile profile in OpenRouteServiceProfile.values) {
+        final List<Coordinate> routeCoordinates =
+            await service.getRouteDirections(
+          startCoordinate: startCoordinate,
+          endCoordinate: endCoordinate,
+          profileOverride: profile,
+        );
+        expect(routeCoordinates.length, greaterThan(1));
+      }
     },
   );
 
