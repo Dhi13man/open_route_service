@@ -21,23 +21,23 @@ part 'package:open_route_service/src/services/pois.dart';
 /// Dart/Flutter application.
 ///
 /// Initialize the class with your API key [String] and optionally the
-/// [OpenRouteServiceProfile], then use the methods to get the data you need.
+/// [ORSProfile], then use the methods to get the data you need.
 ///
 /// Implemented OpenRoute APIs include:
-/// - Directions: [OpenRouteServiceDirections]
-/// - Elevation: [OpenRouteServiceElevation]
-/// - Geocoding: [OpenRouteServiceGeocode]
-/// - Isochrones: [OpenRouteServiceIsochrones]
-/// - Matrix: [OpenRouteServiceMatrix]
-/// - Optimization: [OpenRouteServiceOptimization]
-/// - POIs: [OpenRouteServicePOIs]
+/// - Directions: [ORSDirections]
+/// - Elevation: [ORSElevation]
+/// - Geocoding: [ORSGeocode]
+/// - Isochrones: [ORServiceIsochrones]
+/// - Matrix: [ORSMatrix]
+/// - Optimization: [ORSOptimization]
+/// - POIs: [ORSPois]
 ///
 /// The API documentation can be found here:
 /// https://openrouteservice.org/dev/#/api-docs
 class OpenRouteService {
   OpenRouteService({
     required String apiKey,
-    OpenRouteServiceProfile profile = OpenRouteServiceProfile.footWalking,
+    ORSProfile profile = ORSProfile.footWalking,
   })  : _apiKey = apiKey,
         _profile = profile {
     // Initialize HTTP client
@@ -50,33 +50,33 @@ class OpenRouteService {
   final String _apiKey;
 
   /// The path parameter determines the routing method.
-  OpenRouteServiceProfile _profile;
+  ORSProfile _profile;
 
   /// Converts the enum [profile] to a [String] which can be used in API request
-  static String getProfileString(OpenRouteServiceProfile profile) {
+  static String getProfileString(ORSProfile profile) {
     switch (profile) {
-      case OpenRouteServiceProfile.drivingCar:
+      case ORSProfile.drivingCar:
         return 'driving-car';
 
-      case OpenRouteServiceProfile.drivingHgv:
+      case ORSProfile.drivingHgv:
         return 'driving-hgv';
 
-      case OpenRouteServiceProfile.cyclingRoad:
+      case ORSProfile.cyclingRoad:
         return 'cycling-road';
 
-      case OpenRouteServiceProfile.cyclingMountain:
+      case ORSProfile.cyclingMountain:
         return 'cycling-mountain';
 
-      case OpenRouteServiceProfile.cyclingElectric:
+      case ORSProfile.cyclingElectric:
         return 'cycling-electric';
 
-      case OpenRouteServiceProfile.footWalking:
+      case ORSProfile.footWalking:
         return 'foot-walking';
 
-      case OpenRouteServiceProfile.footHiking:
+      case ORSProfile.footHiking:
         return 'foot-hiking';
 
-      case OpenRouteServiceProfile.wheelchair:
+      case ORSProfile.wheelchair:
         return 'wheelchair';
 
       default:
@@ -88,11 +88,10 @@ class OpenRouteService {
   late http.Client _client;
 
   /// Get current profile/path parameter.
-  OpenRouteServiceProfile get profile => _profile;
+  ORSProfile get profile => _profile;
 
   /// Change the profile/path parameter.
-  set setProfile(OpenRouteServiceProfile newPathParam) =>
-      _profile = newPathParam;
+  set setProfile(ORSProfile newPathParam) => _profile = newPathParam;
 
   /// Performs a GET request on the OpenRouteService API endpoint [uri].
   ///
@@ -108,7 +107,7 @@ class OpenRouteService {
       return jsonDecode(data);
     } else {
       final dynamic errorData = jsonDecode(response.body);
-      throw OpenRouteServiceException(
+      throw ORSException(
         'Status: ${errorData['error']} Code: ${response.statusCode}',
         uri: uri,
       );
@@ -142,7 +141,7 @@ class OpenRouteService {
       return jsonDecode(data);
     } else {
       final dynamic errorData = jsonDecode(response.body);
-      throw OpenRouteServiceException(
+      throw ORSException(
         'Status: ${errorData['error']} Code: ${response.statusCode}',
         uri: uri,
       );
@@ -152,7 +151,7 @@ class OpenRouteService {
 
 /// OpenRouteService API profiles as enum values to prevent typos in direct
 /// [String] usage.
-enum OpenRouteServiceProfile {
+enum ORSProfile {
   drivingCar,
   drivingHgv,
   cyclingRoad,
@@ -165,9 +164,9 @@ enum OpenRouteServiceProfile {
 
 /// Custom Exception class for this package that comtains the [message] of the
 /// error, and the [uri] of the failed request (if any).
-class OpenRouteServiceException implements Exception {
+class ORSException implements Exception {
   @pragma("vm:entry-point")
-  const OpenRouteServiceException(this.message, {this.uri}) : super();
+  const ORSException(this.message, {this.uri}) : super();
 
   /// The message of the error.
   final String message;

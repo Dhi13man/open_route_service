@@ -2,9 +2,9 @@
 
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
 
-An encapsulation made around [OpenRoute Service API](https://openrouteservice.org) for Dart and Flutter projects. The package was created for the easy integration of the OpenRouteService API for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
+An encapsulation made around [Openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects. The package was created for the easy integration of the OpenRouteService API for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
 
-For more information about the API, view [Openroute Service API documentation](https://openrouteservice.org/dev/#/api-docs).
+For more information about the API, view [Openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
 
 ## Features
 
@@ -56,7 +56,7 @@ Appropriate tests have also been written for each of the above APIs and can be u
 2. Create a new instance of the class with your [OpenRouteService API Key](https://openrouteservice.org/dev/#/signup): `OpenRouteService openRouteService = OpenRouteService(apiKey: 'YOUR-API-KEY');`
 3. Use the handy class methods to easily generate Directions, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation and routing Optimizations etc, letting the package handle all the complex HTTP requests in the background for you.
 
-Example of how to use the package to use [OpenRoute Service's Directions API](https://openrouteservice.org/dev/#/api-docs/v2/directions):
+Example of how to use the package to use [openrouteservice's Directions API](https://openrouteservice.org/dev/#/api-docs/v2/directions):
 
 ```dart
 import 'package:open_route_service/open_route_service.dart';

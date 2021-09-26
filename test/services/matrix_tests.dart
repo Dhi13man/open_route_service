@@ -8,7 +8,7 @@ void matrixTests({
   test(
     'Get Matrix Data (without distances) using [getMatrix], for all profiles',
     () async {
-      for (OpenRouteServiceProfile profile in OpenRouteServiceProfile.values) {
+      for (ORSProfile profile in ORSProfile.values) {
         final Matrix matrix = await service.getMatrix(
           locations: locations,
           

@@ -1,6 +1,6 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
-extension OpenRouteServiceElevation on OpenRouteService {
+extension ORSElevation on OpenRouteService {
   /// The endpoint of the OpenRouteService Elevation API.
   static const String _elevationEndpointURL =
       '${OpenRouteService._baseURL}/elevation';

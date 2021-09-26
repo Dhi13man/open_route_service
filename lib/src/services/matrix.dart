@@ -1,6 +1,6 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
-extension OpenRouteServiceMatrix on OpenRouteService {
+extension ORSMatrix on OpenRouteService {
   /// The endpoint of the OpenRouteService Matrix API.
   static const String _matrixEndpointURL =
       '${OpenRouteService._baseURL}/v2/matrix';
@@ -25,10 +25,10 @@ extension OpenRouteServiceMatrix on OpenRouteService {
     bool resolveLocations = false,
     List<int>? sources,
     String units = 'm',
-    OpenRouteServiceProfile? profileOverride,
+    ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
     final Uri uri = Uri.parse(
@@ -58,13 +58,13 @@ extension OpenRouteServiceMatrix on OpenRouteService {
           await _openRouteServicePost(uri: uri, data: queryParameters);
       return Matrix.fromJson(data);
     } on FormatException catch (e) {
-      throw OpenRouteServiceException(
+      throw ORSException(
         '$e; Matrix value can\'t be determined for given inputs, as per '
         'https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post',
         uri: uri,
       );
     } on TypeError catch (e) {
-      throw OpenRouteServiceException(
+      throw ORSException(
         '$e; Matrix value can\'t be determined for given inputs, as per '
         'https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post',
         uri: uri,

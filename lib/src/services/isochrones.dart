@@ -1,6 +1,6 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
-extension OpenRouteServiceIsochrones on OpenRouteService {
+extension ORServiceIsochrones on OpenRouteService {
   static const String _isochronesEndpointURL =
       '${OpenRouteService._baseURL}/v2/isochrones';
 
@@ -31,10 +31,10 @@ extension OpenRouteServiceIsochrones on OpenRouteService {
     int? smoothing,
     String areaUnits = 'm',
     String units = 'm',
-    OpenRouteServiceProfile? profileOverride,
+    ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
     final Uri uri = Uri.parse(

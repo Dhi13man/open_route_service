@@ -1,6 +1,6 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
-extension OpenRouteServiceDirections on OpenRouteService {
+extension ORSDirections on OpenRouteService {
   /// The endpoint of the OpenRouteService Directions API.
   static const String _directionsEndpointURL =
       '${OpenRouteService._baseURL}/v2/directions';
@@ -10,17 +10,17 @@ extension OpenRouteServiceDirections on OpenRouteService {
   /// and returns the entire geojson [GeoJsonFeatureCollection] containing the data.
   ///
   /// To get only the parsed route coordinates,
-  /// use [OpenRouteServiceDirections.getRouteCoordinates].
+  /// use [ORSDirections.getRouteCoordinates].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
   Future<GeoJsonFeatureCollection> getRouteDirectionsGeoJson({
     required Coordinate startCoordinate,
     required Coordinate endCoordinate,
-    OpenRouteServiceProfile? profileOverride,
+    ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Extract coordinate information.
     final double startLat = startCoordinate.latitude;
@@ -43,14 +43,14 @@ extension OpenRouteServiceDirections on OpenRouteService {
   /// parses it's coordinates to a [List] of [Coordinate] objects.
   ///
   /// To return the entire [GeoJsonFeatureCollection] containing the response data,
-  /// use [OpenRouteServiceDirections.getRouteDirectionsGeoJson].
+  /// use [ORSDirections.getRouteDirectionsGeoJson].
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
   Future<List<Coordinate>> getRouteCoordinates({
     required Coordinate startCoordinate,
     required Coordinate endCoordinate,
-    OpenRouteServiceProfile? profileOverride,
+    ORSProfile? profileOverride,
   }) async {
     // Fetch and parse the data.
     final GeoJsonFeatureCollection featureCollection =
@@ -67,7 +67,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
   /// entire geojson [GeoJsonFeatureCollection] containing the response data.
   ///
   /// To get only the parsed route coordinates,
-  /// use [OpenRouteServiceDirections.getMultiRouteCoordinates].
+  /// use [ORSDirections.getMultiRouteCoordinates].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
@@ -93,10 +93,10 @@ extension OpenRouteServiceDirections on OpenRouteService {
     String units = 'm',
     bool geometry = true,
     int? maximumSpeed,
-    OpenRouteServiceProfile? profileOverride,
+    ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
     final Uri uri = Uri.parse(
@@ -143,7 +143,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
   /// parses it's coordinates to a [List] of [Coordinate] objects.
   ///
   /// To return the entire [GeoJsonFeatureCollection] containing the response data,
-  /// use [OpenRouteServiceDirections.getRouteDirectionsGeoJson].
+  /// use [ORSDirections.getRouteDirectionsGeoJson].
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
@@ -169,7 +169,7 @@ extension OpenRouteServiceDirections on OpenRouteService {
     String units = 'm',
     bool geometry = true,
     int? maximumSpeed,
-    OpenRouteServiceProfile? profileOverride,
+    ORSProfile? profileOverride,
   }) async {
     // Fetch and parse the data.
     final GeoJsonFeatureCollection featureCollection =
@@ -205,10 +205,10 @@ extension OpenRouteServiceDirections on OpenRouteService {
   /// entire geojson [DirectionRouteData] containing the response data.
   ///
   /// To get the geojson [GeoJsonFeatureCollection] containing the response data,
-  /// use [OpenRouteServiceDirections.getMultiRouteDirectionsGeoJson].
+  /// use [ORSDirections.getMultiRouteDirectionsGeoJson].
   ///
   /// To get only the parsed route coordinates,
-  /// use [OpenRouteServiceDirections.getMultiRouteCoordinates].
+  /// use [ORSDirections.getMultiRouteCoordinates].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/post
@@ -234,10 +234,10 @@ extension OpenRouteServiceDirections on OpenRouteService {
     String units = 'm',
     bool geometry = true,
     int? maximumSpeed,
-    OpenRouteServiceProfile? profileOverride,
+    ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final OpenRouteServiceProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
     final Uri uri = Uri.parse(

@@ -13,7 +13,7 @@ void directionsTests({
     'Fetch and parse route for 2 points using [getRouteCoordinates], for all profiles',
     () async {
       // Validate API for each profile
-      for (OpenRouteServiceProfile profile in OpenRouteServiceProfile.values) {
+      for (ORSProfile profile in ORSProfile.values) {
         final List<Coordinate> routeCoordinates =
             await service.getRouteCoordinates(
           startCoordinate: startCoordinate,
