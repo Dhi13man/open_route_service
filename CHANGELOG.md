@@ -1,5 +1,10 @@
 # Releases
 
+## [0.5.2] - 26th September, 2021
+
+- Reqworked the entire `Directions` API system to enable usage of both the normal POST endpoint as `getMultiRouteDirectionsData` and the geojson POST endpoint `getMultiRouteDirectionsGeoJson`.
+- Common `GeoJsonFeatureCollection` Data Model created to be used with both the `Directions` API and the `Isochrones` API, whenever geojson is involved.
+
 ## [0.5.1] - 26th September, 2021
 
 - Dart SDK version change to pass static analysis on pub.dev.

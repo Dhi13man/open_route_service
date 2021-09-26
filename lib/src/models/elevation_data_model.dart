@@ -6,6 +6,9 @@ import 'package:open_route_service/src/models/coordinate_model.dart';
 /// Has bad [ElevationData.fromJson] code because of inconsistency of Elevation
 /// data in OpenRouteService API.
 ///
+/// Includes its [coordinates], [timestamp], [attribution], [type] and [version]
+/// of the data.
+///
 /// https://openrouteservice.org/dev/#/api-docs/elevation/point/get
 class ElevationData {
   const ElevationData({
@@ -25,42 +28,41 @@ class ElevationData {
   /// The json should have keys 'timestamp', 'attribution', 'version',
   /// 'elevation' and 'geometry' which corresponds to a [Map] further
   /// containing keys 'coordinates' and 'type'.
-  ElevationData.fromJson(Map<String, dynamic> json)
-      : this(
-          coordinates: json['geometry'] is Map<String, dynamic> &&
-                  json['geometry']['coordinates'] is List<dynamic> &&
-                  (json['geometry']['coordinates'] as List<dynamic>).first
-                      is List<dynamic>
-              ? (json['geometry']['coordinates'] as List<dynamic>)
-                  .map<Coordinate>(
-                    (dynamic coordinate) => Coordinate(
-                      latitude: coordinate[1] as double,
-                      longitude: coordinate[0] as double,
-                      altitude: (coordinate[2] as num).toDouble(),
-                    ),
-                  )
-                  .toList()
-              : [
-                  Coordinate(
-                    latitude: json['geometry'] is List
-                        ? (json['geometry']?[1] as double)
-                        : (json['geometry']?['coordinates']?[1]! as double),
-                    longitude: json['geometry'] is List
-                        ? (json['geometry']?[0] as double)
-                        : (json['geometry']?['coordinates']?[0]! as double),
-                    altitude: json['geometry'] is List
-                        ? (json['geometry']?[2] as double)
-                        : (json['geometry']?['coordinates']?[2]! as num)
-                            .toDouble(),
+  factory ElevationData.fromJson(Map<String, dynamic> json) => ElevationData(
+        coordinates: json['geometry'] is Map<String, dynamic> &&
+                json['geometry']['coordinates'] is List<dynamic> &&
+                (json['geometry']['coordinates'] as List<dynamic>).first
+                    is List<dynamic>
+            ? (json['geometry']['coordinates'] as List<dynamic>)
+                .map<Coordinate>(
+                  (dynamic coordinate) => Coordinate(
+                    latitude: coordinate[1] as double,
+                    longitude: coordinate[0] as double,
+                    altitude: (coordinate[2] as num).toDouble(),
                   ),
-                ],
-          timestamp: json['timestamp']! as int,
-          attribution: json['attribution'] as String,
-          type: (json['geometry'] is List)
-              ? 'point'
-              : (json['geometry']?['type'] ?? 'point') as String,
-          version: json['version'] as String,
-        );
+                )
+                .toList()
+            : [
+                Coordinate(
+                  latitude: json['geometry'] is List
+                      ? (json['geometry']?[1] as double)
+                      : (json['geometry']?['coordinates']?[1]! as double),
+                  longitude: json['geometry'] is List
+                      ? (json['geometry']?[0] as double)
+                      : (json['geometry']?['coordinates']?[0]! as double),
+                  altitude: json['geometry'] is List
+                      ? (json['geometry']?[2] as double)
+                      : (json['geometry']?['coordinates']?[2]! as num)
+                          .toDouble(),
+                ),
+              ],
+        timestamp: json['timestamp']! as int,
+        attribution: json['attribution'] as String,
+        type: (json['geometry'] is List)
+            ? 'point'
+            : (json['geometry']?['type'] ?? 'point') as String,
+        version: json['version'] as String,
+      );
 
   /// Attribution to the source the elevation data has been extracted from.
   final String attribution;

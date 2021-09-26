@@ -1,5 +1,6 @@
 /// A Coordinate Data Model independent of any other external libraries.
-/// Contains a [double] Latitude and a [double] Longitude value.
+/// Contains a [double] Latitude, a [double] Longitude value and
+/// a [double] Altitude value.
 ///
 /// Should be easily convertible to a LatLng, GeoPoint etc for use in projects.
 class Coordinate {
@@ -12,12 +13,11 @@ class Coordinate {
 
   /// Generates a [Map] having [String] keys 'latitude' and 'longitude',
   /// respectively having [latitude] and [longitude] as [double] values.
-  Coordinate.fromJson(Map<String, dynamic> json)
-      : this(
-          latitude: json['latitude']! as double,
-          longitude: json['longitude']! as double,
-          altitude: (json['longitude'] ?? 0.0) as double,
-        );
+  factory Coordinate.fromJson(Map<String, dynamic> json) => Coordinate(
+        latitude: json['latitude']! as double,
+        longitude: json['longitude']! as double,
+        altitude: (json['longitude'] ?? 0.0) as double,
+      );
 
   /// The latitude of the coordinate.
   final double latitude;

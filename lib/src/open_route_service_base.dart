@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
 import 'package:open_route_service/src/models/coordinate_model.dart';
+import 'package:open_route_service/src/models/direction_data_models.dart';
 import 'package:open_route_service/src/models/elevation_data_model.dart';
-import 'package:open_route_service/src/models/isochrone_data_models.dart';
+import 'package:open_route_service/src/models/feature_data_models.dart';
 
 part 'package:open_route_service/src/services/directions.dart';
 part 'package:open_route_service/src/services/elevation.dart';
@@ -15,9 +15,21 @@ part 'package:open_route_service/src/services/matrix.dart';
 part 'package:open_route_service/src/services/optimization.dart';
 part 'package:open_route_service/src/services/pois.dart';
 
-/// This class is used to fetch the data from the OpenRouteService API
-/// and parse it to a list of [Coordinate] objects which can be used to draw
-/// a polyline on the map.
+/// Class encapsulating all the OpenRoute Service APIs and parsing their
+/// responses into relevant data models that can be easily intgrated into any
+/// Dart/Flutter application.
+///
+/// Initialize the class with your API key [String] and optionally the
+/// [OpenRouteServiceProfile], then use the methods to get the data you need.
+///
+/// Implemented OpenRoute APIs include:
+/// - Directions: [OpenRouteServiceDirections]
+/// - Elevation: [OpenRouteServiceElevation]
+/// - Geocoding: [OpenRouteServiceGeocode]
+/// - Isochrones: [OpenRouteServiceIsochrones]
+/// - Matrix: [OpenRouteServiceMatrix]
+/// - Optimization: [OpenRouteServiceOptimization]
+/// - POIs: [OpenRouteServicePOIs]
 ///
 /// The API documentation can be found here:
 /// https://openrouteservice.org/dev/#/api-docs
@@ -83,7 +95,8 @@ class OpenRouteService {
 
   /// Performs a GET request on the OpenRouteService API endpoint [uri].
   ///
-  /// Returns a [Future] that resolves to json-decoded [http.Response] object body.
+  /// Returns [Future] that resolves to json-decoded [http.Response] object body.
+  ///
   /// Throws an [HttpException] if the request fails.
   Future<dynamic> _openRouteServiceGet({required Uri uri}) async {
     // Fetch the data.
@@ -94,8 +107,8 @@ class OpenRouteService {
       return jsonDecode(data);
     } else {
       final dynamic errorData = jsonDecode(response.body);
-      throw HttpException(
-        'Failed! Status: ${errorData['error']} Code: ${response.statusCode}',
+      throw OpenRouteServiceException(
+        'Status: ${errorData['error']} Code: ${response.statusCode}',
         uri: uri,
       );
     }
@@ -104,7 +117,8 @@ class OpenRouteService {
   /// Performs a POST request on the OpenRouteService API endpoint [uri] with
   /// the given [data] and [headers].
   ///
-  /// Returns a [Future] that resolves to json-decoded [http.Response] object body.
+  /// Returns [Future] that resolves to json-decoded [http.Response] object body
+  ///
   /// Throws an [HttpException] if the request fails.
   Future<dynamic> _openRouteServicePost({
     required Uri uri,
@@ -127,8 +141,8 @@ class OpenRouteService {
       return jsonDecode(data);
     } else {
       final dynamic errorData = jsonDecode(response.body);
-      throw HttpException(
-        'Failed! Status: ${errorData['error']} Code: ${response.statusCode}',
+      throw OpenRouteServiceException(
+        'Status: ${errorData['error']} Code: ${response.statusCode}',
         uri: uri,
       );
     }
@@ -146,4 +160,20 @@ enum OpenRouteServiceProfile {
   footWalking,
   footHiking,
   wheelchair,
+}
+
+/// Custom Exception class for this package that comtains the [message] of the
+/// error, and the [uri] of the failed request (if any).
+class OpenRouteServiceException implements Exception {
+  @pragma("vm:entry-point")
+  const OpenRouteServiceException(this.message, {this.uri}) : super();
+
+  /// The message of the error.
+  final String message;
+
+  /// The uri of the failed request.
+  final Uri? uri;
+
+  @override
+  String toString() => 'OpenRouteServiceException: $message, at url $uri';
 }

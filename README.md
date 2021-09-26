@@ -1,6 +1,6 @@
 # open_route_service
 
-An encapsulation made around [OpenRouteService API](https://openrouteservice.org) for Dart and Flutter projects. Made for the easy generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation and routing Optimizations using their amazing API.
+An encapsulation made around [OpenRouteService API](https://openrouteservice.org) for Dart and Flutter projects. The package was created for the easy integration of the OpenRouteService API for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation and routing Optimizations using their amazing API.
 
 ## Features
 
@@ -11,14 +11,14 @@ With all of their internal Optimizations, this includes:
 1. **[Directions](https://openrouteservice.org/dev/#/api-docs/v2/directions/):**
    Route Generation between any two or more coordinates for any mode of transportation. For example, from a starting point to a destination on `'foot-walking'`.
 
-   This gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
+   Eg. `OpenRouteServiceDirections.getRouteCoordinates` gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
 
     | Route Drawn on Map using Coordinates |
     | ------------------------------------ |
     | ![Route Drawn on Map](https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/directions_map.png) |
 
 2. **[Elevation](https://openrouteservice.org/dev/#/api-docs/elevation/):**
-    Get the elevation of a coordinate or a list of coordinates. Fetches the [ElevationData] by taking a 2D [coordinate] and enriching it with  elevation from a variety of datasets. Uses the POST method for the endpoint.
+    Get the elevation of a coordinate or a list of coordinates. Fetches the [ElevationData] by taking a 2D [coordinate] and enriching it with  elevation from a variety of datasets.
 
     | Elevation Response Received |
     | --------------------------- |
@@ -67,7 +67,7 @@ Future<void> main() async {
   const double endLng = -122.0792365;
 
   // Form Route between coordinates
-  final List<Coordinate> routeCoordinates = await client.getRouteDirections(
+  final List<Coordinate> routeCoordinates = await client.getRouteCoordinates(
     startCoordinate: Coordinate(startLat, startLng),
     endCoordinate: Coordinate(endLat, endLng),
   );

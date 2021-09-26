@@ -18,7 +18,7 @@ extension OpenRouteServiceIsochrones on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/isochrones/{profile}/post
-  Future<IsochroneData> getIsochrones({
+  Future<GeoJsonFeatureCollection> getIsochrones({
     required List<Coordinate> locations,
     required List<int> range,
     List<String> attributes = const <String>[],
@@ -64,6 +64,6 @@ extension OpenRouteServiceIsochrones on OpenRouteService {
     // Fetch and parse the data.
     final Map<String, dynamic> data =
         await _openRouteServicePost(uri: uri, data: queryParameters);
-    return IsochroneData.fromJson(data);
+    return GeoJsonFeatureCollection.fromJson(data);
   }
 }

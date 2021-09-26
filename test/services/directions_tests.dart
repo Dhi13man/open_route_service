@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:open_route_service/open_route_service.dart';
+import 'package:open_route_service/src/models/direction_data_models.dart';
 import 'package:test/test.dart';
 
 void directionsTests({
@@ -9,12 +10,12 @@ void directionsTests({
   required Coordinate endCoordinate,
 }) {
   test(
-    'Fetch and parse route for 2 points using [getRouteDirections]',
+    'Fetch and parse route for 2 points using [getRouteCoordinates], for all profiles',
     () async {
       // Validate API for each profile
       for (OpenRouteServiceProfile profile in OpenRouteServiceProfile.values) {
         final List<Coordinate> routeCoordinates =
-            await service.getRouteDirections(
+            await service.getRouteCoordinates(
           startCoordinate: startCoordinate,
           endCoordinate: endCoordinate,
           profileOverride: profile,
@@ -28,8 +29,10 @@ void directionsTests({
     'Error Validation for 2 point route in first and last path points',
     () async {
       final List<Coordinate> routeCoordinates =
-          await service.getRouteDirections(
-              startCoordinate: startCoordinate, endCoordinate: endCoordinate);
+          await service.getRouteCoordinates(
+        startCoordinate: startCoordinate,
+        endCoordinate: endCoordinate,
+      );
       final Coordinate first = routeCoordinates.first,
           last = routeCoordinates.last;
 
@@ -58,23 +61,27 @@ void directionsTests({
   );
 
   test(
-      'Fetch and parse route for multiple points using [getMultiRouteDirections]',
+      'Fetch and parse route for multiple points using [getMultiRouteCoordinates]',
       () async {
     final List<Coordinate> routeCoordinates =
-        await service.getMultiRouteDirections(
-      coordinates: [startCoordinate, endCoordinate, startCoordinate],
+        await service.getMultiRouteCoordinates(
+      coordinates: <Coordinate>[
+        startCoordinate,
+        endCoordinate,
+        startCoordinate,
+      ],
     );
     expect(routeCoordinates.length, greaterThan(0));
   });
 
-  test('Cross-validate [getDirections] and [getMultiRouteDirections]',
+  test('Cross-validate [getRouteCoordinates] and [getMultiRouteCoordinates]',
       () async {
-    final List<Coordinate> routeCoordinates = await service.getRouteDirections(
+    final List<Coordinate> routeCoordinates = await service.getRouteCoordinates(
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,
     );
     final List<Coordinate> routeCoordinatesMulti =
-        await service.getMultiRouteDirections(
+        await service.getMultiRouteCoordinates(
       coordinates: [startCoordinate, endCoordinate],
     );
 
@@ -85,5 +92,22 @@ void directionsTests({
     for (int i = 0; i < minLength; i++) {
       expect(routeCoordinates[i], routeCoordinatesMulti[i]);
     }
+  });
+
+  test('Get Directions API Route Data using [getMultiRouteDirectionData]',
+      () async {
+    final List<DirectionRouteData> directionRouteData =
+        await service.getMultiRouteDirectionsData(
+      coordinates: [startCoordinate, endCoordinate],
+    );
+    expect(directionRouteData.length, greaterThan(0));
+    final DirectionRouteData firstRoute = directionRouteData.first;
+    expect(firstRoute.bbox.length, equals(2));
+
+    double totalDistance = 0;
+    for (DirectionRouteSegment segment in firstRoute.segments) {
+      totalDistance += segment.distance;
+    }
+    expect(firstRoute.summary.distance, totalDistance);
   });
 }

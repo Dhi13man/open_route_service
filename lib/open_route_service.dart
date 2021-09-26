@@ -5,7 +5,8 @@
 library open_route_service;
 
 export 'package:open_route_service/src/models/coordinate_model.dart';
+export 'package:open_route_service/src/models/direction_data_models.dart';
 export 'package:open_route_service/src/models/elevation_data_model.dart';
-export 'package:open_route_service/src/models/isochrone_data_models.dart';
+export 'package:open_route_service/src/models/feature_data_models.dart';
 
 export 'package:open_route_service/src/open_route_service_base.dart';
