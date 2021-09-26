@@ -4,6 +4,7 @@ import 'package:test/test.dart';
 import 'services/directions_tests.dart';
 import 'services/elevation_tests.dart';
 import 'services/isochrones_tests.dart';
+import 'services/matrix_tests.dart';
 
 Future<void> main() async {
   // TODO: Change the API key to your own API key to ensure that package works.
@@ -48,6 +49,14 @@ Future<void> main() async {
         isochroneStartCoordinate,
         isochroneEndCoordinate,
       ],
+    ),
+  );
+
+  group(
+    'Matrix API tests:',
+    () => matrixTests(
+      service: service,
+      locations: <Coordinate>[dirStartCoordinate, dirEndCoordinate],
     ),
   );
 }

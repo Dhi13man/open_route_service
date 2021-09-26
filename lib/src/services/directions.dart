@@ -105,31 +105,31 @@ extension OpenRouteServiceDirections on OpenRouteService {
 
     // Ready data to be sent.
     final Map<String, dynamic> queryParameters = <String, dynamic>{
-      "coordinates": coordinates
+      'coordinates': coordinates
           .map<List<double>>(
             (coordinate) => <double>[coordinate.longitude, coordinate.latitude],
           )
           .toList(),
-      "alternative_routes": alternativeRoutes,
-      "attributes": attributes,
-      "continue_straight": continueStraight,
-      "elevation": elevation,
-      "extra_info": extraInfo,
-      "geometry_simplify": geometrySimplify,
-      "id": id,
-      "instructions": instructions,
-      "instructions_format": instructionsFormat,
-      "language": language,
-      "maneuvers": maneuvers,
-      "options": options,
-      "preference": preference,
-      "radiuses": radiuses,
-      "roundabout_exits": roundaboutExits,
-      "skip_segments": skipSegments,
-      "suppress_warnings": suppressWarnings,
-      "units": units,
-      "geometry": geometry,
-      "maximum_speed": maximumSpeed,
+      'alternative_routes': alternativeRoutes,
+      'attributes': attributes,
+      'continue_straight': continueStraight,
+      'elevation': elevation,
+      'extra_info': extraInfo,
+      'geometry_simplify': geometrySimplify,
+      'id': id,
+      'instructions': instructions,
+      'instructions_format': instructionsFormat,
+      'language': language,
+      'maneuvers': maneuvers,
+      'options': options,
+      'preference': preference,
+      'radiuses': radiuses,
+      'roundabout_exits': roundaboutExits,
+      'skip_segments': skipSegments,
+      'suppress_warnings': suppressWarnings,
+      'units': units,
+      'geometry': geometry,
+      'maximum_speed': maximumSpeed,
     }..removeWhere((key, value) => value == null);
 
     // Fetch the data.
@@ -246,31 +246,32 @@ extension OpenRouteServiceDirections on OpenRouteService {
 
     // Ready data to be sent.
     final Map<String, dynamic> queryParameters = <String, dynamic>{
-      "coordinates": coordinates
+      'coordinates': coordinates
           .map<List<double>>(
-            (coordinate) => <double>[coordinate.longitude, coordinate.latitude],
+            (Coordinate coordinate) =>
+                <double>[coordinate.longitude, coordinate.latitude],
           )
           .toList(),
-      "alternative_routes": alternativeRoutes,
-      "attributes": attributes,
-      "continue_straight": continueStraight,
-      "elevation": elevation,
-      "extra_info": extraInfo,
-      "geometry_simplify": geometrySimplify,
-      "id": id,
-      "instructions": instructions,
-      "instructions_format": instructionsFormat,
-      "language": language,
-      "maneuvers": maneuvers,
-      "options": options,
-      "preference": preference,
-      "radiuses": radiuses,
-      "roundabout_exits": roundaboutExits,
-      "skip_segments": skipSegments,
-      "suppress_warnings": suppressWarnings,
-      "units": units,
-      "geometry": geometry,
-      "maximum_speed": maximumSpeed,
+      'alternative_routes': alternativeRoutes,
+      'attributes': attributes,
+      'continue_straight': continueStraight,
+      'elevation': elevation,
+      'extra_info': extraInfo,
+      'geometry_simplify': geometrySimplify,
+      'id': id,
+      'instructions': instructions,
+      'instructions_format': instructionsFormat,
+      'language': language,
+      'maneuvers': maneuvers,
+      'options': options,
+      'preference': preference,
+      'radiuses': radiuses,
+      'roundabout_exits': roundaboutExits,
+      'skip_segments': skipSegments,
+      'suppress_warnings': suppressWarnings,
+      'units': units,
+      'geometry': geometry,
+      'maximum_speed': maximumSpeed,
     }..removeWhere((key, value) => value == null);
 
     // Fetch the data.

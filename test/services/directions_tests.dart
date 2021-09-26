@@ -82,7 +82,7 @@ void directionsTests({
     );
     final List<Coordinate> routeCoordinatesMulti =
         await service.getMultiRouteCoordinates(
-      coordinates: [startCoordinate, endCoordinate],
+      coordinates: <Coordinate>[startCoordinate, endCoordinate],
     );
 
     // Validate that the route coordinates are the same as in each case route
@@ -98,7 +98,7 @@ void directionsTests({
       () async {
     final List<DirectionRouteData> directionRouteData =
         await service.getMultiRouteDirectionsData(
-      coordinates: [startCoordinate, endCoordinate],
+      coordinates: <Coordinate>[startCoordinate, endCoordinate],
     );
     expect(directionRouteData.length, greaterThan(0));
     final DirectionRouteData firstRoute = directionRouteData.first;
