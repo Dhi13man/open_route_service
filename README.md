@@ -38,6 +38,7 @@ With all of their internal Optimizations, this includes:
     | ![Isochrone Drawn on Map](https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/isochrone_map.png) |
 
 4. **Time-Distance Matrix:**
+    Obtain one-to-many, many-to-one and many-to-many matrices for time and distance. Returns duration or distance matrix for multiple source and destination points.
 
 5. **Pelias Geocoding:**
 
@@ -47,7 +48,7 @@ Appropriate tests have also been written for each of the above APIs and can be u
 
 ## Getting started
 
-Run `dart pub add open_route_service` or `flutter pub add open_route_service` to install the package.
+  Run `dart pub add open_route_service` or `flutter pub add open_route_service` in your Dart/Flutter project directory to install the package.
 
 ## Usage
 
@@ -72,8 +73,8 @@ Future<void> main() async {
 
   // Form Route between coordinates
   final List<Coordinate> routeCoordinates = await client.getRouteCoordinates(
-    startCoordinate: Coordinate(startLat, startLng),
-    endCoordinate: Coordinate(endLat, endLng),
+    startCoordinate: Coordinate(latitude: startLat, longitude: startLng),
+    endCoordinate: Coordinate(latitude: endLat, longitude: endLng),
   );
 
   // Print the route coordinates
@@ -99,16 +100,42 @@ Future<void> main() async {
 
 ```
 
-## Dependencies
+## Steps for Contributors
 
-- [Dart,](https://www.dartlang.org/) for the Dart SDK which this obviously runs on.
-- [http,](https://pub.dev/packages/http) for making HTTP requests to the API endpoints.
+  1. Ensure you have [Dart](https://dart.dev/get-dart)/[Flutter](https://flutter.dev/docs/get-started/install) SDK installed.
+
+  2. Fork the [project repository](https://github.com/Dhi13man/open_route_service).
+
+  3. Clone the forked repository by running `git clone <forked-repository-git-url>`.
+
+  4. Navigate to your local repository by running `cd open_route_service`.
+
+  5. Pull the latest changes from upstream into your local repository by running `git pull`.
+
+  6. Create a new branch by running `git checkout -b <new-branch-name>`.
+
+  7. Make changes in your local repository to make the contribution you want.
+     1. Data Model files go to `./lib/src/models/`.
+     2. API files go to `./lib/src/services/`.
+
+  8. Add relevant tests (if any) for the contibution you made to `./test` folder and an appropriate subfolder.
+
+  9. Run `dart test` to run the tests. **Ensure all tests run and pass before commiting and/or pushing!**
+
+  10. Commit your changes and push them to your local repository by running `git commit -am "my-commit-message" && git push origin <new-branch-name>`.
+
+  11. Create a pull request on the original repository from your fork and wait for me to review (and hopefully merge) it. :)
 
 ## Contribution Guidelines
 
 - Contributions are welcome on [GitHub](https://www.github.com/dhi13man/open_route_service). Please ensure all the tests are running before pushing your changes. Write your own tests too!
 
 - File any [issues or feature requests here](https://www.github.com/dhi13man/open_route_service/issues) or help me resolve existing ones. :)
+
+## Dependencies
+
+- [Dart,](https://www.dartlang.org/) for the Dart SDK which this obviously runs on.
+- [http,](https://pub.dev/packages/http) for making HTTP requests to the API endpoints.
 
 ## Additional information
 
