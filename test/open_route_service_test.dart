@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:test/test.dart';
 
 import 'services/directions_tests.dart';
@@ -9,10 +11,19 @@ import 'services/pois_tests.dart';
 
 import 'package:open_route_service/open_route_service.dart';
 
-// TODO: Change the API key to your own API key to ensure that package works.
-const String apiKey = 'test';
-
 Future<void> main() async {
+// TODO: Change the API key to your own API key to ensure that package works.
+  String apiKey = 'test';
+
+  if ((Platform.environment['EXEC_ENV'] ?? '') == 'github_actions') {
+    test(
+      'Verify that API Key was Reset before pushing!',
+      () async => expect(apiKey, 'test'),
+    );
+
+    apiKey = Platform.environment['ORS_API_KEY']!;
+  }
+
   // Dummy Coordinates
   const Coordinate dirStartCoordinate =
       Coordinate(latitude: 37.4220698, longitude: -122.0862784);
@@ -31,7 +42,7 @@ Future<void> main() async {
 
   final OpenRouteService service = OpenRouteService(apiKey: apiKey);
   group('Initial test', () {
-    test('Validate API Key Set', () async {
+    test('Verify that API Key was Set before testing!', () async {
       expect(apiKey != 'test', true);
     });
   });

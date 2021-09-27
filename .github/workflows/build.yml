@@ -35,6 +35,9 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
-      # Ensure we didn't accidentally leak API key
+      # Ensure we didn't accidentally leak API key, and then run tests using Repository's Secret Environment API key.
       - name: Run tests
-        run: dart test ./test/open_route_service_action_tests.dart
+        run: dart test
+        env:
+          EXEC_ENV: 'github_actions'
+          ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
