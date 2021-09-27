@@ -15,7 +15,7 @@ Future<void> main() async {
 // TODO: Change the API key to your own API key to ensure that package works.
   String apiKey = 'test';
 
-  // Change API key automatically if tests are running on Github Actions.
+  // Change API key from environment if tests are running on Github Actions.
   if ((Platform.environment['EXEC_ENV'] ?? '') == 'github_actions') {
     // If running on Github Actions, the last pusher shouldn't have leaked their
     // API key.
