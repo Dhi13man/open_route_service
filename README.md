@@ -1,8 +1,11 @@
 # open_route_service
 
-[![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
 [![Language](https://img.shields.io/badge/language-Dart-blue.svg)](https://dart.dev)
-![Build](https://github.com/Dhi13man/open_route_service/workflows/Build/badge.svg)
+[![Language](https://img.shields.io/badge/language-Flutter-blue.svg)](https://flutter.dev)
+[![Build](https://github.com/Dhi13man/open_route_service/workflows/Build/badge.svg)](https://pub.dev/packages/open_route_service)
+[![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/dhi13man)
 
 This package is an encapsulation/wrapper made around [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects.
 
