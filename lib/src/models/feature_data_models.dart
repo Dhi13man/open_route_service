@@ -1,6 +1,6 @@
 import 'package:open_route_service/src/models/coordinate_model.dart';
 
-/// Data that represents GEOJSON feature collection for Isochrone or Direction
+/// Data that represents GeoJSON feature collection for Isochrone or Direction
 /// Data models in their respective endpoints.
 ///
 /// Includes its bounding box coordinates [bbox] and [features].

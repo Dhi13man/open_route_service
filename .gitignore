@@ -11,3 +11,7 @@ pubspec.lock
 
 # API keys and secrets should not be checked in to source control.
 api-key.txt
+
+# IDE folders
+.vscode
+.idea

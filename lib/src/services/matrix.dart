@@ -1,7 +1,7 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSMatrix on OpenRouteService {
-  /// The endpoint of the OpenRouteService Matrix API.
+  /// The endpoint of the openrouteservice Matrix API.
   static const String _matrixEndpointURL =
       '${OpenRouteService._baseURL}/v2/matrix';
 

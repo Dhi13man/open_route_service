@@ -15,7 +15,7 @@ class ElevationData {
     required this.coordinates,
     required this.timestamp,
     this.attribution =
-        'service by https://openrouteservice.org | data by http://srtm.csi.cgiar.org',
+        'service by https://openrouteservice.org | data by https://srtm.csi.cgiar.org',
     this.type = 'point',
     this.version = '0.2.1',
   });
