@@ -46,6 +46,7 @@ Future<void> main() async {
 
   final OpenRouteService service = OpenRouteService(apiKey: apiKey);
 
+  // Begin tests!
   group('Initial test', () {
     test('Verify that API Key was Set before testing!', () async {
       expect(apiKey != 'test', true);
