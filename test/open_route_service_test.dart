@@ -15,10 +15,13 @@ Future<void> main() async {
 // TODO: Change the API key to your own API key to ensure that package works.
   String apiKey = 'test';
 
+  // Change API key automatically if tests are running on Github Actions.
   if ((Platform.environment['EXEC_ENV'] ?? '') == 'github_actions') {
+    // If running on Github Actions, the last pusher shouldn't have leaked their
+    // API key.
     test(
       'Verify that API Key was Reset before pushing!',
-      () async => expect(apiKey, 'test'),
+      () => expect(apiKey, 'test'),
     );
 
     apiKey = Platform.environment['ORS_API_KEY']!;
@@ -41,6 +44,7 @@ Future<void> main() async {
       ' [{"id":1,"profile":"driving-car","start":[2.35044,48.71764],"end":[2.35044,48.71764],"capacity":[4],"skills":[1,14],"time_window":[28800,43200]},{"id":2,"profile":"driving-car","start":[2.35044,48.71764],"end":[2.35044,48.71764],"capacity":[4],"skills":[2,14],"time_window":[28800,43200]}]';
 
   final OpenRouteService service = OpenRouteService(apiKey: apiKey);
+  
   group('Initial test', () {
     test('Verify that API Key was Set before testing!', () async {
       expect(apiKey != 'test', true);

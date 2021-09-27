@@ -12,16 +12,13 @@ void poisTests({
       final PoisData poisData = await service.getPOIsData(
         request: 'pois',
         geometry: {
-          "bbox": [
-            <double>[boundingBoxStart.longitude, boundingBoxStart.latitude],
-            <double>[boundingBoxEnd.longitude, boundingBoxEnd.latitude],
+          "bbox": <List<double>>[
+            boundingBoxStart.toList(),
+            boundingBoxEnd.toList(),
           ],
           "geojson": {
             "type": "Point",
-            "coordinates": <double>[
-              boundingBoxStart.longitude,
-              boundingBoxStart.latitude,
-            ],
+            "coordinates": boundingBoxStart.toList(),
           },
           "buffer": 200
         },

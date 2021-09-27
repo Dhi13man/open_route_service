@@ -38,7 +38,6 @@ extension ORSPois on OpenRouteService {
     // Fetch the data and parse it.
     final dynamic data =
         await _openRouteServicePost(uri: uri, data: queryParameters);
-
     if (data is List) {
       return PoisData.fromJson(data.first);
     } else {
