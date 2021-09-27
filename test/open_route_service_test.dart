@@ -24,7 +24,7 @@ Future<void> main() async {
 
   final OpenRouteService service = OpenRouteService(apiKey: apiKey);
   group('Initial test', () {
-    test('Validate API Key', () async {
+    test('Validate API Key Set', () async {
       expect(apiKey != 'test', true);
     });
   });

@@ -92,10 +92,7 @@ class MatrixLocation {
   /// as [double] values.
   factory MatrixLocation.fromJson(Map<String, dynamic> json) => MatrixLocation(
         snappedDistance: json['snapped_distance'],
-        location: Coordinate(
-          longitude: json['location'][0],
-          latitude: json['location'][1],
-        ),
+        location: Coordinate.fromList(json['location'] as List<dynamic>),
       );
 
   /// The snapped distance of the location.

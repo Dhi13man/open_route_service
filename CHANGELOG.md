@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Adjust cgiar attribution link from http to https
+- `Coordinate` model `toList` and `fromList` methods added for convenience (with null safety).
 - Documentation updates.
 
 ## [0.6.0] - 26th September, 2021

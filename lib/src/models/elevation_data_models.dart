@@ -35,14 +35,10 @@ class ElevationData {
                     is List<dynamic>
             ? (json['geometry']['coordinates'] as List<dynamic>)
                 .map<Coordinate>(
-                  (dynamic coordinate) => Coordinate(
-                    latitude: coordinate[1] as double,
-                    longitude: coordinate[0] as double,
-                    altitude: (coordinate[2] as num).toDouble(),
-                  ),
+                  (dynamic coordinate) => Coordinate.fromList(coordinate),
                 )
                 .toList()
-            : [
+            : <Coordinate>[
                 Coordinate(
                   latitude: json['geometry'] is List
                       ? (json['geometry']?[1] as double)
@@ -67,7 +63,7 @@ class ElevationData {
   /// Attribution to the source the elevation data has been extracted from.
   final String attribution;
 
-  /// The coordinates of the elevation Geometry data. [Lat, Lng, Alt]
+  /// The coordinates of the elevation Geometry data. [Lat, Lng, Alt?]
   final List<Coordinate> coordinates;
 
   /// The type of the elevation Geometry data.
@@ -89,7 +85,7 @@ class ElevationData {
         'attribution': attribution,
         'geometry': {
           'coordinates': coordinates
-              .map<List<double>>((e) => [e.longitude, e.latitude, e.altitude])
+              .map<List<double>>((e) => e.toList())
               .toList(),
           'type': type,
         },

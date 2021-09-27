@@ -101,10 +101,7 @@ class GeoJsonFeatureProperties {
         value = json['value'],
         center = json['center'] == null
             ? null
-            : Coordinate(
-                longitude: json['center'][0],
-                latitude: json['center'][1],
-              ),
+            : Coordinate.fromList(json['center'] as List<dynamic>),
         osmId = json['osm_id'],
         osmType = json['osm_type'],
         distance = json['distance'],
@@ -179,7 +176,7 @@ class GeoJsonFeatureGeometry {
                     .map<List<Coordinate>>(
                       (dynamic coords) => (coords as List<dynamic>)
                           .map<Coordinate>(
-                            (c) => Coordinate(longitude: c[0], latitude: c[1]),
+                            (c) => Coordinate.fromList(c as List<dynamic>),
                           )
                           .toList(),
                     )
@@ -189,10 +186,8 @@ class GeoJsonFeatureGeometry {
                 <List<Coordinate>>[
                     (json['coordinates'] as List<dynamic>)
                         .map<Coordinate>(
-                          (dynamic c) => Coordinate(
-                            longitude: c[0],
-                            latitude: c[1],
-                          ),
+                          (dynamic c) =>
+                              Coordinate.fromList(c as List<dynamic>),
                         )
                         .toList()
                   ]
@@ -200,10 +195,7 @@ class GeoJsonFeatureGeometry {
             // For POIs feature geometry
             <List<Coordinate>>[
                 <Coordinate>[
-                  Coordinate(
-                    longitude: json['coordinates'][0],
-                    latitude: json['coordinates'][1],
-                  ),
+                  Coordinate.fromList(json['coordinates'] as List<dynamic>),
                 ]
               ];
 
@@ -229,7 +221,7 @@ class GeoJsonFeatureGeometry {
         'coordinates': coordinates
             .map<List<List<double>>>(
               (coordinate) => coordinate
-                  .map<List<double>>((c) => [c.longitude, c.latitude])
+                  .map<List<double>>((c) => c.toList())
                   .toList(),
             )
             .toList(),
