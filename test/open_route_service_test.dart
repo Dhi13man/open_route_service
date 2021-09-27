@@ -1,4 +1,3 @@
-import 'package:open_route_service/open_route_service.dart';
 import 'package:test/test.dart';
 
 import 'services/directions_tests.dart';
@@ -7,10 +6,12 @@ import 'services/isochrones_tests.dart';
 import 'services/matrix_tests.dart';
 import 'services/pois_tests.dart';
 
-Future<void> main() async {
-  // TODO: Change the API key to your own API key to ensure that package works.
-  const String apiKey = 'test';
+import 'package:open_route_service/open_route_service.dart';
 
+// TODO: Change the API key to your own API key to ensure that package works.
+const String apiKey = 'test';
+
+Future<void> main() async {
   // Dummy Coordinates
   const Coordinate dirStartCoordinate =
       Coordinate(latitude: 37.4220698, longitude: -122.0862784);

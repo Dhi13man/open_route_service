@@ -35,6 +35,6 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
-      # Project doesn't have any common API Key. So can't run tests as Github action.
-      # - name: Run tests
-      #   run: dart test
+      # Ensure we didn't accidentally leak API key
+      - name: Run tests
+        run: dart test ./test/open_route_service_action_tests.dart
