@@ -20,11 +20,12 @@ Future<void> main() async {
     // If running on Github Actions, the last pusher shouldn't have leaked their
     // API key.
     test(
-      'Verify that API Key was Reset before pushing!',
-      () => expect(apiKey, 'test'),
+      'Verify that API Key was Reset before pushing and then Set it!',
+      () {
+        expect(apiKey, 'test');
+        apiKey = Platform.environment['ORS_API_KEY']!;
+      },
     );
-
-    apiKey = Platform.environment['ORS_API_KEY']!;
   }
 
   // Dummy Coordinates
