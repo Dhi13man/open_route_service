@@ -34,7 +34,7 @@ With all of their internal Optimizations, this includes:
    | --------------------------- |
    | ![Sample Elevation Response][elevation_img] |
 
-[elevation_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/elevation_response.png
+    [elevation_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/elevation_response.png
 
 3. **[Isochrones](https://openrouteservice.org/dev/#/api-docs/v2/isochrones/):**
    Obtain Isochrone (areas of reachability) Data for the locations given. The isochrone is a polygon that encloses a
@@ -46,7 +46,7 @@ With all of their internal Optimizations, this includes:
    | ---------------------- |
    | ![Isochrone Drawn on Map][isochrone_img] |
 
-[isochrone_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/isochrone_map.png
+    [isochrone_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/isochrone_map.png
 
 4. **Time-Distance Matrix:**
    Obtain one-to-many, many-to-one and many-to-many matrices for time and distance. Returns duration or distance matrix
@@ -65,7 +65,7 @@ With all of their internal Optimizations, this includes:
    | ------------------------------- |
    | ![POI Drawn on Map][pois_img]   |
 
-[pois_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/pois_map.png
+    [pois_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/pois_map.png
 
 Appropriate tests have also been written for each of the above APIs and can be used to check if the package and/or API
 are functioning properly.
