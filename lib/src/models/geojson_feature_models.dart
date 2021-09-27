@@ -158,15 +158,16 @@ class GeoJsonFeatureProperties {
 
 /// The geometry of a [GeoJsonFeature].
 ///
-/// Once again, apology for the completely unreadable code, but the Feature
-/// Geometry data model is very inconsistent with what it wants [coordinates]
-/// to be.
-///
-/// Includes its [type] and [List] of [Coordinate], [coordinates].
+/// Includes its [type] and [List] of [List] of [Coordinate], [coordinates].
 class GeoJsonFeatureGeometry {
   const GeoJsonFeatureGeometry({required this.type, required this.coordinates});
 
-  /// Generate a [GeoJsonFeatureGeometry] from a received [Map].
+  /// Generate a [GeoJsonFeatureGeometry] from a received [Map] having keys
+  /// 'type' and 'coordinates'.
+  ///
+  /// Apologize for the completely unreadable [GeoJsonFeatureGeometry.fromJson]
+  /// code, but the Feature Geometry data model is very inconsistent with what
+  /// it wants [coordinates] to be.
   GeoJsonFeatureGeometry.fromJson(Map<String, dynamic> json)
       : type = json['type'],
         coordinates = (json['coordinates'] as List<dynamic>).first is List
@@ -207,6 +208,12 @@ class GeoJsonFeatureGeometry {
               ];
 
   /// Coordinates associated with the feature geometry.
+  ///
+  /// It might either be a proper [List] of [List] of [Coordinate] or a
+  /// [List] of [Coordinate] wrapped in an empty [List], or a [Coordinate]
+  /// wrapped in an empty [List] which is again wrapped in an empty [List].
+  ///
+  /// Depends upon which endpoint [GeoJsonFeatureGeometry] was extracted from.
   final List<List<Coordinate>> coordinates;
 
   /// The type of the feature geometry.

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:open_route_service/src/models/coordinate_model.dart';
 import 'package:open_route_service/src/models/direction_data_models.dart';
 import 'package:open_route_service/src/models/elevation_data_models.dart';
-import 'package:open_route_service/src/models/feature_data_models.dart';
+import 'package:open_route_service/src/models/geojson_feature_models.dart';
 import 'package:open_route_service/src/models/matrix_data_models.dart';
 import 'package:open_route_service/src/models/pois_data_models.dart';
 

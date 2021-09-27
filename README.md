@@ -3,8 +3,7 @@
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
 
 An encapsulation made around [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects. The
-package enables the easy integration of the openrouteservice API for generation of Routes and Directions on Maps,
-Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
+package enables the easy integration of the openrouteservice API with relevant datea models, for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
 
 For more information about the API, view
 the [openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
