@@ -37,23 +37,33 @@ class VroomVehicle {
         startIndex: json['start_index'],
         end: Coordinate.fromList(json['end']),
         endIndex: json['end_index'],
-        capacity: ((json['capacity'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        skills: ((json['skills'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        timeWindow: ((json['time_window'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        breaks: ((json['breaks'] ?? []) as List<dynamic>)
-            .map<VroomVehicleBreak>((e) => VroomVehicleBreak.fromJson(e))
-            .toList(),
-        speedFactor: json['speed_factor'] ?? 1,
+        capacity: json['capacity'] == null
+            ? null
+            : (json['capacity'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        skills: json['skills'] == null
+            ? null
+            : (json['skills'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        timeWindow: json['time_window'] == null
+            ? null
+            : (json['time_window'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        breaks: json['breaks'] == null
+            ? null
+            : (json['breaks'] as List<dynamic>)
+                .map<VroomVehicleBreak>((e) => VroomVehicleBreak.fromJson(e))
+                .toList(),
+        speedFactor: json['speed_factor'],
         maxTasks: json['max_tasks'],
-        steps: ((json['steps'] ?? []) as List<dynamic>)
-            .map<VroomVehicleStep>((e) => VroomVehicleStep.fromJson(e))
-            .toList(),
+        steps: json['steps'] == null
+            ? null
+            : (json['steps'] as List<dynamic>)
+                .map<VroomVehicleStep>((e) => VroomVehicleStep.fromJson(e))
+                .toList(),
       );
 
   /// Unique [int] identifier for this vehicle.
@@ -106,7 +116,7 @@ class VroomVehicle {
 
   /// [double] value used to scale all vehicle travel times. (Defaults to 1)
   /// The respected precision is limited to two digits after the decimal point.
-  final double speedFactor;
+  final double? speedFactor;
 
   /// [int] defining the maximum number of tasks in a route for this vehicle.
   final int? maxTasks;
@@ -129,15 +139,20 @@ class VroomVehicle {
         'capacity': capacity,
         'skills': skills,
         'time_window': timeWindow,
-        'breaks': (breaks ?? <VroomVehicleBreak>[])
-            .map<Map<String, dynamic>>((VroomVehicleBreak b) => b.toJson())
-            .toList(),
+        'breaks': breaks == null
+            ? null
+            : breaks!
+                .map<Map<String, dynamic>>((VroomVehicleBreak b) => b.toJson())
+                .toList(),
         'speed_factor': speedFactor,
         'max_tasks': maxTasks,
-        'steps': (steps ?? <VroomVehicleStep>[])
-            .map<Map<String, dynamic>>((VroomVehicleStep step) => step.toJson())
-            .toList(),
-      };
+        'steps': steps == null
+            ? null
+            : steps!
+                .map<Map<String, dynamic>>(
+                    (VroomVehicleStep step) => step.toJson())
+                .toList(),
+      }..removeWhere((key, value) => value == null);
 
   @override
   String toString() => toJson().toString();
@@ -168,7 +183,7 @@ class VroomJob {
     this.skills,
     this.priority = 0,
     this.timeWindows,
-  }) : assert(priority >= 0 && priority <= 100);
+  }) : assert(priority == null || (priority >= 0 && priority <= 100));
 
   /// Generates a VroomJob from a [Map] having keys matching the Vroom API Job
   /// model that includes:
@@ -180,28 +195,38 @@ class VroomJob {
         description: json['description'],
         location: Coordinate.fromList(json['location']),
         locationIndex: json['location_index'],
-        setup: json['setup'] ?? 0,
-        service: json['service'] ?? 0,
-        amount: ((json['amount'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        delivery: ((json['delivery'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        pickup: ((json['pickup'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        skills: ((json['skills'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        priority: json['priority'] ?? 0,
-        timeWindows: ((json['time_windows'] ?? []) as List<dynamic>)
-            .map<List<int>>(
-              (timeWindow) => (timeWindow as List<dynamic>)
-                  .map<int>((time) => time as int)
-                  .toList(),
-            )
-            .toList(),
+        setup: json['setup'],
+        service: json['service'],
+        amount: json['amount'] == null
+            ? null
+            : (json['amount'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        delivery: json['delivery'] == null
+            ? null
+            : (json['delivery'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        pickup: json['pickup'] == null
+            ? null
+            : (json['pickup'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        skills: json['skills'] == null
+            ? null
+            : (json['skills'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        priority: json['priority'],
+        timeWindows: json['time_windows'] == null
+            ? null
+            : (json['time_windows'] as List<dynamic>)
+                .map<List<int>>(
+                  (timeWindow) => (timeWindow as List<dynamic>)
+                      .map<int>((time) => time as int)
+                      .toList(),
+                )
+                .toList(),
       );
 
   /// Unique [int] identifier for this job.
@@ -217,10 +242,10 @@ class VroomJob {
   final int? locationIndex;
 
   /// [int] describing the setup duration of this job. Defaults to 0.
-  final int setup;
+  final int? setup;
 
   /// [int] describing the service duration of this job. Defaults to 0.
-  final int service;
+  final int? service;
 
   /// [List] of [int] describing multidimensional quantities of this job for
   /// amount.
@@ -239,7 +264,7 @@ class VroomJob {
 
   /// [int] describing the priority of this job. VALID RANGE: [0, 100].
   /// Defaults to 0.
-  final int priority;
+  final int? priority;
 
   /// [List] of time windows describing the valid time windows for this job.
   final List<List<int>>? timeWindows;
@@ -291,13 +316,15 @@ class VroomVehicleBreak {
   factory VroomVehicleBreak.fromJson(Map<String, dynamic> json) =>
       VroomVehicleBreak(
         id: json['id'],
-        timeWindows: ((json['time_windows'] ?? []) as List<dynamic>)
-            .map<List<int>>(
-              (timeWindow) => (timeWindow as List<dynamic>)
-                  .map<int>((time) => time as int)
-                  .toList(),
-            )
-            .toList(),
+        timeWindows: json['time_windows'] == null
+            ? null
+            : (json['time_windows'] as List<dynamic>)
+                .map<List<int>>(
+                  (timeWindow) => (timeWindow as List<dynamic>)
+                      .map<int>((time) => time as int)
+                      .toList(),
+                )
+                .toList(),
         service: json['service'] ?? 0,
         description: json['description'],
       );
@@ -359,9 +386,7 @@ class VroomVehicleStep {
   /// 'type', 'id', 'service_at', 'service_after', and 'service_before'.
   factory VroomVehicleStep.fromJson(Map<String, dynamic> json) =>
       VroomVehicleStep(
-        type: vroomVehicleStepTypeFromString(
-          json['type'] as String,
-        ),
+        type: vroomVehicleStepTypeFromString(json['type'] as String),
         id: json['id'],
         serviceAt: json['service_at'],
         serviceAfter: json['service_after'],

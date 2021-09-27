@@ -84,9 +84,8 @@ class ElevationData {
   Map<String, dynamic> toJson() => {
         'attribution': attribution,
         'geometry': {
-          'coordinates': coordinates
-              .map<List<double>>((e) => e.toList())
-              .toList(),
+          'coordinates':
+              coordinates.map<List<double>>((e) => e.toList()).toList(),
           'type': type,
         },
         'timestamp': timestamp,

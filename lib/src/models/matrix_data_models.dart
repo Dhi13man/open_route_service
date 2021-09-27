@@ -7,17 +7,19 @@ import 'package:open_route_service/open_route_service.dart';
 /// [destinations] and the [sources].
 ///
 /// https://openrouteservice.org/dev/#/api-docs/matrix
-class Matrix {
-  const Matrix({
+class TimeDistanceMatrix {
+  const TimeDistanceMatrix({
     required this.durations,
     this.distances,
     required this.destinations,
     required this.sources,
   });
 
-  /// Generate a [Matrix] of travel times between the sources and destinations
-  /// from a [Map] having keys 'durations', 'destinations', and 'sources'.
-  factory Matrix.fromJson(Map<String, dynamic> json) => Matrix(
+  /// Generate a [TimeDistanceMatrix] of travel times between the sources and
+  /// destinations from a [Map] having keys 'durations', 'destinations',
+  /// and 'sources'.
+  factory TimeDistanceMatrix.fromJson(Map<String, dynamic> json) =>
+      TimeDistanceMatrix(
         durations: (json['durations'] as List<dynamic>)
             .map<List<double>>(
               (duration) => (duration as List<dynamic>)
@@ -33,12 +35,13 @@ class Matrix {
             )
             .toList(),
         destinations: (json['destinations'] as List<dynamic>)
-            .map<MatrixLocation>(
-              (destination) => MatrixLocation.fromJson(destination),
+            .map<TimeDistanceMatrixLocation>(
+              (destination) => TimeDistanceMatrixLocation.fromJson(destination),
             )
             .toList(),
         sources: (json['sources'] as List<dynamic>)
-            .map<MatrixLocation>((source) => MatrixLocation.fromJson(source))
+            .map<TimeDistanceMatrixLocation>(
+                (source) => TimeDistanceMatrixLocation.fromJson(source))
             .toList(),
       );
 
@@ -49,20 +52,22 @@ class Matrix {
   final List<List<double>>? distances;
 
   /// The destination values of the Matrix.
-  final List<MatrixLocation> destinations;
+  final List<TimeDistanceMatrixLocation> destinations;
 
   /// The source values of the Matrix.
-  final List<MatrixLocation> sources;
+  final List<TimeDistanceMatrixLocation> sources;
 
-  /// Converts the [Matrix] to a [Map] having [String] keys 'durations',
-  /// 'destinations', and 'sources'.
+  /// Converts the [TimeDistanceMatrix] to a [Map] having [String] keys
+  /// 'durations', 'destinations', and 'sources'.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'durations': durations,
         'destinations': destinations
-            .map<Map<String, dynamic>>((MatrixLocation e) => e.toJson())
+            .map<Map<String, dynamic>>(
+                (TimeDistanceMatrixLocation e) => e.toJson())
             .toList(),
         'sources': sources
-            .map<Map<String, dynamic>>((MatrixLocation e) => e.toJson())
+            .map<Map<String, dynamic>>(
+                (TimeDistanceMatrixLocation e) => e.toJson())
             .toList(),
       };
 
@@ -71,7 +76,7 @@ class Matrix {
 
   @override
   bool operator ==(Object other) =>
-      other is Matrix &&
+      other is TimeDistanceMatrix &&
       destinations == other.destinations &&
       sources == other.sources &&
       durations == other.durations;
@@ -84,13 +89,15 @@ class Matrix {
 ///
 /// Includes the [snappedDistance] and [location], the [Coordinate]
 /// of the location.
-class MatrixLocation {
-  const MatrixLocation({required this.snappedDistance, required this.location});
+class TimeDistanceMatrixLocation {
+  const TimeDistanceMatrixLocation(
+      {required this.snappedDistance, required this.location});
 
-  /// Generates a [MatrixLocation] from a [Map] having [String] keys
+  /// Generates a [TimeDistanceMatrixLocation] from a [Map] having [String] keys
   /// 'latitude' and 'longitude', respectively having [latitude] and [longitude]
   /// as [double] values.
-  factory MatrixLocation.fromJson(Map<String, dynamic> json) => MatrixLocation(
+  factory TimeDistanceMatrixLocation.fromJson(Map<String, dynamic> json) =>
+      TimeDistanceMatrixLocation(
         snappedDistance: json['snapped_distance'],
         location: Coordinate.fromList(json['location'] as List<dynamic>),
       );
@@ -113,7 +120,7 @@ class MatrixLocation {
 
   @override
   bool operator ==(Object other) =>
-      other is MatrixLocation &&
+      other is TimeDistanceMatrixLocation &&
       other.snappedDistance == snappedDistance &&
       other.location == location;
 

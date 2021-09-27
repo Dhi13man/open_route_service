@@ -7,6 +7,8 @@ import 'package:open_route_service/src/models/direction_data_models.dart';
 import 'package:open_route_service/src/models/elevation_data_models.dart';
 import 'package:open_route_service/src/models/geojson_feature_models.dart';
 import 'package:open_route_service/src/models/matrix_data_models.dart';
+import 'package:open_route_service/src/models/optimization_models/optimization_data_models.dart';
+import 'package:open_route_service/src/models/optimization_models/vroom_data_models.dart';
 import 'package:open_route_service/src/models/pois_data_models.dart';
 
 part 'package:open_route_service/src/services/directions.dart';

@@ -95,15 +95,21 @@ class OptimizationSummary {
       OptimizationSummary(
         cost: json['cost'],
         unassigned: json['unassigned'],
-        amount: ((json['amount'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        delivery: ((json['delivery'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        pickup: ((json['pickup'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
+        amount: json['amount'] == null
+            ? null
+            : (json['amount'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        delivery: json['delivery'] == null
+            ? null
+            : (json['delivery'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        pickup: json['pickup'] == null
+            ? null
+            : (json['pickup'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
         service: json['service'],
         duration: json['duration'],
         waitingTime: json['waiting_time'],
@@ -190,23 +196,31 @@ class OptimizationRoute {
       OptimizationRoute(
         vehicle: json['vehicle'],
         cost: json['cost'],
-        amount: ((json['amount'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        delivery: ((json['delivery'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
-        pickup: ((json['pickup'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
+        amount: json['amount'] == null
+            ? null
+            : (json['amount'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        delivery: json['delivery'] == null
+            ? null
+            : (json['delivery'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
+        pickup: json['pickup'] == null
+            ? null
+            : (json['pickup'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
         service: json['service'],
         duration: json['duration'],
         waitingTime: json['waiting_time'],
-        steps: (json['steps'] as List<dynamic>)
-            .map<OptimizationRouteStep>(
-              (e) => OptimizationRouteStep.fromJson(e),
-            )
-            .toList(),
+        steps: json['steps'] == null
+            ? null
+            : (json['steps'] as List<dynamic>)
+                .map<OptimizationRouteStep>(
+                  (e) => OptimizationRouteStep.fromJson(e),
+                )
+                .toList(),
       );
 
   /// [int] describing the vehicle number used for this route.
@@ -237,7 +251,7 @@ class OptimizationRoute {
   final int? waitingTime;
 
   /// [List] of [OptimizationRouteStep]s of this [OptimizationRoute].
-  final List<OptimizationRouteStep> steps;
+  final List<OptimizationRouteStep>? steps;
 
   /// Returns a [Map] representation of the [OptimizationRoute] object.
   /// The keys of the [Map] are 'vehicle', 'cost', 'delivery', 'amount',
@@ -251,9 +265,12 @@ class OptimizationRoute {
         'service': service,
         'duration': duration,
         'waiting_time': waitingTime,
-        'steps': steps
-            .map<Map<String, dynamic>>((OptimizationRouteStep e) => e.toJson())
-            .toList(),
+        'steps': steps == null
+            ? null
+            : steps!
+                .map<Map<String, dynamic>>(
+                    (OptimizationRouteStep e) => e.toJson())
+                .toList(),
       }..removeWhere((key, value) => value == null);
 
   @override
@@ -271,7 +288,6 @@ class OptimizationRoute {
 ///
 /// Includes the Optimization Route Step's [type], [location], [arrival],
 /// [duration], [id], [service], [waitingTime], [job] and [load].
-//type" :  "job" ,     +             "location" :  [  /* 2 items */  ] ,                 "id" :  1 ,                 "service" :  300 ,                 "waiting_time" :  0 ,                 "job" :  1 ,     +             "load" :  [  /* 1 item */  ] ,                 "arrival" :  32400 ,                 "duration" :  2544
 class OptimizationRouteStep {
   const OptimizationRouteStep({
     required this.type,
@@ -298,9 +314,11 @@ class OptimizationRouteStep {
         service: json['service'],
         waitingTime: json['waiting_time'],
         job: json['job'],
-        load: ((json['load'] ?? []) as List<dynamic>)
-            .map<int>((e) => e as int)
-            .toList(),
+        load: json['load'] == null
+            ? null
+            : (json['load'] as List<dynamic>)
+                .map<int>((e) => e as int)
+                .toList(),
       );
 
   /// Corresponds to possible [VroomVehicleStepType] values:
@@ -314,7 +332,7 @@ class OptimizationRouteStep {
   final int? id;
 
   /// [int] describing the service duration of this job. Defaults to 0.
-  final int service;
+  final int? service;
 
   /// [int] describing the waiting time for this Optimized Route Step.
   final int? waitingTime;
@@ -324,7 +342,7 @@ class OptimizationRouteStep {
 
   /// [List] of [int] describing multidimensional quantities of this
   /// [OptimizationRouteStep]'s load.
-  final List<int> load;
+  final List<int>? load;
 
   /// [int] describing the arrival time of this Optimized Route Step.
   final int arrival;

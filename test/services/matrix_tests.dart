@@ -9,7 +9,7 @@ void matrixTests({
     'Get Matrix Data (without distances) using [getMatrix], for all profiles',
     () async {
       for (ORSProfile profile in ORSProfile.values) {
-        final Matrix matrix = await service.getMatrix(
+        final TimeDistanceMatrix matrix = await service.getMatrix(
           locations: locations,
           profileOverride: profile,
         );
@@ -35,7 +35,7 @@ void matrixTests({
   test(
     'Get Matrix Data (with distances) using [getMatrix]',
     () async {
-      final Matrix matrix = await service.getMatrix(
+      final TimeDistanceMatrix matrix = await service.getMatrix(
         locations: locations,
         metrics: ['distance', 'duration'],
       );

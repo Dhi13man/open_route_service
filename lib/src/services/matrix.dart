@@ -16,7 +16,7 @@ extension ORSMatrix on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post
-  Future<Matrix> getMatrix({
+  Future<TimeDistanceMatrix> getMatrix({
     required List<Coordinate> locations,
     List<int>? destinations,
     String? id,
@@ -56,7 +56,7 @@ extension ORSMatrix on OpenRouteService {
     try {
       final Map<String, dynamic> data =
           await _openRouteServicePost(uri: uri, data: queryParameters);
-      return Matrix.fromJson(data);
+      return TimeDistanceMatrix.fromJson(data);
     } on FormatException catch (e) {
       throw ORSException(
         '$e; Matrix value can\'t be determined for given inputs, as per '

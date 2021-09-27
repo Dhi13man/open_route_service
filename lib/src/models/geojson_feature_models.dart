@@ -220,9 +220,8 @@ class GeoJsonFeatureGeometry {
         'type': type,
         'coordinates': coordinates
             .map<List<List<double>>>(
-              (coordinate) => coordinate
-                  .map<List<double>>((c) => c.toList())
-                  .toList(),
+              (coordinate) =>
+                  coordinate.map<List<double>>((c) => c.toList()).toList(),
             )
             .toList(),
       };

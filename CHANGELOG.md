@@ -1,16 +1,18 @@
 # Releases
 
-## [Unreleased]
+## [0.7.0] - 27th September, 2021
 
+- **BREAKING:** `Matrix*` -> `TimeDistanceMatrix*`
 - Adjust cgiar attribution link from http to https
 - `Coordinate` model `toList` and `fromList` methods added for convenience (with null safety).
 - Documentation updates.
+- Encapsulated `Optimization` API.
 
 ## [0.6.0] - 26th September, 2021
 
+- **BREAKING:** Naming conventions changed: `OpenRouteService*` -> `ORS*`.
 - Encapsulated `Matrix` API.
 - Encapsulated `POIs` API.
-- **BREAKING**: Naming conventions changed: `OpenRouteService*` -> `ORS*`.
 
 ## [0.5.2] - 26th September, 2021
 

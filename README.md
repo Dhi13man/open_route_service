@@ -71,6 +71,17 @@ With all of their internal Optimizations, this includes:
 
     [pois_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/pois_map.png
 
+7. **[Routing Optimizations](https://openrouteservice.org/dev/#/api-docs/optimization):**
+   The optimization endpoint solves Vehicle Routing Problems and can be used to schedule multiple vehicles and jobs, respecting time windows, capacities and required skills.
+
+   This service is based on the excellent [Vroom](https://github.com/VROOM-Project/vroom) project. Please also consult [its API documentation](https://github.com/VROOM-Project/vroom/blob/master/docs/API.md).
+
+   | Optimization Data for Vroom Jobs and Vehicles extracted and their route information printed in Console |
+   | ------------------------------------------------------------------------------------------------------ |
+   |                         ![Optimization Route Data][optimization_routes_img]                            |
+
+    [optimization_routes_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/optimization_console.png
+
 Appropriate tests have also been written for each of the above APIs and can be used to check if the package and/or API are functioning properly.
 
 ## Getting started
