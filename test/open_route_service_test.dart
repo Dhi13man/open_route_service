@@ -19,7 +19,7 @@ Future<void> main() async {
   if ((Platform.environment['EXEC_ENV'] ?? '') == 'github_actions') {
     // If running on Github Actions, the last pusher shouldn't have leaked
     // their API key.
-    expect(apiKey, 'test');
+    assert(apiKey == 'test');
     apiKey = Platform.environment['ORS_API_KEY']!;
   }
 
