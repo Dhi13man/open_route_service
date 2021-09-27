@@ -4,10 +4,10 @@ extension ORServiceIsochrones on OpenRouteService {
   static const String _isochronesEndpointURL =
       '${OpenRouteService._baseURL}/v2/isochrones';
 
-  /// Obtain Isochrone (areas of reachability) Datas for the [locations] given
+  /// Obtain Isochrone (areas of reachability) Data for the [locations] given
   /// as a [List] of [Coordinate].
   ///
-  /// The Isochrone Service supports time and distance analysies for one single
+  /// The Isochrone Service supports time and distance analysis for one single
   /// or multiple locations.
   ///
   /// You may also specify the isochrone interval or provide multiple exact

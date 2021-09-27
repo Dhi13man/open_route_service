@@ -18,7 +18,7 @@ part 'package:open_route_service/src/services/optimization.dart';
 part 'package:open_route_service/src/services/pois.dart';
 
 /// Class encapsulating all the OpenRoute Service APIs and parsing their
-/// responses into relevant data models that can be easily intgrated into any
+/// responses into relevant data models that can be easily integrated into any
 /// Dart/Flutter application.
 ///
 /// Initialize the class with your API key [String] and optionally the
@@ -164,7 +164,7 @@ enum ORSProfile {
   wheelchair,
 }
 
-/// Custom Exception class for this package that comtains the [message] of the
+/// Custom Exception class for this package that contains the [message] of the
 /// error, and the [uri] of the failed request (if any).
 class ORSException implements Exception {
   @pragma("vm:entry-point")

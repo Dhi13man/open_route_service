@@ -1,9 +1,13 @@
 # Releases
 
+## [Unreleased]
+
+- Adjust cgiar attribution link from http to https
+
 ## [0.6.0] - 26th September, 2021
 
 - Encapsulated `Matrix` API.
-- Encapsulted `POIs` API.
+- Encapsulated `POIs` API.
 - **BREAKING**: Naming conventions changed: `OpenRouteService*` -> `ORS*`.
 
 ## [0.5.2] - 26th September, 2021
