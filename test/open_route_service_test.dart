@@ -44,7 +44,7 @@ Future<void> main() async {
       ' [{"id":1,"profile":"driving-car","start":[2.35044,48.71764],"end":[2.35044,48.71764],"capacity":[4],"skills":[1,14],"time_window":[28800,43200]},{"id":2,"profile":"driving-car","start":[2.35044,48.71764],"end":[2.35044,48.71764],"capacity":[4],"skills":[2,14],"time_window":[28800,43200]}]';
 
   final OpenRouteService service = OpenRouteService(apiKey: apiKey);
-  
+
   group('Initial test', () {
     test('Verify that API Key was Set before testing!', () async {
       expect(apiKey != 'test', true);
