@@ -1,8 +1,12 @@
 # open_route_service
 
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
+[![Language](https://img.shields.io/badge/language-Dart-blue.svg)](https://dart.dev)
+![Build](https://github.com/Dhi13man/open_route_service/workflows/Build/badge.svg)
 
-An encapsulation made around [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects. The package enables the easy integration of the openrouteservice API with relevant data models, for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
+This package is an encapsulation/wrapper made around [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects.
+
+The package enables the easy integration of the openrouteservice API with relevant data models, for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
 
 For more information about the API, view the [openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
 
@@ -136,11 +140,13 @@ Future<void> main() async {
 
 8. Add relevant tests (if any) for the contribution you made to `./test` folder and an appropriate subfolder.
 
-9. Run `dart test` to run the tests. **Ensure all tests run and pass before committing and/or pushing!**
+9. **Get an [openrouteservice API Key](https://openrouteservice.org/dev/#/signup) if you haven't already, and set it as the `apiKey` constant in `./test/open_route_service_test.dart` in place of `'test'`**.
 
-10. Commit your changes and push them to your local repository by running `git commit -am "my-commit-message" && git push origin <new-branch-name>`.
+10. Run `dart test` to run the tests. **Ensure all tests run and pass before committing and/or pushing!**
 
-11. Create a pull request on the original repository from your fork and wait for me to review (and hopefully merge) it. :)
+11. Commit your changes and push them to your local repository by running `git commit -am "my-commit-message" && git push origin <new-branch-name>`. **Replace your `apiKey` with `'test'` again before committing and/or pushing, or it will get leaked!**
+
+12. Create a pull request on the original repository from your fork and wait for me to review (and hopefully merge) it. :)
 
 ## Contribution Guidelines
 
@@ -151,7 +157,7 @@ Future<void> main() async {
 ## Dependencies
 
 - [Dart,](https://www.dartlang.org/) for the Dart SDK which this obviously runs on.
-- [http,](https://pub.dev/packages/http) for making HTTP requests to the API endpoints.
+- [http,](https://pub.dev/packages/http) for internally making RESTful HTTP Network requests to the API endpoints.
 
 ## Additional information
 
