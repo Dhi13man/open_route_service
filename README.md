@@ -1,7 +1,11 @@
 # open_route_service
 
+[![License](https://img.shields.io/github/license/dhi13man/open_route_service)](https://github.com/Dhi13man/open_route_service)
 [![Language](https://img.shields.io/badge/language-Dart-blue.svg)](https://dart.dev)
-[![Language](https://img.shields.io/badge/language-Flutter-blue.svg)](https://flutter.dev)
+[![Contributors](https://img.shields.io/github/contributors-anon/dhi13man/open_route_service?style=flat)](https://github.com/Dhi13man/open_route_service/)
+[![GitHub forks](https://img.shields.io/github/forks/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service/network/members)
+[![GitHub Repo stars](https://img.shields.io/github/stars/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service)
+[![Last Commit](https://img.shields.io/github/last-commit/dhi13man/open_route_service)](https://github.com/Dhi13man/open_route_service/)
 [![Build](https://github.com/Dhi13man/open_route_service/workflows/Build/badge.svg)](https://pub.dev/packages/open_route_service)
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
 
@@ -11,7 +15,7 @@ This package is an encapsulation/wrapper made around [openrouteservice API](http
 
 The package enables the easy integration of the openrouteservice API with relevant data models, for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
 
-For more information about the API, view the [openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
+[Contribute to openrouteservice API by donating](https://openrouteservice.org/donations/) to help keep the service free and accessible to everyone. For more information about the API, view the [openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
 
 ## Features
 
