@@ -6,7 +6,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service/network/members)
 [![GitHub Repo stars](https://img.shields.io/github/stars/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service)
 [![Last Commit](https://img.shields.io/github/last-commit/dhi13man/open_route_service)](https://github.com/Dhi13man/open_route_service/)
-[![Build](https://github.com/Dhi13man/open_route_service/workflows/Build/badge.svg)](https://pub.dev/packages/open_route_service)
+[![Build](https://github.com/Dhi13man/open_route_service/workflows/Build/badge.svg)](https://github.com/Dhi13man/open_route_service/actions)
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/dhi13man)

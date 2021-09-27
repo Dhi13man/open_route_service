@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Adjust cgiar attribution link from http to https
+- Documentation updates.
 
 ## [0.6.0] - 26th September, 2021
 
