@@ -17,15 +17,10 @@ Future<void> main() async {
 
   // Change API key from environment if tests are running on Github Actions.
   if ((Platform.environment['EXEC_ENV'] ?? '') == 'github_actions') {
-    // If running on Github Actions, the last pusher shouldn't have leaked their
-    // API key.
-    test(
-      'Verify that API Key was Reset before pushing and then Set it!',
-      () {
-        expect(apiKey, 'test');
-        apiKey = Platform.environment['ORS_API_KEY']!;
-      },
-    );
+    // If running on Github Actions, the last pusher shouldn't have leaked
+    // their API key.
+    expect(apiKey, 'test');
+    apiKey = Platform.environment['ORS_API_KEY']!;
   }
 
   // Dummy Coordinates
