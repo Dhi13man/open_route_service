@@ -8,6 +8,8 @@
 
 Thank you for investing your time in contributing to this project! Any contributions you make have a chance of reflecting in [the actual Package on Pub.dev](https://pub.dev/packages/open_route_service), and brightens up my day. :)
 
+Make sure you go through the [API Documentation](https://openrouteservice.org/dev/#/api-docs/) first!
+
 ## General Steps to Contribute
 
 1. Ensure you have [Dart](https://dart.dev/get-dart)/[Flutter](https://flutter.dev/docs/get-started/install) SDK installed.
