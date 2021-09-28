@@ -38,7 +38,14 @@ extension ORSPois on OpenRouteService {
     // Fetch the data and parse it.
     final dynamic data =
         await _openRouteServicePost(uri: uri, data: queryParameters);
-    if (data is List) {
+
+    if (data is Map && data.isEmpty) {
+      throw ORSException(
+        'Empty POIs data received. Check if ORS POIs endpoint is working! '
+        'If endpoint is working, your input might be faulty!',
+        uri: uri,
+      );
+    } else if (data is List) {
       return PoisData.fromJson(data.first);
     } else {
       return PoisData.fromJson(data);
