@@ -2,8 +2,8 @@
 
 ## [1.0.0] - [Unreleased]
 
-- Addition of GeoCoding API
-- Metadata models
+- Addition of GeoCoding API.
+- Metadata models.
 
 ## [0.7.0] - 27th September, 2021
 

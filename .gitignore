@@ -10,7 +10,7 @@ build/
 pubspec.lock
 
 # API keys and secrets should not be checked in to source control.
-api-key.txt
+api-keys.json
 
 # IDE folders
 .vscode
