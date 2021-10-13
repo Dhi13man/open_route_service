@@ -47,14 +47,17 @@ class OpenRouteService {
     _client = http.Client();
   }
 
-  /// The base URL of all the endpoints, https://api.openrouteservice.org
-  static const String _baseURL = 'https://api.openrouteservice.org';
-
   /// The API key used to authenticate the request.
   final String _apiKey;
 
+  /// HTTP Client used to persistently make the request.
+  late final http.Client _client;
+
   /// The path parameter determines the routing method.
   ORSProfile _profile;
+
+  /// The base URL of all the endpoints, https://api.openrouteservice.org
+  static const String _baseURL = 'https://api.openrouteservice.org';
 
   /// Converts the enum [profile] to a [String] which can be used in API request
   static String getProfileString(ORSProfile profile) {
@@ -87,9 +90,6 @@ class OpenRouteService {
         return 'foot-walking';
     }
   }
-
-  /// HTTP Client used to persistently make the request.
-  late http.Client _client;
 
   /// Get current profile/path parameter.
   ORSProfile get profile => _profile;

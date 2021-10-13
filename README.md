@@ -10,7 +10,7 @@
 [![Build, Format, Test](https://github.com/Dhi13man/open_route_service/workflows/Build,%20Format,%20Test/badge.svg)](https://github.com/Dhi13man/open_route_service/actions)
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
 
-[!["Buy Me A Coffee"](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20ego%20boost&emoji=%F0%9F%98%B3&slug=dhi13man&button_colour=40DCA5&font_colour=ffffff&font_family=Arial&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/dhi13man)
+[!["Buy Me A Coffee"](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20ego%20boost&emoji=%F0%9F%98%B3&slug=dhi13man&button_colour=5F7FFF&font_colour=ffffff&font_family=Arial&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/dhi13man)
 
 This package is an encapsulation/wrapper made around [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects.
 
