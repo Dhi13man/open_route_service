@@ -5,7 +5,7 @@
 [![Language](https://img.shields.io/badge/language-Flutter-blue.svg)](https://flutter.dev)
 [![Contributors](https://img.shields.io/github/contributors-anon/dhi13man/open_route_service?style=flat)](https://github.com/Dhi13man/open_route_service/graphs/contributors)
 [![GitHub forks](https://img.shields.io/github/forks/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service/network/members)
-[![GitHub Repo stars](https://img.shields.io/github/stars/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service)
+[![GitHub Repo stars](https://img.shields.io/github/stars/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service/stargazers)
 [![Last Commit](https://img.shields.io/github/last-commit/dhi13man/open_route_service)](https://github.com/Dhi13man/open_route_service/commits/main)
 [![Build, Format, Test](https://github.com/Dhi13man/open_route_service/workflows/Build,%20Format,%20Test/badge.svg)](https://github.com/Dhi13man/open_route_service/actions)
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
