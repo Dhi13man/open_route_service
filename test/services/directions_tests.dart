@@ -10,12 +10,12 @@ void directionsTests({
   required Coordinate endCoordinate,
 }) {
   test(
-    'Fetch and parse route for 2 points using [directionsRouteCoordinatesGet], for all profiles',
+    'Fetch and parse route for 2 points using [directionsRouteCoordsGet], for all profiles',
     () async {
       // Validate API for each profile
       for (ORSProfile profile in ORSProfile.values) {
         final List<Coordinate> routeCoordinates =
-            await service.directionsRouteCoordinatesGet(
+            await service.directionsRouteCoordsGet(
           startCoordinate: startCoordinate,
           endCoordinate: endCoordinate,
           profileOverride: profile,
@@ -26,10 +26,10 @@ void directionsTests({
   );
 
   test(
-    'Error Validation for 2 point route in first and last path points [directionsRouteCoordinatesGet]',
+    'Error Validation for 2 point route in first and last path points [directionsRouteCoordsGet]',
     () async {
       final List<Coordinate> routeCoordinates =
-          await service.directionsRouteCoordinatesGet(
+          await service.directionsRouteCoordsGet(
         startCoordinate: startCoordinate,
         endCoordinate: endCoordinate,
       );
@@ -61,10 +61,10 @@ void directionsTests({
   );
 
   test(
-      'Fetch and parse route for multiple points using [directionsMultiRouteCoordinatesPostGet]',
+      'Fetch and parse route for multiple points using [directionsMultiRouteCoordsPostGet]',
       () async {
     final List<Coordinate> routeCoordinates =
-        await service.directionsMultiRouteCoordinatesPostGet(
+        await service.directionsMultiRouteCoordsPostGet(
       coordinates: <Coordinate>[
         startCoordinate,
         endCoordinate,
@@ -74,15 +74,15 @@ void directionsTests({
     expect(routeCoordinates.length, greaterThan(0));
   });
 
-  test('Cross-validate [directionsRouteCoordinatesGet] and [directionsMultiRouteCoordinatesPostGet]',
+  test('Cross-validate [directionsRouteCoordsGet] and [directionsMultiRouteCoordsPostGet]',
       () async {
     final List<Coordinate> routeCoordinates =
-        await service.directionsRouteCoordinatesGet(
+        await service.directionsRouteCoordsGet(
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,
     );
     final List<Coordinate> routeCoordinatesMulti =
-        await service.directionsMultiRouteCoordinatesPostGet(
+        await service.directionsMultiRouteCoordsPostGet(
       coordinates: <Coordinate>[startCoordinate, endCoordinate],
     );
 

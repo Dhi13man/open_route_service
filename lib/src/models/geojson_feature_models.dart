@@ -21,10 +21,18 @@ class GeoJsonFeatureCollection {
   /// 'bbox' and 'features'.
   factory GeoJsonFeatureCollection.fromJson(Map<String, dynamic> json) =>
       GeoJsonFeatureCollection(
-        bbox: <Coordinate>[
-          Coordinate(longitude: json['bbox'][0], latitude: json['bbox'][1]),
-          Coordinate(longitude: json['bbox'][2], latitude: json['bbox'][3]),
-        ],
+        bbox: ((json['bbox'] ?? []) as List<dynamic>).length < 4
+            ? []
+            : <Coordinate>[
+                Coordinate(
+                  longitude: json['bbox'][0],
+                  latitude: json['bbox'][1],
+                ),
+                Coordinate(
+                  longitude: json['bbox'][2],
+                  latitude: json['bbox'][3],
+                ),
+              ],
         features: (json['features'] as List<dynamic>)
             .map<GeoJsonFeature>(
               (dynamic e) => GeoJsonFeature.fromJson(e as Map<String, dynamic>),

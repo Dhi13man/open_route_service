@@ -112,7 +112,7 @@ class OpenRouteService {
     } else {
       final dynamic errorData = jsonDecode(response.body);
       throw ORSException(
-        'Status: ${errorData['error']} Code: ${response.statusCode}',
+        'Status: ${errorData['error'] ?? errorData} Code: ${response.statusCode}',
         uri: uri,
       );
     }
@@ -146,7 +146,7 @@ class OpenRouteService {
     } else {
       final dynamic errorData = jsonDecode(response.body);
       throw ORSException(
-        'Status: ${errorData['error']} Code: ${response.statusCode}',
+        'Status: ${errorData['error'] ?? errorData} Code: ${response.statusCode}',
         uri: uri,
       );
     }

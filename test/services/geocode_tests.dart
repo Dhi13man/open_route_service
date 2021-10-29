@@ -3,31 +3,107 @@ import 'package:test/test.dart';
 
 void geocodeTests({
   required OpenRouteService service,
-  String geocodeText = 'Namibian Brewery',
+  String geocodeQueryText = 'Namibian Brewery',
+  String geocodeLocalityQueryText = 'Paris',
+  Coordinate geocodeReversePoint =
+      const Coordinate(longitude: 2.294471, latitude: 48.858268),
+  String reverseGeocodeQueryLocality = 'Paris',
 }) {
   test(
-    'Do a Geocode Search using GET method [geocodeSearch]',
+    'Do a Geocode Search using [geocodeSearchGet]',
     () async {
-      final GeoJsonFeatureCollection geocodeData = await service.geocodeSearch(
-        text: geocodeText,
+      final GeoJsonFeatureCollection geocodeData =
+          await service.geocodeSearchGet(
+        text: geocodeQueryText,
       );
       expect(geocodeData.bbox.length, 2);
       expect(geocodeData.features.length, greaterThan(0));
-      final String? label = geocodeData.features.first.properties['label'];
-      expect(label!.contains(geocodeText), true);
+      final String label = geocodeData.features.first.properties['label']!;
+      expect(label.contains(geocodeQueryText), true);
     },
   );
   test(
-    'Do a Geocode Search using GET method [geocodeSearch], for all layers.',
+    'Do a Geocode Search using [geocodeSearchGet], for all layers.',
     () async {
-      final GeoJsonFeatureCollection geocodeData = await service.geocodeSearch(
-        text: 'Namibian Brewery',
+      final GeoJsonFeatureCollection geocodeData =
+          await service.geocodeSearchGet(
+        text: geocodeQueryText,
         layers: service.geocodeLayersAvailable.toList(),
       );
       expect(geocodeData.bbox.length, 2);
       expect(geocodeData.features.length, greaterThan(0));
-      final String? label = geocodeData.features.first.properties['label'];
-      expect(label!.contains(geocodeText), true);
+      final String label = geocodeData.features.first.properties['label']!;
+      expect(label.contains(geocodeQueryText), true);
+    },
+  );
+  test(
+    'Do a Geocode Autocomplete query using [geocodeAutoCompleteGet], for all layers.',
+    () async {
+      final GeoJsonFeatureCollection geocodeData =
+          await service.geocodeAutoCompleteGet(
+        text: geocodeQueryText,
+        layers: service.geocodeLayersAvailable.toList(),
+      );
+      expect(geocodeData.bbox.length, 2);
+      expect(geocodeData.features.length, greaterThan(0));
+      final String label = geocodeData.features.first.properties['label']!;
+      expect(label.contains(geocodeQueryText), true);
+    },
+  );
+  test(
+    'Do a Geocode Structured Search using [geocodeSearchStructuredGet], for all layers.',
+    () async {
+      final GeoJsonFeatureCollection geocodeData =
+          await service.geocodeSearchStructuredGet(
+        locality: geocodeLocalityQueryText,
+        layers: service.geocodeLayersAvailable.toList(),
+      );
+      expect(geocodeData.bbox.length, 2);
+      expect(geocodeData.features.length, greaterThan(0));
+      final String label = geocodeData.features.first.properties['label']!;
+      expect(label.contains(geocodeLocalityQueryText), true);
+    },
+  );
+  test(
+    'Do a Reverse Geocode using [geocodeReverseGet], for all layers.',
+    () async {
+      final GeoJsonFeatureCollection reverseGeocodeData =
+          await service.geocodeReverseGet(
+        point: geocodeReversePoint,
+        layers: service.geocodeLayersAvailable.toList(),
+      );
+      expect(reverseGeocodeData.bbox.length, 2);
+      expect(reverseGeocodeData.features.length, greaterThan(0));
+      final String label =
+          reverseGeocodeData.features.first.properties['locality']!;
+      expect(label.contains(reverseGeocodeQueryLocality), true);
+    },
+  );
+  test(
+    'Cross-validate geocode [geocodeSearchStructuredGet] and reverse geocode [geocodeReverseGet]',
+    () async {
+      // First geocode geocodeLocalityQueryText with [geocodeSearchStructuredGet]
+      final GeoJsonFeatureCollection geocodeData =
+          await service.geocodeSearchStructuredGet(
+        locality: geocodeLocalityQueryText,
+        layers: service.geocodeLayersAvailable.toList(),
+      );
+      final Coordinate geocodedCoordinate =
+          geocodeData.features.first.geometry.coordinates.first.first;
+
+      // Now, reverse geocode the coordinate received 
+      // from geocoding geocodeLocalityQueryText.
+      final GeoJsonFeatureCollection reverseGeocodeData =
+          await service.geocodeReverseGet(
+        point: geocodedCoordinate,
+        layers: service.geocodeLayersAvailable.toList(),
+      );
+      final String reverseGeocodedLocality =
+          reverseGeocodeData.features.first.properties['locality']!;
+
+      // The reverseGeocodedLocality should be similar to originally geocoded
+      // geocodeLocalityQueryText from which we extracted the coordinate.
+      expect(reverseGeocodedLocality.contains(geocodeLocalityQueryText), true);
     },
   );
 }

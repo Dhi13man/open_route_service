@@ -102,6 +102,13 @@ Future<void> main() async {
 
   group(
     'Geocoding API tests:',
-    () => geocodeTests(service: service),
+    () => geocodeTests(
+      service: service,
+      geocodeQueryText: 'Namibian Brewery',
+      geocodeLocalityQueryText: 'Paris',
+      geocodeReversePoint:
+          const Coordinate(longitude: 2.294471, latitude: 48.858268),
+      reverseGeocodeQueryLocality: 'Paris',
+    ),
   );
 }

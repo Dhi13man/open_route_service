@@ -25,9 +25,11 @@ extension ORSGeocode on OpenRouteService {
         'coarse',
       };
 
-  /// Fetches the Geocode Autocomplete data for the given search [text] from
-  /// chosen [sources] and using settings [layers], and returns the entire
-  /// geojson [GeoJsonFeatureCollection] containing the data.
+  /// Fetches the Geocode Autocomplete data for the given [text] from chosen
+  /// [sources] and using settings [layers], and returns the entire geojson
+  /// [GeoJsonFeatureCollection] containing the data.
+  ///
+  /// Can be constrained using the various [Coordinate] parameters.
   ///
   /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
   /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
@@ -38,7 +40,7 @@ extension ORSGeocode on OpenRouteService {
   /// https://openrouteservice.org/dev/#/api-docs/geocode/autocomplete/get
   ///
   /// https://github.com/pelias/documentation/blob/master/autocomplete.md
-  Future<GeoJsonFeatureCollection> geocodeAutoComplete({
+  Future<GeoJsonFeatureCollection> geocodeAutoCompleteGet({
     required String text,
     Coordinate? focusPointCoordinate,
     Coordinate? boundaryRectangleMinCoordinate,
@@ -47,13 +49,18 @@ extension ORSGeocode on OpenRouteService {
     List<String>? sources,
     List<String> layers = const <String>[],
   }) async {
-    // Form Input from parameters
+    // Validate input.
+    _bothOrNeitherNullValidation(
+      boundaryRectangleMinCoordinate,
+      boundaryRectangleMaxCoordinate,
+    );
+    // Form input from parameters.
     sources ??= geocodeSourcesAvailable.toList();
-    final String sourcesString = _validateAndJoin(
+    final String sourcesString = _validateAndJoinList(
       inputArr: sources,
       availableIterable: geocodeSourcesAvailable,
     );
-    final String layersString = _validateAndJoin(
+    final String layersString = _validateAndJoinList(
       inputArr: layers,
       availableIterable: geocodeLayersAvailable,
     );
@@ -92,6 +99,8 @@ extension ORSGeocode on OpenRouteService {
   /// [sources] and using settings [layers], and returns the entire geojson
   /// [GeoJsonFeatureCollection] containing the data.
   ///
+  /// Can be constrained using the various [Coordinate] parameters.
+  ///
   /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
   /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
   /// the information about the result of the search.
@@ -101,7 +110,7 @@ extension ORSGeocode on OpenRouteService {
   /// https://openrouteservice.org/dev/#/api-docs/geocode/search/get
   ///
   /// https://github.com/pelias/documentation/blob/master/search.md#search-the-world
-  Future<GeoJsonFeatureCollection> geocodeSearch({
+  Future<GeoJsonFeatureCollection> geocodeSearchGet({
     required String text,
     Coordinate? focusPointCoordinate,
     Coordinate? boundaryRectangleMinCoordinate,
@@ -114,13 +123,18 @@ extension ORSGeocode on OpenRouteService {
     List<String> layers = const <String>[],
     int size = 10,
   }) async {
-    // Form Input from parameters
+    // Validate Input.
+    _bothOrNeitherNullValidation(
+      boundaryRectangleMinCoordinate,
+      boundaryRectangleMaxCoordinate,
+    );
+    // Form input from parameters.
     sources ??= geocodeSourcesAvailable.toList();
-    final String sourcesString = _validateAndJoin(
+    final String sourcesString = _validateAndJoinList(
       inputArr: sources,
       availableIterable: geocodeSourcesAvailable,
     );
-    final String layersString = _validateAndJoin(
+    final String layersString = _validateAndJoinList(
       inputArr: layers,
       availableIterable: geocodeLayersAvailable,
     );
@@ -165,21 +179,29 @@ extension ORSGeocode on OpenRouteService {
     return GeoJsonFeatureCollection.fromJson(data);
   }
 
-  /// Fetches the Geocode Search data for the given search [text] from chosen
+  /// Fetches the Geocode Structured Search data for the given search [address]
+  /// and/or [neighbourhood] and/or [country] and/or [postalcode] and/or
+  /// [region] and/or [county] and/or [locality] and/or [borough] from chosen
   /// [sources] and using settings [layers], and returns the entire geojson
   /// [GeoJsonFeatureCollection] containing the data. Uses the Structured Search
   /// API endpoint.
+  ///
+  /// Can be constrained using the various [Coordinate] parameters.
   ///
   /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
   /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
   /// the information about the result of the search.
   ///
+  /// At least one of the following fields is required: venue, address,
+  /// neighbourhood, borough, locality, county, region, postalcode, country.
+  /// Otherwise, throws an [ArgumentError].
+  ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   ///
-  /// https://openrouteservice.org/dev/#/api-docs/geocode/search/get
+  /// https://openrouteservice.org/dev/#/api-docs/geocode/search/structured/get
   ///
   /// https://github.com/pelias/documentation/blob/master/structured-geocoding.md#structured-geocoding
-  Future<GeoJsonFeatureCollection> geocodeSearchStructured({
+  Future<GeoJsonFeatureCollection> geocodeSearchStructuredGet({
     String? address,
     String? neighbourhood,
     String? country,
@@ -198,13 +220,30 @@ extension ORSGeocode on OpenRouteService {
     List<String> layers = const <String>[],
     int size = 10,
   }) async {
-    // Form Input from parameters
+    // Validate input
+    if (address == null &&
+        neighbourhood == null &&
+        country == null &&
+        postalcode == null &&
+        region == null &&
+        county == null &&
+        locality == null &&
+        borough == null) {
+      throw ArgumentError(
+        'At least one of the following fields is required: venue, address, neighbourhood, borough, locality, county, region, postalcode, country',
+      );
+    }
+    _bothOrNeitherNullValidation(
+      boundaryRectangleMinCoordinate,
+      boundaryRectangleMaxCoordinate,
+    );
+    // Form input from parameters.
     sources ??= geocodeSourcesAvailable.toList();
-    final String sourcesString = _validateAndJoin(
+    final String sourcesString = _validateAndJoinList(
       inputArr: sources,
       availableIterable: geocodeSourcesAvailable,
     );
-    final String layersString = _validateAndJoin(
+    final String layersString = _validateAndJoinList(
       inputArr: layers,
       availableIterable: geocodeLayersAvailable,
     );
@@ -270,13 +309,63 @@ extension ORSGeocode on OpenRouteService {
     return GeoJsonFeatureCollection.fromJson(data);
   }
 
+  /// Fetches the Reverse Geocode data from the given [sources] and using
+  /// settings [layers], and returns the entire geojson [GeoJsonFeatureCollection]
+  /// containing the data.
+  ///
+  /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
+  /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
+  /// the information about the result of the reverse geocoding.
+  ///
+  /// Information about the endpoint, parameters, response etc. can be found at:
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/geocode/reverse/get
+  ///
+  /// https://github.com/pelias/documentation/blob/master/reverse.md#reverse-geocoding
+  Future<GeoJsonFeatureCollection> geocodeReverseGet({
+    required Coordinate point,
+    double boundaryCircleRadius = 1,
+    int size = 10,
+    List<String> layers = const <String>[],
+    List<String>? sources,
+    String? boundaryCountry,
+  }) async {
+    // Form Input from parameters.
+    sources ??= geocodeSourcesAvailable.toList();
+    final String sourcesString = _validateAndJoinList(
+      inputArr: sources,
+      availableIterable: geocodeSourcesAvailable,
+    );
+    final String layersString = _validateAndJoinList(
+      inputArr: layers,
+      availableIterable: geocodeLayersAvailable,
+    );
+
+    String getURIString =
+        '$_geocodeEndpointURL/reverse?api_key=$_apiKey&sources=$sourcesString';
+    if (layersString.isNotEmpty) {
+      getURIString += '&layers=$layersString';
+    }
+    if (boundaryCountry != null) {
+      getURIString += '&boundary.country=$boundaryCountry';
+    }
+    getURIString += '&point.lon=${point.longitude}&point.lat=${point.latitude}';
+    getURIString += '&boundary.circle.radius=$boundaryCircleRadius';
+    getURIString += '&size=$size';
+
+    // Build the request URL.
+    final Uri uri = Uri.parse(getURIString);
+    final Map<String, dynamic> data = await _openRouteServiceGet(uri: uri);
+    return GeoJsonFeatureCollection.fromJson(data);
+  }
+
   /// Validates whether each element of [inputArr] is in [availableIterable].
   ///
   /// If so, returns a [String] of the elements joined by a comma that can be
   /// used in a URI.
   ///
   /// If not, throws an [ArgumentError].
-  String _validateAndJoin({
+  String _validateAndJoinList({
     required List<String> inputArr,
     required Iterable<String> availableIterable,
   }) {
@@ -290,5 +379,19 @@ extension ORSGeocode on OpenRouteService {
       }
     }
     return inputArr.join(',');
+  }
+
+  /// Validates whether either both parameters are none or neither parameter is
+  /// null.
+  ///
+  /// If not, then throws an [ArgumentError].
+  void _bothOrNeitherNullValidation(dynamic a, dynamic b) {
+    final bool validateMinMax =
+        (a == null && b == null) || (a != null && b != null);
+    if (!validateMinMax) {
+      throw ArgumentError(
+        'Either both parameters must be null, or neither must be null!',
+      );
+    }
   }
 }
