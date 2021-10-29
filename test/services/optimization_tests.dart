@@ -9,7 +9,7 @@ void optimizationTests({
   required String serializedVehicles,
 }) {
   test(
-    'Fetch Optimizations from deserialized given Jobs and Vehicles using [getOptimizationData]',
+    'Fetch Optimizations from deserialized given Jobs and Vehicles using [optimizationDataPostGet]',
     () async {
       // Parse the Job and Vehicle data
       final List<VroomJob> jobs = (json.decode(serializedJobs) as List<dynamic>)
@@ -25,7 +25,7 @@ void optimizationTests({
 
       // Test API using parsed data.
       final OptimizationData optimizationData =
-          await service.getOptimizationData(jobs: jobs, vehicles: vehicles);
+          await service.optimizationDataPostGet(jobs: jobs, vehicles: vehicles);
       // Validate received data.
       expect(optimizationData.code, equals(0));
       expect(optimizationData.routes.length, greaterThan(0));

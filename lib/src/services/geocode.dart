@@ -6,11 +6,11 @@ extension ORSGeocode on OpenRouteService {
       '${OpenRouteService._baseURL}/geocode';
 
   /// Available Sources for Geocoding
-  Set<String> get geocodeSearchSourcesAvailable =>
+  Set<String> get geocodeSourcesAvailable =>
       <String>{'openstreetmap', 'openaddresses', 'whosonfirst', 'geonames'};
 
   /// Available Layer settings for Geocoding
-  Set<String> get geocodeSearchLayersAvailable => const <String>{
+  Set<String> get geocodeLayersAvailable => const <String>{
         'address',
         'venue',
         'neighbourhood',
@@ -25,11 +25,89 @@ extension ORSGeocode on OpenRouteService {
         'coarse',
       };
 
+  /// Fetches the Geocode Autocomplete data for the given search [text] from
+  /// chosen [sources] and using settings [layers], and returns the entire
+  /// geojson [GeoJsonFeatureCollection] containing the data.
+  ///
+  /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
+  /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
+  /// the information about the result of the autocomplete query.
+  ///
+  /// Information about the endpoint, parameters, response etc. can be found at:
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/geocode/autocomplete/get
+  ///
+  /// https://github.com/pelias/documentation/blob/master/autocomplete.md
+  Future<GeoJsonFeatureCollection> geocodeAutoComplete({
+    required String text,
+    Coordinate? focusPointCoordinate,
+    Coordinate? boundaryRectangleMinCoordinate,
+    Coordinate? boundaryRectangleMaxCoordinate,
+    String? boundaryCountry,
+    List<String>? sources,
+    List<String> layers = const <String>[],
+  }) async {
+    // Form Input from parameters
+    sources ??= geocodeSourcesAvailable.toList();
+    final String sourcesString = _validateAndJoin(
+      inputArr: sources,
+      availableIterable: geocodeSourcesAvailable,
+    );
+    final String layersString = _validateAndJoin(
+      inputArr: layers,
+      availableIterable: geocodeLayersAvailable,
+    );
+    String getURIString =
+        '$_geocodeEndpointURL/autocomplete?api_key=$_apiKey&text=$text&sources=$sourcesString';
+    if (layersString.isNotEmpty) {
+      getURIString += '&layers=$layersString';
+    }
+    if (focusPointCoordinate != null) {
+      getURIString += '&focus.point.lon=${focusPointCoordinate.longitude}';
+      getURIString += '&focus.point.lat=${focusPointCoordinate.latitude}';
+    }
+    if (boundaryRectangleMinCoordinate != null) {
+      getURIString +=
+          '&boundary.rect.min_lon=${boundaryRectangleMinCoordinate.longitude}';
+      getURIString +=
+          '&boundary.rect.min_lat=${boundaryRectangleMinCoordinate.latitude}';
+    }
+    if (boundaryRectangleMaxCoordinate != null) {
+      getURIString +=
+          '&boundary.rect.max_lon=${boundaryRectangleMaxCoordinate.longitude}';
+      getURIString +=
+          '&boundary.rect.max_lat=${boundaryRectangleMaxCoordinate.latitude}';
+    }
+    if (boundaryCountry != null) {
+      getURIString += '&boundary.country=$boundaryCountry';
+    }
+
+    // Build the request URL.
+    final Uri uri = Uri.parse(getURIString);
+    final Map<String, dynamic> data = await _openRouteServiceGet(uri: uri);
+    return GeoJsonFeatureCollection.fromJson(data);
+  }
+
+  /// Fetches the Geocode Search data for the given search [text] from chosen
+  /// [sources] and using settings [layers], and returns the entire geojson
+  /// [GeoJsonFeatureCollection] containing the data.
+  ///
+  /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
+  /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
+  /// the information about the result of the search.
+  ///
+  /// Information about the endpoint, parameters, response etc. can be found at:
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/geocode/search/get
+  ///
+  /// https://github.com/pelias/documentation/blob/master/search.md#search-the-world
   Future<GeoJsonFeatureCollection> geocodeSearch({
     required String text,
-    double? focusPointLongitude,
-    double? boundaryRectangleMinLongitude,
-    double? boundaryCircleLongitude,
+    Coordinate? focusPointCoordinate,
+    Coordinate? boundaryRectangleMinCoordinate,
+    Coordinate? boundaryRectangleMaxCoordinate,
+    Coordinate? boundaryCircleCoordinate,
+    double boundaryCircleRadius = 50,
     String? boundaryGid,
     String? boundaryCountry,
     List<String>? sources,
@@ -37,31 +115,150 @@ extension ORSGeocode on OpenRouteService {
     int size = 10,
   }) async {
     // Form Input from parameters
-    sources ??= geocodeSearchSourcesAvailable.toList();
+    sources ??= geocodeSourcesAvailable.toList();
     final String sourcesString = _validateAndJoin(
       inputArr: sources,
-      availableIterable: geocodeSearchSourcesAvailable,
+      availableIterable: geocodeSourcesAvailable,
     );
     final String layersString = _validateAndJoin(
       inputArr: layers,
-      availableIterable: geocodeSearchLayersAvailable,
+      availableIterable: geocodeLayersAvailable,
     );
     String getURIString =
         '$_geocodeEndpointURL/search?api_key=$_apiKey&text=$text&sources=$sourcesString&size=$size';
     if (layersString.isNotEmpty) {
       getURIString += '&layers=$layersString';
     }
-    if (focusPointLongitude != null) {
-      getURIString += '&focus.point.lon=$focusPointLongitude';
+    if (focusPointCoordinate != null) {
+      getURIString += '&focus.point.lon=${focusPointCoordinate.longitude}';
+      getURIString += '&focus.point.lat=${focusPointCoordinate.latitude}';
     }
-    if (boundaryRectangleMinLongitude != null) {
-      getURIString += '&boundary.rect.min_lon=$boundaryRectangleMinLongitude';
+    if (boundaryRectangleMinCoordinate != null) {
+      getURIString +=
+          '&boundary.rect.min_lon=${boundaryRectangleMinCoordinate.longitude}';
+      getURIString +=
+          '&boundary.rect.min_lat=${boundaryRectangleMinCoordinate.latitude}';
     }
-    if (boundaryCircleLongitude != null) {
-      getURIString += '&boundary.circle.lon=$boundaryCircleLongitude';
+    if (boundaryRectangleMaxCoordinate != null) {
+      getURIString +=
+          '&boundary.rect.max_lon=${boundaryRectangleMaxCoordinate.longitude}';
+      getURIString +=
+          '&boundary.rect.max_lat=${boundaryRectangleMaxCoordinate.latitude}';
+    }
+    if (boundaryCircleCoordinate != null) {
+      getURIString +=
+          '&boundary.circle.lon=${boundaryCircleCoordinate.longitude}';
+      getURIString +=
+          '&boundary.circle.lat=${boundaryCircleCoordinate.latitude}';
+      getURIString += '&boundary.circle.radius=$boundaryCircleRadius';
     }
     if (boundaryGid != null) {
       getURIString += '&boundary.gid=$boundaryGid';
+    }
+    if (boundaryCountry != null) {
+      getURIString += '&boundary.country=$boundaryCountry';
+    }
+
+    // Build the request URL.
+    final Uri uri = Uri.parse(getURIString);
+    final Map<String, dynamic> data = await _openRouteServiceGet(uri: uri);
+    return GeoJsonFeatureCollection.fromJson(data);
+  }
+
+  /// Fetches the Geocode Search data for the given search [text] from chosen
+  /// [sources] and using settings [layers], and returns the entire geojson
+  /// [GeoJsonFeatureCollection] containing the data. Uses the Structured Search
+  /// API endpoint.
+  ///
+  /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
+  /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
+  /// the information about the result of the search.
+  ///
+  /// Information about the endpoint, parameters, response etc. can be found at:
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/geocode/search/get
+  ///
+  /// https://github.com/pelias/documentation/blob/master/structured-geocoding.md#structured-geocoding
+  Future<GeoJsonFeatureCollection> geocodeSearchStructured({
+    String? address,
+    String? neighbourhood,
+    String? country,
+    String? postalcode,
+    String? region,
+    String? county,
+    String? locality,
+    String? borough,
+    Coordinate? focusPointCoordinate,
+    Coordinate? boundaryRectangleMinCoordinate,
+    Coordinate? boundaryRectangleMaxCoordinate,
+    Coordinate? boundaryCircleCoordinate,
+    double boundaryCircleRadius = 50,
+    String? boundaryCountry,
+    List<String>? sources,
+    List<String> layers = const <String>[],
+    int size = 10,
+  }) async {
+    // Form Input from parameters
+    sources ??= geocodeSourcesAvailable.toList();
+    final String sourcesString = _validateAndJoin(
+      inputArr: sources,
+      availableIterable: geocodeSourcesAvailable,
+    );
+    final String layersString = _validateAndJoin(
+      inputArr: layers,
+      availableIterable: geocodeLayersAvailable,
+    );
+    String getURIString =
+        '$_geocodeEndpointURL/search/structured?api_key=$_apiKey&sources=$sourcesString&size=$size';
+    if (layersString.isNotEmpty) {
+      getURIString += '&layers=$layersString';
+    }
+    if (address != null) {
+      getURIString += '&address=$address';
+    }
+    if (neighbourhood != null) {
+      getURIString += '&neighbourhood=$neighbourhood';
+    }
+    if (country != null) {
+      getURIString += '&country=$country';
+    }
+    if (postalcode != null) {
+      getURIString += '&postalcode=$postalcode';
+    }
+    if (region != null) {
+      getURIString += '&region=$region';
+    }
+    if (county != null) {
+      getURIString += '&county=$county';
+    }
+    if (locality != null) {
+      getURIString += '&locality=$locality';
+    }
+    if (borough != null) {
+      getURIString += '&borough=$borough';
+    }
+    if (focusPointCoordinate != null) {
+      getURIString += '&focus.point.lon=${focusPointCoordinate.longitude}';
+      getURIString += '&focus.point.lat=${focusPointCoordinate.latitude}';
+    }
+    if (boundaryRectangleMinCoordinate != null) {
+      getURIString +=
+          '&boundary.rect.min_lon=${boundaryRectangleMinCoordinate.longitude}';
+      getURIString +=
+          '&boundary.rect.min_lat=${boundaryRectangleMinCoordinate.latitude}';
+    }
+    if (boundaryRectangleMaxCoordinate != null) {
+      getURIString +=
+          '&boundary.rect.max_lon=${boundaryRectangleMaxCoordinate.longitude}';
+      getURIString +=
+          '&boundary.rect.max_lat=${boundaryRectangleMaxCoordinate.latitude}';
+    }
+    if (boundaryCircleCoordinate != null) {
+      getURIString +=
+          '&boundary.circle.lon=${boundaryCircleCoordinate.longitude}';
+      getURIString +=
+          '&boundary.circle.lat=${boundaryCircleCoordinate.latitude}';
+      getURIString += '&boundary.circle.radius=$boundaryCircleRadius';
     }
     if (boundaryCountry != null) {
       getURIString += '&boundary.country=$boundaryCountry';
@@ -87,8 +284,8 @@ extension ORSGeocode on OpenRouteService {
       if (!availableIterable.contains(inp)) {
         throw ArgumentError.value(
           inp,
-          'sources',
-          'Source must be one of ${availableIterable.join(', ')}',
+          'inputArr',
+          'Input Array must be one of ${availableIterable.join(', ')}',
         );
       }
     }

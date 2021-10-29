@@ -16,7 +16,7 @@ extension ORSMatrix on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post
-  Future<TimeDistanceMatrix> getMatrix({
+  Future<TimeDistanceMatrix> matrixPostGet({
     required List<Coordinate> locations,
     List<int>? destinations,
     String? id,

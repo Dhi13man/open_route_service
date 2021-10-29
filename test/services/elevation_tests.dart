@@ -10,11 +10,11 @@ void elevationTests({
   required Coordinate coordinate,
 }) {
   test(
-    'Fetch Elevation using GET Method [getElevationDataGet]',
+    'Fetch Elevation using GET Method [elevationDataGet]',
     () async {
       // Attempt 1 using geojson format.
       const String formatOut1 = 'geojson';
-      final ElevationData elevationData = await service.getElevationDataGet(
+      final ElevationData elevationData = await service.elevationDataGet(
         geometry: coordinate,
         formatOut: formatOut1,
       );
@@ -37,7 +37,7 @@ void elevationTests({
 
       // Attempt 2 using point format.
       const String formatOut2 = 'point';
-      final ElevationData elevationData2 = await service.getElevationDataGet(
+      final ElevationData elevationData2 = await service.elevationDataGet(
         geometry: coordinate,
         formatOut: formatOut2,
       );
@@ -48,11 +48,11 @@ void elevationTests({
   );
 
   test(
-    'Fetch Elevation using POST Method [getElevationDataPost]',
+    'Fetch Elevation using POST Method [elevationDataPostGet]',
     () async {
       // Attempt 1 using geojson format.
       const String formatOut1 = 'geojson';
-      final ElevationData elevationData = await service.getElevationDataPost(
+      final ElevationData elevationData = await service.elevationDataPostGet(
         geometry: coordinate,
         formatIn: formatOut1,
         formatOut: formatOut1,
@@ -76,7 +76,7 @@ void elevationTests({
 
       // Attempt 2 using point format.
       const String formatOut2 = 'point';
-      final ElevationData elevationData2 = await service.getElevationDataPost(
+      final ElevationData elevationData2 = await service.elevationDataPostGet(
         geometry: coordinate,
         formatIn: formatOut2,
         formatOut: formatOut2,
@@ -88,15 +88,15 @@ void elevationTests({
   );
 
   test(
-    'Cross-validate GET and POST Elevation fetching methods',
+    'Cross-validate GET and POST Elevation fetching methods [elevationDataGet] and [elevationDataPostGet]',
     () async {
       // Attempt 1 using GET
       final ElevationData elevationDataGet =
-          await service.getElevationDataGet(geometry: coordinate);
+          await service.elevationDataGet(geometry: coordinate);
 
       // Attempt 2 using POST
       final ElevationData elevationDataPost =
-          await service.getElevationDataPost(
+          await service.elevationDataPostGet(
         geometry: coordinate,
         formatIn: 'point',
       );
@@ -107,9 +107,10 @@ void elevationTests({
   );
 
   test(
-    'Fetch Elevation through planar 2D Line Geometry using [getElevationDataLine]',
+    'Fetch Elevation through planar 2D Line Geometry using [elevationDataLinePostGet]',
     () async {
-      final ElevationData elevationData = await service.getElevationDataLine(
+      final ElevationData elevationData =
+          await service.elevationDataLinePostGet(
         geometry: 'u`rgFswjpAKD',
         formatIn: 'encodedpolyline5',
       );

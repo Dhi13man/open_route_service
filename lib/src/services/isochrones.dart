@@ -18,7 +18,7 @@ extension ORServiceIsochrones on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/isochrones/{profile}/post
-  Future<GeoJsonFeatureCollection> getIsochrones({
+  Future<GeoJsonFeatureCollection> isochronesPostGet({
     required List<Coordinate> locations,
     required List<int> range,
     List<String> attributes = const <String>[],

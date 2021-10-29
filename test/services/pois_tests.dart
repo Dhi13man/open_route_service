@@ -7,10 +7,10 @@ void poisTests({
   required Coordinate boundingBoxEnd,
 }) {
   test(
-    'Get POIs Data using geometry using [getPOIsData]',
+    'Get POIs Data using geometry using [poisDataPostGet]',
     () async {
       try {
-        final PoisData poisData = await service.getPOIsData(
+        final PoisData poisData = await service.poisDataPostGet(
           request: 'pois',
           geometry: {
             "bbox": <List<double>>[

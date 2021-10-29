@@ -17,7 +17,7 @@ extension ORSOptimization on OpenRouteService {
   /// This service is based on the excellent Vroom project. Please also consult
   /// its API documentation.
   /// https://github.com/VROOM-Project/vroom/blob/master/docs/API.md
-  Future<OptimizationData> getOptimizationData({
+  Future<OptimizationData> optimizationDataPostGet({
     required List<VroomJob> jobs,
     required List<VroomVehicle> vehicles,
     List<dynamic>? matrix,

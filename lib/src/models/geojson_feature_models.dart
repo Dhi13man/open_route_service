@@ -5,7 +5,14 @@ import 'package:open_route_service/src/models/coordinate_model.dart';
 ///
 /// Includes its bounding box coordinates [bbox] and [features].
 ///
+/// Used by APIs:
+///
+/// https://openrouteservice.org/dev/#/api-docs/geocode/search/get
+///
+/// https://openrouteservice.org/dev/#/api-docs/geocode/autocomplete/get
+///
 /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
+///
 /// https://openrouteservice.org/dev/#/api-docs/v2/isochrones/{profile}/post
 class GeoJsonFeatureCollection {
   const GeoJsonFeatureCollection({required this.bbox, required this.features});
@@ -19,16 +26,17 @@ class GeoJsonFeatureCollection {
           Coordinate(longitude: json['bbox'][2], latitude: json['bbox'][3]),
         ],
         features: (json['features'] as List<dynamic>)
-            .map<GeoJsonFeature>((dynamic e) =>
-                GeoJsonFeature.fromJson(e as Map<String, dynamic>))
+            .map<GeoJsonFeature>(
+              (dynamic e) => GeoJsonFeature.fromJson(e as Map<String, dynamic>),
+            )
             .toList(),
       );
 
-  // The bounding box of the requested feature collection's area.
-  // Should have 2 coordinates.
+  /// The bounding box of the requested feature collection's area.
+  /// Should have 2 coordinates.
   final List<Coordinate> bbox;
 
-  // The list of features of the requested feature collection.
+  /// The list of features of the requested feature collection.
   final List<GeoJsonFeature> features;
 
   /// Converts the [GeoJsonFeatureCollection] to a [Map] with keys 'type',
@@ -37,7 +45,7 @@ class GeoJsonFeatureCollection {
   /// The 'bbox' key is converted to list of 4 [double]s implying 2 coordinates.
   Map<String, dynamic> toJson() => {
         'type': 'FeatureCollection',
-        'bbox': [
+        'bbox': <double>[
           bbox[0].longitude,
           bbox[0].latitude,
           bbox[1].longitude,
@@ -57,18 +65,49 @@ class GeoJsonFeatureCollection {
 ///
 /// Includes its [geometry] and [properties].
 class GeoJsonFeature {
-  const GeoJsonFeature({required this.properties, required this.geometry});
+  const GeoJsonFeature({
+    required this.properties,
+    required this.geometry,
+    this.bbox,
+  });
 
   GeoJsonFeature.fromJson(Map<String, dynamic> json)
       : properties = json['properties'],
-        geometry = GeoJsonFeatureGeometry.fromJson(json['geometry']);
+        geometry = GeoJsonFeatureGeometry.fromJson(json['geometry']),
+        bbox = json['bbox'] == null
+            ? null
+            : <Coordinate>[
+                Coordinate(
+                  longitude: json['bbox'][0],
+                  latitude: json['bbox'][1],
+                ),
+                Coordinate(
+                  longitude: json['bbox'][2],
+                  latitude: json['bbox'][3],
+                ),
+              ];
 
   /// The properties of the feature as [Map] of [String] keys and [dynamic]
   /// values to keep up with the API's unconstrained response.
+  ///
+  /// Possible Data Models include responses of:
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/geocode/search/get
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/geocode/autocomplete/get
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/v2/isochrones/{profile}/post
+  ///
+  /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
   final Map<String, dynamic> properties;
 
   /// The geometry of the feature as [GeoJsonFeatureGeometry].
   final GeoJsonFeatureGeometry geometry;
+
+  /// The bounding box of the requested feature's area.
+  ///
+  /// Should have 2 coordinates.
+  final List<Coordinate>? bbox;
 
   /// Converts the [GeoJsonFeature] to a [Map] with keys 'type', 'properties'
   /// and 'geometry'.
@@ -76,10 +115,17 @@ class GeoJsonFeature {
         'type': 'Feature',
         'properties': properties,
         'geometry': geometry.toJson(),
+        if (bbox != null)
+          'bbox': <double>[
+            bbox![0].longitude,
+            bbox![0].latitude,
+            bbox![1].longitude,
+            bbox![1].latitude,
+          ],
       };
 
   @override
-  String toString() => 'Feature(properties: $properties, geometry: $geometry)';
+  String toString() => toJson().toString();
 }
 
 /// The geometry of a [GeoJsonFeature].

@@ -5,6 +5,11 @@
 - Addition of GeoCoding API.
 - Metadata models.
 - **BREAKING:** GeoJsonFeatureProperties Data Model removed and replaced with unparsed `Map<String, dynamic>` as it doesn't have any static structure across various endpoints.
+- **BREAKING:** Every method in the package has been renamed for consistency and to easily find needed methods. New method naming convention:
+
+  ```{API endpoint name} + {functionality name} + (if functionality uses a POST endpoint) Post + Get```
+
+  Eg. `getRouteCoordinates -> directionsRouteCoordinatesGet`, `getElevationDataPost -> elevationDataPostGet` and so on.
 
 ## [0.7.0] - 27th September, 2021
 

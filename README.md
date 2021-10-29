@@ -40,7 +40,7 @@ With all of their internal Optimizations, this includes:
 1. **[Directions](https://openrouteservice.org/dev/#/api-docs/v2/directions/):**
    Route Generation between any two or more coordinates for any mode of transportation. For example, from a starting point to a destination on `'foot-walking'`.
 
-   E.g. `ORSDirections.getRouteCoordinates` gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
+   E.g. `ORSDirections.directionsRouteCoordinatesGet` gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
 
    | Route Drawn on Map using Coordinates |
    | ------------------------------------ |
@@ -135,7 +135,7 @@ Future<void> main() async {
   const double endLng = -122.0792365;
 
   // Form Route between coordinates
-  final List<Coordinate> routeCoordinates = await client.getRouteCoordinates(
+  final List<Coordinate> routeCoordinates = await client.directionsRouteCoordinatesGet(
     startCoordinate: Coordinate(latitude: startLat, longitude: startLng),
     endCoordinate: Coordinate(latitude: endLat, longitude: endLng),
   );

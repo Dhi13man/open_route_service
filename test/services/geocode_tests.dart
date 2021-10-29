@@ -8,8 +8,9 @@ void geocodeTests({
   test(
     'Do a Geocode Search using GET method [geocodeSearch]',
     () async {
-      final GeoJsonFeatureCollection geocodeData =
-          await service.geocodeSearch(text: geocodeText);
+      final GeoJsonFeatureCollection geocodeData = await service.geocodeSearch(
+        text: geocodeText,
+      );
       expect(geocodeData.bbox.length, 2);
       expect(geocodeData.features.length, greaterThan(0));
       final String? label = geocodeData.features.first.properties['label'];
@@ -21,7 +22,7 @@ void geocodeTests({
     () async {
       final GeoJsonFeatureCollection geocodeData = await service.geocodeSearch(
         text: 'Namibian Brewery',
-        layers: service.geocodeSearchLayersAvailable.toList(),
+        layers: service.geocodeLayersAvailable.toList(),
       );
       expect(geocodeData.bbox.length, 2);
       expect(geocodeData.features.length, greaterThan(0));

@@ -6,10 +6,10 @@ void isochronesTests({
   required List<Coordinate> coordinates,
 }) {
   test(
-    'Fetch Isochrone Data using [getIsochrones]',
+    'Fetch Isochrone Data using [isochronesGet]',
     () async {
       final GeoJsonFeatureCollection isochroneData = await service
-          .getIsochrones(locations: coordinates, range: <int>[300, 200]);
+          .isochronesPostGet(locations: coordinates, range: <int>[300, 200]);
       expect(isochroneData.bbox.length, 2);
       expect(isochroneData.features.length, greaterThan(0));
       expect(isochroneData.features.first.properties['group_index'], 0);

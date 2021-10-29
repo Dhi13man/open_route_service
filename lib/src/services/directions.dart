@@ -10,7 +10,7 @@ extension ORSDirections on OpenRouteService {
   /// and returns the entire geojson [GeoJsonFeatureCollection] containing the data.
   ///
   /// To get only the parsed route coordinates,
-  /// use [ORSDirections.getRouteCoordinates].
+  /// use [ORSDirections.directionsRouteCoordinatesGet].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
@@ -47,7 +47,7 @@ extension ORSDirections on OpenRouteService {
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
-  Future<List<Coordinate>> getRouteCoordinates({
+  Future<List<Coordinate>> directionsRouteCoordinatesGet({
     required Coordinate startCoordinate,
     required Coordinate endCoordinate,
     ORSProfile? profileOverride,
@@ -67,7 +67,7 @@ extension ORSDirections on OpenRouteService {
   /// entire geojson [GeoJsonFeatureCollection] containing the response data.
   ///
   /// To get only the parsed route coordinates,
-  /// use [ORSDirections.getMultiRouteCoordinates].
+  /// use [ORSDirections.directionsMultiRouteCoordinatesPostGet].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
@@ -147,7 +147,7 @@ extension ORSDirections on OpenRouteService {
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
-  Future<List<Coordinate>> getMultiRouteCoordinates({
+  Future<List<Coordinate>> directionsMultiRouteCoordinatesPostGet({
     required List<Coordinate> coordinates,
     Object? alternativeRoutes,
     List<String>? attributes,
@@ -208,11 +208,11 @@ extension ORSDirections on OpenRouteService {
   /// use [ORSDirections.getMultiRouteDirectionsGeoJson].
   ///
   /// To get only the parsed route coordinates,
-  /// use [ORSDirections.getMultiRouteCoordinates].
+  /// use [ORSDirections.directionsMultiRouteCoordinatesPostGet].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/post
-  Future<List<DirectionRouteData>> getMultiRouteDirectionsData({
+  Future<List<DirectionRouteData>> directionsMultiRouteDataPostGet({
     required List<Coordinate> coordinates,
     Object? alternativeRoutes,
     List<String>? attributes,

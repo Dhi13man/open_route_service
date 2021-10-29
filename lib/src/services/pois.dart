@@ -16,7 +16,7 @@ extension ORSPois on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/pois/post
-  Future<PoisData> getPOIsData({
+  Future<PoisData> poisDataPostGet({
     required String request,
     Object? geometry,
     Object? filters,

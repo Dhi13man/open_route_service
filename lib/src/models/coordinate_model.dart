@@ -1,6 +1,6 @@
 /// A Coordinate Data Model independent of any other external libraries.
 /// Contains a [double] Latitude, a [double] Longitude value and
-/// a [double] Altitude value.
+/// an optional [double] Altitude value.
 ///
 /// Should be easily convertible to a LatLng, GeoPoint etc for use in projects.
 class Coordinate {
