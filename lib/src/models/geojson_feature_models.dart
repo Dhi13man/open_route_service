@@ -16,7 +16,7 @@ class GeoJsonFeatureCollection {
       GeoJsonFeatureCollection(
         bbox: <Coordinate>[
           Coordinate(longitude: json['bbox'][0], latitude: json['bbox'][1]),
-          Coordinate(longitude: json['bbox'][2], latitude: json['bbox'][3])
+          Coordinate(longitude: json['bbox'][2], latitude: json['bbox'][3]),
         ],
         features: (json['features'] as List<dynamic>)
             .map<GeoJsonFeature>((dynamic e) =>
@@ -60,97 +60,26 @@ class GeoJsonFeature {
   const GeoJsonFeature({required this.properties, required this.geometry});
 
   GeoJsonFeature.fromJson(Map<String, dynamic> json)
-      : properties = GeoJsonFeatureProperties.fromJson(json['properties']),
+      : properties = json['properties'],
         geometry = GeoJsonFeatureGeometry.fromJson(json['geometry']);
 
-  /// The properties of the feature.
-  final GeoJsonFeatureProperties properties;
+  /// The properties of the feature as [Map] of [String] keys and [dynamic]
+  /// values to keep up with the API's unconstrained response.
+  final Map<String, dynamic> properties;
 
-  /// The geometry of the feature.
+  /// The geometry of the feature as [GeoJsonFeatureGeometry].
   final GeoJsonFeatureGeometry geometry;
 
   /// Converts the [GeoJsonFeature] to a [Map] with keys 'type', 'properties'
   /// and 'geometry'.
   Map<String, dynamic> toJson() => {
         'type': 'Feature',
-        'properties': properties.toJson(),
+        'properties': properties,
         'geometry': geometry.toJson(),
       };
 
   @override
   String toString() => 'Feature(properties: $properties, geometry: $geometry)';
-}
-
-/// Properties of a [GeoJsonFeature].
-///
-/// Has a variety of feature properties data, all optional, with no set schema.
-class GeoJsonFeatureProperties {
-  const GeoJsonFeatureProperties({
-    this.groupIndex,
-    this.value,
-    this.center,
-    this.osmId,
-    this.osmType,
-    this.distance,
-    this.categoryIds,
-    this.osmTags,
-  });
-
-  GeoJsonFeatureProperties.fromJson(Map<String, dynamic> json)
-      : groupIndex = json['group_index'],
-        value = json['value'],
-        center = json['center'] == null
-            ? null
-            : Coordinate.fromList(json['center'] as List<dynamic>),
-        osmId = json['osm_id'],
-        osmType = json['osm_type'],
-        distance = json['distance'],
-        categoryIds = json['category_ids'],
-        osmTags = json['osm_tags'];
-
-  /// The index of the group of the feature.
-  final int? groupIndex;
-
-  /// The value of the feature.
-  final double? value;
-
-  /// The center [Coordinate] of the feature.
-  final Coordinate? center;
-
-  /// The OSM id of the feature.
-  final int? osmId;
-
-  /// The OSM type of the feature.
-  final int? osmType;
-
-  /// The distance to the feature.
-  final double? distance;
-
-  /// The category ids of the feature.
-  final Map<String, dynamic>? categoryIds;
-
-  /// The OSM tags of the feature.
-  final Map<String, dynamic>? osmTags;
-
-  /// Converts the [GeoJsonFeatureProperties] to a [Map] with keys 'groupIndex',
-  /// 'value' and 'center'.
-  ///
-  /// The [center] is converted to a [List] with 2 elements.
-  Map<String, dynamic> toJson() => {
-        'group_index': groupIndex,
-        'value': value,
-        'center': center == null
-            ? null
-            : <double>[center!.longitude, center!.latitude],
-        'osm_id': osmId,
-        'osm_type': osmType,
-        'distance': distance,
-        'category_ids': categoryIds,
-        'osm_tags': osmTags,
-      }..removeWhere((key, value) => value == null);
-
-  @override
-  String toString() => toJson().toString();
 }
 
 /// The geometry of a [GeoJsonFeature].

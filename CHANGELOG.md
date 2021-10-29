@@ -4,6 +4,7 @@
 
 - Addition of GeoCoding API.
 - Metadata models.
+- **BREAKING:** GeoJsonFeatureProperties Data Model removed and replaced with unparsed `Map<String, dynamic>` as it doesn't have any static structure across various endpoints.
 
 ## [0.7.0] - 27th September, 2021
 

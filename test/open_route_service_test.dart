@@ -4,6 +4,7 @@ import 'package:test/test.dart';
 
 import 'services/directions_tests.dart';
 import 'services/elevation_tests.dart';
+import 'services/geocode_tests.dart';
 import 'services/isochrones_tests.dart';
 import 'services/matrix_tests.dart';
 import 'services/optimization_tests.dart';
@@ -97,5 +98,10 @@ Future<void> main() async {
       serializedJobs: serializedJobs,
       serializedVehicles: serializedVehicles,
     ),
+  );
+
+  group(
+    'Geocoding API tests:',
+    () => geocodeTests(service: service),
   );
 }
