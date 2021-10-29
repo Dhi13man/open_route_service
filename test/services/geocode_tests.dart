@@ -91,7 +91,7 @@ void geocodeTests({
       final Coordinate geocodedCoordinate =
           geocodeData.features.first.geometry.coordinates.first.first;
 
-      // Now, reverse geocode the coordinate received 
+      // Now, reverse geocode the coordinate received
       // from geocoding geocodeLocalityQueryText.
       final GeoJsonFeatureCollection reverseGeocodeData =
           await service.geocodeReverseGet(

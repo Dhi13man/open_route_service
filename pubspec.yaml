@@ -1,6 +1,6 @@
 name: open_route_service
 description: An encapsulation made around openrouteservice APIs, for Dart and Flutter projects, to easily generate Routes and their data. 
-version: 0.7.0
+version: 1.0.0
 homepage: https://github.com/dhi13man/open_route_service/
 
 environment:

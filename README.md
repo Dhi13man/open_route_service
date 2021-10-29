@@ -71,7 +71,14 @@ With all of their internal Optimizations, this includes:
 4. **[Time-Distance Matrix](https://openrouteservice.org/dev/#/api-docs/matrix):**
    Obtain one-to-many, many-to-one and many-to-many matrices for time and distance. Returns duration or distance matrix for multiple source and destination points.
 
-5. **Pelias Geocoding:**
+5. **[Pelias Geocoding](https://openrouteservice.org/dev/#/api-docs/geocode):**
+   Resolve input coordinates to addresses and vice versa. Provides functionality for geocoding autocomplete queries, search queries, and reverse geocoding.
+
+   |  Reverse Geocoding Information used on Map  |
+   | ------------------------------------------- |
+   | ![Reverse Geocode on Map][reverse_geo_img]  |
+
+    [reverse_geo_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/reverse_geocoding_map.png
 
 6. **[POIs](https://openrouteservice.org/dev/#/api-docs/pois):**
    Obtains information about the Points of Interest (POIs) in the area surrounding a geometry which can either be a bounding box, polygon or buffered linestring, or point.

@@ -74,7 +74,8 @@ void directionsTests({
     expect(routeCoordinates.length, greaterThan(0));
   });
 
-  test('Cross-validate [directionsRouteCoordsGet] and [directionsMultiRouteCoordsPostGet]',
+  test(
+      'Cross-validate [directionsRouteCoordsGet] and [directionsMultiRouteCoordsPostGet]',
       () async {
     final List<Coordinate> routeCoordinates =
         await service.directionsRouteCoordsGet(

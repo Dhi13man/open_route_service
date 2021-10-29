@@ -1,7 +1,8 @@
 # Releases
 
-## [1.0.0] - [Unreleased]
+## [1.0.0] - 30th October, 2021
 
+- First Stable Release (unless there is some breaking bugs tha slipped by).
 - Addition of GeoCoding API.
 - Metadata models.
 - **BREAKING:** GeoJsonFeatureProperties Data Model removed and replaced with unparsed `Map<String, dynamic>` as it doesn't have any static structure across various endpoints.
