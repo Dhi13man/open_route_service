@@ -6,28 +6,24 @@ extension ORSGeocode on OpenRouteService {
       '${OpenRouteService._baseURL}/geocode';
 
   /// Available Sources for Geocoding
-  Set<String> get geocodeSearchSourcesAvailable => <String>{
-    'openstreetmap',
-    'openaddresses',
-    'whosonfirst',
-    'geonames'
-  };
+  Set<String> get geocodeSearchSourcesAvailable =>
+      <String>{'openstreetmap', 'openaddresses', 'whosonfirst', 'geonames'};
 
   /// Available Layer settings for Geocoding
   Set<String> get geocodeSearchLayersAvailable => const <String>{
-    'address',
-    'venue',
-    'neighbourhood',
-    'locality',
-    'borough',
-    'localadmin',
-    'county',
-    'macrocounty',
-    'region',
-    'macroregion',
-    'country',
-    'coarse',
-  };
+        'address',
+        'venue',
+        'neighbourhood',
+        'locality',
+        'borough',
+        'localadmin',
+        'county',
+        'macrocounty',
+        'region',
+        'macroregion',
+        'country',
+        'coarse',
+      };
 
   Future<GeoJsonFeatureCollection> geocodeSearch({
     required String text,
