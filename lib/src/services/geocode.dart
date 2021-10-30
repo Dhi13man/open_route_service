@@ -230,7 +230,8 @@ extension ORSGeocode on OpenRouteService {
         locality == null &&
         borough == null) {
       throw ArgumentError(
-        'At least one of the following fields is required: venue, address, neighbourhood, borough, locality, county, region, postalcode, country',
+        'At least one of the following fields is required: venue, address, '
+        'neighbourhood, borough, locality, county, region, postalcode, country',
       );
     }
     _bothOrNeitherNullValidation(
@@ -310,8 +311,8 @@ extension ORSGeocode on OpenRouteService {
   }
 
   /// Fetches the Reverse Geocode data from the given [sources] and using
-  /// settings [layers], and returns the entire geojson [GeoJsonFeatureCollection]
-  /// containing the data.
+  /// settings [layers], and returns the entire geojson
+  /// [GeoJsonFeatureCollection] containing the data.
   ///
   /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
   /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all

@@ -30,7 +30,11 @@ class PoisData extends GeoJsonFeatureCollection {
 
   @override
   Map<String, dynamic> toJson() => super.toJson()
-    ..addEntries([MapEntry('information', information.toJson())]);
+    ..addEntries(
+      <MapEntry<String, dynamic>>[
+        MapEntry<String, dynamic>('information', information.toJson()),
+      ],
+    );
 
   @override
   String toString() => toJson().toString();

@@ -21,8 +21,8 @@ class GeoJsonFeatureCollection {
   /// 'bbox' and 'features'.
   factory GeoJsonFeatureCollection.fromJson(Map<String, dynamic> json) =>
       GeoJsonFeatureCollection(
-        bbox: ((json['bbox'] ?? []) as List<dynamic>).length < 4
-            ? []
+        bbox: ((json['bbox'] ?? <dynamic>[]) as List<dynamic>).length < 4
+            ? <Coordinate>[]
             : <Coordinate>[
                 Coordinate(
                   longitude: json['bbox'][0],
@@ -51,7 +51,7 @@ class GeoJsonFeatureCollection {
   /// 'bbox' and 'features'.
   ///
   /// The 'bbox' key is converted to list of 4 [double]s implying 2 coordinates.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'type': 'FeatureCollection',
         'bbox': <double>[
           bbox[0].longitude,
@@ -60,7 +60,9 @@ class GeoJsonFeatureCollection {
           bbox[1].latitude,
         ],
         'features': features
-            .map<Map<String, dynamic>>((feature) => feature.toJson())
+            .map<Map<String, dynamic>>(
+              (GeoJsonFeature feature) => feature.toJson(),
+            )
             .toList(),
       };
 
@@ -119,7 +121,7 @@ class GeoJsonFeature {
 
   /// Converts the [GeoJsonFeature] to a [Map] with keys 'type', 'properties'
   /// and 'geometry'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'type': 'Feature',
         'properties': properties,
         'geometry': geometry.toJson(),
@@ -153,13 +155,15 @@ class GeoJsonFeatureGeometry {
         coordinates = (json['coordinates'] as List<dynamic>).first is List
             ?
             // For Isochrone feature geometry.
-            (((json['coordinates'] as List<dynamic>).first as List).first
-                    is List)
+            (((json['coordinates'] as List<dynamic>).first as List<dynamic>)
+                    .first is List<dynamic>)
                 ? (json['coordinates'] as List<dynamic>)
                     .map<List<Coordinate>>(
                       (dynamic coords) => (coords as List<dynamic>)
                           .map<Coordinate>(
-                            (c) => Coordinate.fromList(c as List<dynamic>),
+                            (dynamic c) => Coordinate.fromList(
+                              c as List<dynamic>,
+                            ),
                           )
                           .toList(),
                     )
@@ -199,12 +203,13 @@ class GeoJsonFeatureGeometry {
   ///
   /// The [coordinates] are converted to a [List] of [List]s of
   /// [List]s of 2 elements.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'type': type,
         'coordinates': coordinates
             .map<List<List<double>>>(
-              (coordinate) =>
-                  coordinate.map<List<double>>((c) => c.toList()).toList(),
+              (List<Coordinate> coordinate) => coordinate
+                  .map<List<double>>((Coordinate c) => c.toList())
+                  .toList(),
             )
             .toList(),
       };

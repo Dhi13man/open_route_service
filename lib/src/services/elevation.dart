@@ -49,11 +49,11 @@ extension ORSElevation on OpenRouteService {
       'format_out': formatOut,
       'dataset': dataset,
       'geometry': formatIn == 'geojson'
-          ? {
+          ? <String, dynamic>{
               'type': 'Point',
-              'coordinates': [geometry.longitude, geometry.latitude],
+              'coordinates': geometry.toList(),
             }
-          : [geometry.longitude, geometry.latitude],
+          : geometry.toList(),
     };
 
     // Fetch and parse the data.

@@ -13,13 +13,13 @@ void optimizationTests({
     () async {
       // Parse the Job and Vehicle data
       final List<VroomJob> jobs = (json.decode(serializedJobs) as List<dynamic>)
-          .map<VroomJob>((e) => VroomJob.fromJson(e))
+          .map<VroomJob>((dynamic e) => VroomJob.fromJson(e))
           .toList();
       expect(jobs.length, greaterThan(0)); // Validate deserialization
 
       final List<VroomVehicle> vehicles =
           (json.decode(serializedVehicles) as List<dynamic>)
-              .map<VroomVehicle>((e) => VroomVehicle.fromJson(e))
+              .map<VroomVehicle>((dynamic e) => VroomVehicle.fromJson(e))
               .toList();
       expect(vehicles.length, greaterThan(0)); // Validate deserialization
 

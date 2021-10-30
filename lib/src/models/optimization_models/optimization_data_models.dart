@@ -16,7 +16,7 @@ class OptimizationData {
     required this.code,
     required this.summary,
     required this.routes,
-    this.unassigned = const [],
+    this.unassigned = const <dynamic>[],
   });
 
   /// Generates a [OptimizationData] from a [Map] received from the API having
@@ -27,7 +27,9 @@ class OptimizationData {
         summary: OptimizationSummary.fromJson(json['summary']),
         unassigned: json['unassigned'] as List<dynamic>,
         routes: (json['routes'] as List<dynamic>)
-            .map<OptimizationRoute>((e) => OptimizationRoute.fromJson(e))
+            .map<OptimizationRoute>(
+              (dynamic e) => OptimizationRoute.fromJson(e),
+            )
             .toList(),
       );
 
@@ -46,7 +48,7 @@ class OptimizationData {
   /// Returns a [Map] representation of the [OptimizationData] object.
   ///
   /// The keys of the [Map] are 'code', 'summary', 'routes' and 'unassigned'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'code': code,
         'summary': summary.toJson(),
         'routes': routes
@@ -98,17 +100,17 @@ class OptimizationSummary {
         amount: json['amount'] == null
             ? null
             : (json['amount'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         delivery: json['delivery'] == null
             ? null
             : (json['delivery'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         pickup: json['pickup'] == null
             ? null
             : (json['pickup'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         service: json['service'],
         duration: json['duration'],
@@ -149,7 +151,7 @@ class OptimizationSummary {
   /// Returns a [Map] representation of the [OptimizationSummary] object.
   /// The keys of the [Map] are 'cost', 'unassigned', 'amount', 'delivery',
   /// 'pickup', 'service', 'duration', 'waiting_time' and 'computing_times'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'cost': cost,
         'unassigned': unassigned,
         'amount': amount,
@@ -159,7 +161,7 @@ class OptimizationSummary {
         'duration': duration,
         'waiting_time': waitingTime,
         'computing_times': computingTimes,
-      }..removeWhere((key, value) => value == null);
+      }..removeWhere((String _, dynamic value) => value == null);
 
   @override
   String toString() => toJson().toString();
@@ -199,17 +201,17 @@ class OptimizationRoute {
         amount: json['amount'] == null
             ? null
             : (json['amount'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         delivery: json['delivery'] == null
             ? null
             : (json['delivery'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         pickup: json['pickup'] == null
             ? null
             : (json['pickup'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         service: json['service'],
         duration: json['duration'],
@@ -218,7 +220,7 @@ class OptimizationRoute {
             ? null
             : (json['steps'] as List<dynamic>)
                 .map<OptimizationRouteStep>(
-                  (e) => OptimizationRouteStep.fromJson(e),
+                  (dynamic e) => OptimizationRouteStep.fromJson(e),
                 )
                 .toList(),
       );
@@ -256,7 +258,7 @@ class OptimizationRoute {
   /// Returns a [Map] representation of the [OptimizationRoute] object.
   /// The keys of the [Map] are 'vehicle', 'cost', 'delivery', 'amount',
   /// 'pickup', 'service', 'duration', 'waiting_time' and 'steps'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'vehicle': vehicle,
         'cost': cost,
         'amount': amount,
@@ -271,7 +273,7 @@ class OptimizationRoute {
                 .map<Map<String, dynamic>>(
                     (OptimizationRouteStep e) => e.toJson())
                 .toList(),
-      }..removeWhere((key, value) => value == null);
+      }..removeWhere((String _, dynamic value) => value == null);
 
   @override
   String toString() => toJson().toString();
@@ -301,7 +303,7 @@ class OptimizationRouteStep {
     this.load = const <int>[],
   });
 
-  /// Generates [OptimizationRouteStep] from a [Map] received from the API having
+  /// Generates [OptimizationRouteStep] from a [Map] received from API having
   /// the keys 'type', 'location', 'arrival', 'duration', 'id', 'service',
   /// 'waiting_time', 'job' and 'load'.
   factory OptimizationRouteStep.fromJson(Map<String, dynamic> json) =>
@@ -317,7 +319,7 @@ class OptimizationRouteStep {
         load: json['load'] == null
             ? null
             : (json['load'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
       );
 
@@ -353,7 +355,7 @@ class OptimizationRouteStep {
   /// Returns a [Map] representation of the [OptimizationRouteStep] object.
   /// The keys of the [Map] are 'type', 'location', 'arrival', 'duration',
   /// 'id', 'service', 'waiting_time', 'job' and 'load'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'type': type,
         'location': location.toList(),
         'arrival': arrival,
@@ -363,7 +365,7 @@ class OptimizationRouteStep {
         'waiting_time': waitingTime,
         'job': job,
         'load': load,
-      }..removeWhere((key, value) => value == null);
+      }..removeWhere((String _, dynamic value) => value == null);
 
   @override
   String toString() => toJson().toString();

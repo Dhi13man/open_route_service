@@ -50,7 +50,7 @@ extension ORSMatrix on OpenRouteService {
       'resolve_locations': resolveLocations,
       'sources': sources,
       'units': units,
-    }..removeWhere((key, value) => value == null);
+    }..removeWhere((String _, dynamic value) => value == null);
 
     // Fetch the data.
     try {

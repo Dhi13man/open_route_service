@@ -45,7 +45,7 @@ extension ORServiceIsochrones on OpenRouteService {
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'locations': locations
           .map<List<double>>(
-            (coordinate) => <double>[coordinate.longitude, coordinate.latitude],
+            (Coordinate coordinate) => coordinate.toList(),
           )
           .toList(),
       'range': range,
@@ -59,7 +59,8 @@ extension ORServiceIsochrones on OpenRouteService {
       'smoothing': smoothing,
       'area_units': areaUnits,
       'units': units,
-    }..removeWhere((key, value) => value == null);
+    }..removeWhere((String _, dynamic value) => value == null);
+    print(queryParameters);
 
     // Fetch and parse the data.
     final Map<String, dynamic> data =

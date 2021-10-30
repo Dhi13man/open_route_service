@@ -32,7 +32,7 @@ extension ORSOptimization on OpenRouteService {
       'vehicles': vehicles,
       'matrix': matrix,
       'options': options,
-    }..removeWhere((key, value) => value == null);
+    }..removeWhere((String _, dynamic value) => value == null);
 
     // Fetch and parse the data.
     final Map<String, dynamic> data =

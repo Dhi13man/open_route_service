@@ -40,29 +40,33 @@ class VroomVehicle {
         capacity: json['capacity'] == null
             ? null
             : (json['capacity'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         skills: json['skills'] == null
             ? null
             : (json['skills'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         timeWindow: json['time_window'] == null
             ? null
             : (json['time_window'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         breaks: json['breaks'] == null
             ? null
             : (json['breaks'] as List<dynamic>)
-                .map<VroomVehicleBreak>((e) => VroomVehicleBreak.fromJson(e))
+                .map<VroomVehicleBreak>(
+                  (dynamic e) => VroomVehicleBreak.fromJson(e),
+                )
                 .toList(),
         speedFactor: json['speed_factor'],
         maxTasks: json['max_tasks'],
         steps: json['steps'] == null
             ? null
             : (json['steps'] as List<dynamic>)
-                .map<VroomVehicleStep>((e) => VroomVehicleStep.fromJson(e))
+                .map<VroomVehicleStep>(
+                  (dynamic e) => VroomVehicleStep.fromJson(e),
+                )
                 .toList(),
       );
 
@@ -128,7 +132,7 @@ class VroomVehicle {
   /// 'profile', 'description', 'start', 'start_index', 'end', 'end_index',
   /// 'capacity', 'skills', 'time_window', 'breaks', 'speed_factor', 'max_tasks'
   /// and 'steps'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'profile': profile,
         'description': description,
@@ -152,7 +156,7 @@ class VroomVehicle {
                 .map<Map<String, dynamic>>(
                     (VroomVehicleStep step) => step.toJson())
                 .toList(),
-      }..removeWhere((key, value) => value == null);
+      }..removeWhere((String _, dynamic value) => value == null);
 
   @override
   String toString() => toJson().toString();
@@ -200,30 +204,30 @@ class VroomJob {
         amount: json['amount'] == null
             ? null
             : (json['amount'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         delivery: json['delivery'] == null
             ? null
             : (json['delivery'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         pickup: json['pickup'] == null
             ? null
             : (json['pickup'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         skills: json['skills'] == null
             ? null
             : (json['skills'] as List<dynamic>)
-                .map<int>((e) => e as int)
+                .map<int>((dynamic e) => e as int)
                 .toList(),
         priority: json['priority'],
         timeWindows: json['time_windows'] == null
             ? null
             : (json['time_windows'] as List<dynamic>)
                 .map<List<int>>(
-                  (timeWindow) => (timeWindow as List<dynamic>)
-                      .map<int>((time) => time as int)
+                  (dynamic timeWindow) => (timeWindow as List<dynamic>)
+                      .map<int>((dynamic time) => time as int)
                       .toList(),
                 )
                 .toList(),
@@ -272,7 +276,7 @@ class VroomJob {
   /// [Map] representation of this [VroomJob] having keys 'id', 'description',
   /// 'location', 'location_index', 'setup', 'service', 'amount', 'delivery',
   /// 'pickup', 'skills', 'priority', and 'time_windows'
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'description': description,
         'location': location?.toList(),
@@ -285,7 +289,7 @@ class VroomJob {
         'skills': skills,
         'priority': priority,
         'time_windows': timeWindows,
-      }..removeWhere((key, value) => value == null);
+      }..removeWhere((String _, dynamic value) => value == null);
 
   @override
   String toString() => toJson().toString();
@@ -320,8 +324,8 @@ class VroomVehicleBreak {
             ? null
             : (json['time_windows'] as List<dynamic>)
                 .map<List<int>>(
-                  (timeWindow) => (timeWindow as List<dynamic>)
-                      .map<int>((time) => time as int)
+                  (dynamic timeWindow) => (timeWindow as List<dynamic>)
+                      .map<int>((dynamic time) => time as int)
                       .toList(),
                 )
                 .toList(),
@@ -343,7 +347,7 @@ class VroomVehicleBreak {
 
   /// [Map] representation of this [VroomVehicleBreak] having keys 'id',
   /// 'time_windows', 'service', and 'description'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'time_windows': timeWindows,
         'service': service,
@@ -364,9 +368,14 @@ class VroomVehicleBreak {
 /// Class Representing a Vroom API Vehicle Step Model.
 ///
 /// [type] 	a string (either start, job, pickup, delivery, break or end)
-/// [id] 	id of the task to be performed at this step if type value is job, pickup, delivery or break
+///
+/// [id] 	id of the task to be performed at this step if type value is job,
+/// pickup, delivery or break
+///
 /// [service_at] 	hard constraint on service time
+///
 /// [service_after] 	hard constraint on service time lower bound
+///
 /// [service_before] 	hard constraint on service time upper bound
 ///
 /// View the Vehicles Section to find the Step Model schema.
@@ -462,7 +471,7 @@ class VroomVehicleStep {
 
   /// [Map] representation of this [VroomVehicleStep] having keys 'type',
   /// 'id', 'service_at', 'service_after', and 'service_before'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'type': vroomVehicleStepTypeToString(type),
         'id': id,
         'service_at': serviceAt,

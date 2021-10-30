@@ -8,6 +8,9 @@ extension ORSPois on OpenRouteService {
   /// surrounding a geometry which can either be a bounding box, polygon
   /// or buffered linestring or point.
   ///
+  /// [request] should be 'pois', 'stats' or 'list'. Throws an [ArgumentError]
+  /// otherwise.
+  ///
   /// The [geometry] object is a geojson or a bounding box object,
   /// optionally buffered.
   ///
@@ -23,6 +26,15 @@ extension ORSPois on OpenRouteService {
     int? limit,
     String? sortBy,
   }) async {
+    // Validate [request]
+    if (request != 'pois' && request != 'stats' && request != 'list') {
+      throw ArgumentError.value(
+        request,
+        'request',
+        'Must be one of "pois", "stats" or "list"',
+      );
+    }
+
     // Build the request URL.
     final Uri uri = Uri.parse(_poisEndpointURL);
 
@@ -33,7 +45,7 @@ extension ORSPois on OpenRouteService {
       'filters': filters,
       'limit': limit,
       'sortBy': sortBy,
-    }..removeWhere((key, value) => value == null);
+    }..removeWhere((String _, dynamic value) => value == null);
 
     // Fetch the data and parse it.
     final dynamic data =

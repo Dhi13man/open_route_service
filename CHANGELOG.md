@@ -1,8 +1,13 @@
 # Releases
 
+## [1.0.1] - 31st October, 2021
+
+- Restriction applied to `request` parameter of `ORSPois.poisDataPostGet` with ArgumentError, as per API convention.
+- Linted Code. :)
+
 ## [1.0.0] - 30th October, 2021
 
-- First Stable Release (unless there is some breaking bugs tha slipped by).
+- First Stable Release (unless there is some breaking bug that slipped by).
 - Addition of GeoCoding API.
 - Metadata models.
 - **BREAKING:** GeoJsonFeatureProperties Data Model removed and replaced with unparsed `Map<String, dynamic>` as it doesn't have any static structure across various endpoints.

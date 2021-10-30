@@ -22,26 +22,27 @@ class TimeDistanceMatrix {
       TimeDistanceMatrix(
         durations: (json['durations'] as List<dynamic>)
             .map<List<double>>(
-              (duration) => (duration as List<dynamic>)
-                  .map<double>((d) => d as double)
+              (dynamic duration) => (duration as List<dynamic>)
+                  .map<double>((dynamic d) => d as double)
                   .toList(),
             )
             .toList(),
         distances: (json['distances'] as List<dynamic>?)
             ?.map<List<double>>(
-              (duration) => (duration as List<dynamic>)
-                  .map<double>((d) => d as double)
+              (dynamic duration) => (duration as List<dynamic>)
+                  .map<double>((dynamic d) => d as double)
                   .toList(),
             )
             .toList(),
         destinations: (json['destinations'] as List<dynamic>)
             .map<TimeDistanceMatrixLocation>(
-              (destination) => TimeDistanceMatrixLocation.fromJson(destination),
+              (dynamic destination) =>
+                  TimeDistanceMatrixLocation.fromJson(destination),
             )
             .toList(),
         sources: (json['sources'] as List<dynamic>)
             .map<TimeDistanceMatrixLocation>(
-                (source) => TimeDistanceMatrixLocation.fromJson(source))
+                (dynamic source) => TimeDistanceMatrixLocation.fromJson(source))
             .toList(),
       );
 

@@ -37,7 +37,7 @@ void matrixTests({
     () async {
       final TimeDistanceMatrix matrix = await service.matrixPostGet(
         locations: locations,
-        metrics: ['distance', 'duration'],
+        metrics: <String>['distance', 'duration'],
       );
 
       final int numDestinations = matrix.destinations.length;

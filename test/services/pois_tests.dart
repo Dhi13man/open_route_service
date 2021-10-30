@@ -12,16 +12,16 @@ void poisTests({
       try {
         final PoisData poisData = await service.poisDataPostGet(
           request: 'pois',
-          geometry: {
-            "bbox": <List<double>>[
+          geometry: <String, dynamic>{
+            'bbox': <List<double>>[
               boundingBoxStart.toList(),
               boundingBoxEnd.toList(),
             ],
-            "geojson": {
-              "type": "Point",
-              "coordinates": boundingBoxStart.toList(),
+            'geojson': <String, dynamic>{
+              'type': 'Point',
+              'coordinates': boundingBoxStart.toList(),
             },
-            "buffer": 200
+            'buffer': 200
           },
         );
         expect(poisData.features.length, greaterThan(0));

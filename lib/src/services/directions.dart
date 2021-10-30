@@ -7,7 +7,7 @@ extension ORSDirections on OpenRouteService {
 
   /// Fetches the Direction Route information for the route between
   /// [startCoordinate] and [endCoordinate] from the openrouteservice API,
-  /// and returns the entire geojson [GeoJsonFeatureCollection] containing the data.
+  /// and returns the entire geojson [GeoJsonFeatureCollection] containing data.
   ///
   /// To get only the parsed route coordinates,
   /// use [ORSDirections.directionsRouteCoordsGet].
@@ -42,8 +42,8 @@ extension ORSDirections on OpenRouteService {
   /// [startCoordinate] and [endCoordinate] from the openrouteservice API, and
   /// parses it's coordinates to a [List] of [Coordinate] objects.
   ///
-  /// To return the entire [GeoJsonFeatureCollection] containing the response data,
-  /// use [ORSDirections.getRouteDirectionsGeoJson].
+  /// To return the entire [GeoJsonFeatureCollection] containing the response
+  /// data, use [ORSDirections.getRouteDirectionsGeoJson].
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
@@ -107,7 +107,8 @@ extension ORSDirections on OpenRouteService {
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'coordinates': coordinates
           .map<List<double>>(
-            (coordinate) => <double>[coordinate.longitude, coordinate.latitude],
+            (Coordinate coordinate) =>
+                <double>[coordinate.longitude, coordinate.latitude],
           )
           .toList(),
       'alternative_routes': alternativeRoutes,
@@ -130,7 +131,7 @@ extension ORSDirections on OpenRouteService {
       'units': units,
       'geometry': geometry,
       'maximum_speed': maximumSpeed,
-    }..removeWhere((key, value) => value == null);
+    }..removeWhere((String _, dynamic value) => value == null);
 
     // Fetch the data.
     final Map<String, dynamic> data =
@@ -142,8 +143,8 @@ extension ORSDirections on OpenRouteService {
   /// various given [coordinates], from the openrouteservice API, and then
   /// parses it's coordinates to a [List] of [Coordinate] objects.
   ///
-  /// To return the entire [GeoJsonFeatureCollection] containing the response data,
-  /// use [ORSDirections.getRouteDirectionsGeoJson].
+  /// To return the entire [GeoJsonFeatureCollection] containing the response
+  /// data, use [ORSDirections.getRouteDirectionsGeoJson].
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
@@ -204,8 +205,8 @@ extension ORSDirections on OpenRouteService {
   /// various [coordinates] from the openrouteservice API, and returns the
   /// entire geojson [DirectionRouteData] containing the response data.
   ///
-  /// To get the geojson [GeoJsonFeatureCollection] containing the response data,
-  /// use [ORSDirections.getMultiRouteDirectionsGeoJson].
+  /// To get the geojson [GeoJsonFeatureCollection] containing the response
+  /// data, use [ORSDirections.getMultiRouteDirectionsGeoJson].
   ///
   /// To get only the parsed route coordinates,
   /// use [ORSDirections.directionsMultiRouteCoordsPostGet].
@@ -272,7 +273,7 @@ extension ORSDirections on OpenRouteService {
       'units': units,
       'geometry': geometry,
       'maximum_speed': maximumSpeed,
-    }..removeWhere((key, value) => value == null);
+    }..removeWhere((String _, dynamic value) => value == null);
 
     // Fetch the data.
     final Map<String, dynamic> data =

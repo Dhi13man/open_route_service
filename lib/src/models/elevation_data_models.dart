@@ -81,11 +81,11 @@ class ElevationData {
   /// The json will have keys 'timestamp', 'attribution', 'version', 'elevation'
   /// and 'geometry' which corresponds to a [Map] further containing keys
   /// 'coordinates' and 'type'.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'attribution': attribution,
-        'geometry': {
+        'geometry': <String, dynamic>{
           'coordinates':
-              coordinates.map<List<double>>((e) => e.toList()).toList(),
+              coordinates.map<List<double>>((dynamic e) => e.toList()).toList(),
           'type': type,
         },
         'timestamp': timestamp,

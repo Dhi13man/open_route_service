@@ -23,7 +23,8 @@ class DirectionRouteData {
         summary: DirectionRouteSummary.fromJson(json['summary']),
         segments: (json['segments'] as List<dynamic>)
             .map<DirectionRouteSegment>(
-                (segment) => DirectionRouteSegment.fromJson(segment))
+              (dynamic segment) => DirectionRouteSegment.fromJson(segment),
+            )
             .toList(),
         bbox: <Coordinate>[
           Coordinate(longitude: json['bbox'][0], latitude: json['bbox'][1]),
@@ -62,7 +63,7 @@ class DirectionRouteData {
               (DirectionRouteSegment segment) => segment.toJson(),
             )
             .toList(),
-        'bbox': [
+        'bbox': <double>[
           bbox[0].longitude,
           bbox[0].latitude,
           bbox[1].longitude,
@@ -112,8 +113,8 @@ class DirectionRouteSummary {
 
 /// A class that encapsulates a segment of a [DirectionRouteData].
 ///
-/// Includes the [distance], [duration] and a [List] of [DirectionRouteSegmentStep]
-/// ([steps]) for travelling the segment.
+/// Includes the [distance], [duration] and a [List] of
+/// [DirectionRouteSegmentStep] ([steps]) for travelling the segment.
 class DirectionRouteSegment {
   const DirectionRouteSegment({
     required this.distance,
@@ -129,7 +130,8 @@ class DirectionRouteSegment {
         duration: json['duration'] as double,
         steps: (json['steps'] as List<dynamic>)
             .map<DirectionRouteSegmentStep>(
-                (step) => DirectionRouteSegmentStep.fromJson(step))
+              (dynamic step) => DirectionRouteSegmentStep.fromJson(step),
+            )
             .toList(),
       );
 

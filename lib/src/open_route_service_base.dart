@@ -99,7 +99,7 @@ class OpenRouteService {
 
   /// Performs a GET request on the OpenRouteService API endpoint [uri].
   ///
-  /// Returns [Future] that resolves to json-decoded [http.Response] object body.
+  /// Returns [Future] that resolves to json-decoded [http.Response] object body
   ///
   /// Throws an [HttpException] if the request fails.
   Future<dynamic> _openRouteServiceGet({required Uri uri}) async {
@@ -112,7 +112,8 @@ class OpenRouteService {
     } else {
       final dynamic errorData = jsonDecode(response.body);
       throw ORSException(
-        'Status: ${errorData['error'] ?? errorData} Code: ${response.statusCode}',
+        'Status: ${errorData['error'] ?? errorData} '
+        'Code: ${response.statusCode}',
         uri: uri,
       );
     }
@@ -132,7 +133,7 @@ class OpenRouteService {
     final http.Response response = await _client.post(
       uri,
       body: jsonEncode(data),
-      headers: {
+      headers: <String, String>{
         'Accept':
             'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
         'Authorization': _apiKey,
@@ -146,7 +147,8 @@ class OpenRouteService {
     } else {
       final dynamic errorData = jsonDecode(response.body);
       throw ORSException(
-        'Status: ${errorData['error'] ?? errorData} Code: ${response.statusCode}',
+        'Status: ${errorData['error'] ?? errorData} '
+        'Code: ${response.statusCode}',
         uri: uri,
       );
     }
@@ -169,7 +171,7 @@ enum ORSProfile {
 /// Custom Exception class for this package that contains the [message] of the
 /// error, and the [uri] of the failed request (if any).
 class ORSException implements Exception {
-  @pragma("vm:entry-point")
+  @pragma('vm:entry-point')
   const ORSException(this.message, {this.uri}) : super();
 
   /// The message of the error.

@@ -8,7 +8,7 @@ class Coordinate {
   const Coordinate({
     required this.latitude,
     required this.longitude,
-    this.altitude = 0,
+    this.altitude,
   });
 
   /// Generates a [Coordinate] from a [Map] having [String] keys
@@ -37,11 +37,11 @@ class Coordinate {
 
   /// Returns a [Map] having [String] keys 'latitude' and 'longitude',
   /// respectively having [latitude] and [longitude] as [double] values.
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'latitude': latitude,
         'longitude': longitude,
         'altitude': altitude,
-      }..removeWhere((key, value) => value == null);
+      }..removeWhere((String key, dynamic value) => value == null);
 
   /// Returns a [List] having [double] values.
   /// [longitude] and [latitude] are the first two values respectively.
