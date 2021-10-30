@@ -2,7 +2,7 @@
 
 ## [1.0.1] - 31st October, 2021
 
-- Restriction applied to `request` parameter of `ORSPois.poisDataPostGet` with ArgumentError, as per API convention.
+- Restriction applied to `request` parameter of `ORSPois.poisDataPostGet` with `ArgumentError` if restriction not followed, as per API convention. `request` can now only be 'pois', 'stats' or 'list' as per openrouteservice API.
 - Linted Code. :)
 
 ## [1.0.0] - 30th October, 2021
