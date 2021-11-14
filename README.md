@@ -42,9 +42,9 @@ With all of their internal Optimizations, this includes:
 
    E.g. `ORSDirections.directionsRouteCoordsGet` gives a `List` of `ORSCoordinate` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
 
-   | Route Drawn on Map using Coordinates |
-   | ------------------------------------ |
-   | ![Route Drawn on Map][route_img]     |
+   | Route Drawn on Flutter App Map using Coordinates |
+   | ------------------------------------------------ |
+   | ![Route Drawn on Map (Flutter)][route_img]       |
 
     [route_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/directions_map.png
 
@@ -180,7 +180,7 @@ Future<void> main() async {
 
 ## Dependencies
 
-- [Dart,](https://www.dartlang.org/) for the Dart SDK which this obviously runs on.
+- [Dart](https://www.dartlang.org/) or [Flutter](https://flutter.dev/), for the Dart SDK which this obviously runs on.
 - [http,](https://pub.dev/packages/http) for internally making RESTful HTTP Network requests to the API endpoints.
 
 ## Additional information
