@@ -16,14 +16,14 @@ class ORSCoordinate {
   factory ORSCoordinate.fromJson(Map<String, dynamic> json) => ORSCoordinate(
         latitude: json['latitude']! as double,
         longitude: json['longitude']! as double,
-        altitude: json['longitude'] as double,
+        altitude: json['longitude'] as double?,
       );
 
   /// Generates a [ORSCoordinate] from a [List] having [double] values.
   factory ORSCoordinate.fromList(List<dynamic> json) => ORSCoordinate(
         longitude: (json[0]! as num).toDouble(),
         latitude: (json[1]! as num).toDouble(),
-        altitude: json.length > 2 ? (json[2]! as num).toDouble() : 0.0,
+        altitude: json.length > 2 ? (json[2] as num?)?.toDouble() : 0.0,
       );
 
   /// The latitude of the coordinate.
