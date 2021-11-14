@@ -16,7 +16,7 @@ class ORSCoordinate {
   factory ORSCoordinate.fromJson(Map<String, dynamic> json) => ORSCoordinate(
         latitude: json['latitude']! as double,
         longitude: json['longitude']! as double,
-        altitude: json['longitude'] as double?,
+        altitude: json['altitude'] as double?,
       );
 
   /// Generates a [ORSCoordinate] from a [List] having [double] values.

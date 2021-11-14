@@ -5,6 +5,7 @@
 - **BREAKING:** Renamed `OpenRouteService` methods with even stricter naming convention:
     ```{API endpoint name} + {functionality name} + Post / Get (Based on type of Request)```
 - **BREAKING:** `Coordinate` Model renamed to `ORSCoordinate` to avoid ambiguity with other location based packages.
+- `ORSCoordinate.fromJSON()` fixes for errors with altitude: potential null error and wrong key fixed.
 
 ## [1.0.1] - 31st October, 2021
 
