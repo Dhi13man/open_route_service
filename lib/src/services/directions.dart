@@ -14,9 +14,9 @@ extension ORSDirections on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
-  Future<GeoJsonFeatureCollection> getRouteDirectionsGeoJson({
-    required Coordinate startCoordinate,
-    required Coordinate endCoordinate,
+  Future<GeoJsonFeatureCollection> directionsRouteGeoJsonGet({
+    required ORSCoordinate startCoordinate,
+    required ORSCoordinate endCoordinate,
     ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
@@ -40,21 +40,21 @@ extension ORSDirections on OpenRouteService {
 
   /// Fetches the Direction Route information for the route between
   /// [startCoordinate] and [endCoordinate] from the openrouteservice API, and
-  /// parses it's coordinates to a [List] of [Coordinate] objects.
+  /// parses it's coordinates to a [List] of [ORSCoordinate] objects.
   ///
   /// To return the entire [GeoJsonFeatureCollection] containing the response
-  /// data, use [ORSDirections.getRouteDirectionsGeoJson].
+  /// data, use [ORSDirections.directionsRouteGeoJsonGet].
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/get
-  Future<List<Coordinate>> directionsRouteCoordsGet({
-    required Coordinate startCoordinate,
-    required Coordinate endCoordinate,
+  Future<List<ORSCoordinate>> directionsRouteCoordsGet({
+    required ORSCoordinate startCoordinate,
+    required ORSCoordinate endCoordinate,
     ORSProfile? profileOverride,
   }) async {
     // Fetch and parse the data.
     final GeoJsonFeatureCollection featureCollection =
-        await getRouteDirectionsGeoJson(
+        await directionsRouteGeoJsonGet(
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,
       profileOverride: profileOverride,
@@ -67,12 +67,12 @@ extension ORSDirections on OpenRouteService {
   /// entire geojson [GeoJsonFeatureCollection] containing the response data.
   ///
   /// To get only the parsed route coordinates,
-  /// use [ORSDirections.directionsMultiRouteCoordsPostGet].
+  /// use [ORSDirections.directionsMultiRouteCoordsPost].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
-  Future<GeoJsonFeatureCollection> getMultiRouteDirectionsGeoJson({
-    required List<Coordinate> coordinates,
+  Future<GeoJsonFeatureCollection> directionsMultiRouteGeoJsonPost({
+    required List<ORSCoordinate> coordinates,
     Object? alternativeRoutes,
     List<String>? attributes,
     bool continueStraight = false,
@@ -107,7 +107,7 @@ extension ORSDirections on OpenRouteService {
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'coordinates': coordinates
           .map<List<double>>(
-            (Coordinate coordinate) =>
+            (ORSCoordinate coordinate) =>
                 <double>[coordinate.longitude, coordinate.latitude],
           )
           .toList(),
@@ -141,15 +141,15 @@ extension ORSDirections on OpenRouteService {
 
   /// Fetches the Direction Route information for the route connecting the
   /// various given [coordinates], from the openrouteservice API, and then
-  /// parses it's coordinates to a [List] of [Coordinate] objects.
+  /// parses it's coordinates to a [List] of [ORSCoordinate] objects.
   ///
   /// To return the entire [GeoJsonFeatureCollection] containing the response
-  /// data, use [ORSDirections.getRouteDirectionsGeoJson].
+  /// data, use [ORSDirections.directionsRouteGeoJsonGet].
   ///
   /// Information about the endpoint and all the parameters can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/geojson/post
-  Future<List<Coordinate>> directionsMultiRouteCoordsPostGet({
-    required List<Coordinate> coordinates,
+  Future<List<ORSCoordinate>> directionsMultiRouteCoordsPost({
+    required List<ORSCoordinate> coordinates,
     Object? alternativeRoutes,
     List<String>? attributes,
     bool continueStraight = false,
@@ -174,7 +174,7 @@ extension ORSDirections on OpenRouteService {
   }) async {
     // Fetch and parse the data.
     final GeoJsonFeatureCollection featureCollection =
-        await getMultiRouteDirectionsGeoJson(
+        await directionsMultiRouteGeoJsonPost(
       coordinates: coordinates,
       alternativeRoutes: alternativeRoutes,
       attributes: attributes,
@@ -206,15 +206,15 @@ extension ORSDirections on OpenRouteService {
   /// entire geojson [DirectionRouteData] containing the response data.
   ///
   /// To get the geojson [GeoJsonFeatureCollection] containing the response
-  /// data, use [ORSDirections.getMultiRouteDirectionsGeoJson].
+  /// data, use [ORSDirections.directionsMultiRouteGeoJsonPost].
   ///
   /// To get only the parsed route coordinates,
-  /// use [ORSDirections.directionsMultiRouteCoordsPostGet].
+  /// use [ORSDirections.directionsMultiRouteCoordsPost].
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/post
-  Future<List<DirectionRouteData>> directionsMultiRouteDataPostGet({
-    required List<Coordinate> coordinates,
+  Future<List<DirectionRouteData>> directionsMultiRouteDataPost({
+    required List<ORSCoordinate> coordinates,
     Object? alternativeRoutes,
     List<String>? attributes,
     bool continueStraight = false,
@@ -249,7 +249,7 @@ extension ORSDirections on OpenRouteService {
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'coordinates': coordinates
           .map<List<double>>(
-            (Coordinate coordinate) =>
+            (ORSCoordinate coordinate) =>
                 <double>[coordinate.longitude, coordinate.latitude],
           )
           .toList(),

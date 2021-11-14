@@ -34,12 +34,12 @@ class ElevationData {
                 (json['geometry']['coordinates'] as List<dynamic>).first
                     is List<dynamic>
             ? (json['geometry']['coordinates'] as List<dynamic>)
-                .map<Coordinate>(
-                  (dynamic coordinate) => Coordinate.fromList(coordinate),
+                .map<ORSCoordinate>(
+                  (dynamic coordinate) => ORSCoordinate.fromList(coordinate),
                 )
                 .toList()
-            : <Coordinate>[
-                Coordinate(
+            : <ORSCoordinate>[
+                ORSCoordinate(
                   latitude: json['geometry'] is List
                       ? (json['geometry']?[1] as double)
                       : (json['geometry']?['coordinates']?[1]! as double),
@@ -64,7 +64,7 @@ class ElevationData {
   final String attribution;
 
   /// The coordinates of the elevation Geometry data. [Lat, Lng, Alt?]
-  final List<Coordinate> coordinates;
+  final List<ORSCoordinate> coordinates;
 
   /// The type of the elevation Geometry data.
   final String type;

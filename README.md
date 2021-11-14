@@ -40,7 +40,7 @@ With all of their internal Optimizations, this includes:
 1. **[Directions](https://openrouteservice.org/dev/#/api-docs/v2/directions/):**
    Route Generation between any two or more coordinates for any mode of transportation. For example, from a starting point to a destination on `'foot-walking'`.
 
-   E.g. `ORSDirections.directionsRouteCoordsGet` gives a `List` of `Coordinates` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
+   E.g. `ORSDirections.directionsRouteCoordsGet` gives a `List` of `ORSCoordinate` which can then be easily used to draw a Polyline route on a map in a Flutter Application or anything else you can think of.
 
    | Route Drawn on Map using Coordinates |
    | ------------------------------------ |
@@ -49,7 +49,7 @@ With all of their internal Optimizations, this includes:
     [route_img]: https://raw.githubusercontent.com/Dhi13man/open_route_service/main/screenshots/directions_map.png
 
 2. **[Elevation](https://openrouteservice.org/dev/#/api-docs/elevation/):**
-   Get the elevation of a coordinate, or a list of coordinates. Fetches the `ElevationData` by taking a 2D `coordinate` or planar line geometry, and enriching it with elevation from a variety of datasets.
+   Get the elevation of a coordinate, or a list of coordinates. Fetches the `ElevationData` by taking a 2D `ORSCoordinate` or planar line geometry, and enriching it with elevation from a variety of datasets.
 
    | Elevation Response Received                 |
    | ------------------------------------------- |
@@ -142,9 +142,9 @@ Future<void> main() async {
   const double endLng = -122.0792365;
 
   // Form Route between coordinates
-  final List<Coordinate> routeCoordinates = await client.directionsRouteCoordsGet(
-    startCoordinate: Coordinate(latitude: startLat, longitude: startLng),
-    endCoordinate: Coordinate(latitude: endLat, longitude: endLng),
+  final List<ORSCoordinate> routeCoordinates = await client.directionsRouteCoordsGet(
+    startCoordinate: ORSCoordinate(latitude: startLat, longitude: startLng),
+    endCoordinate: ORSCoordinate(latitude: endLat, longitude: endLng),
   );
 
   // Print the route coordinates

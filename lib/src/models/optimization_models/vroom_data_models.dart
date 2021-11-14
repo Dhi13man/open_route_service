@@ -33,9 +33,9 @@ class VroomVehicle {
         id: json['id'],
         profile: json['profile'],
         description: json['description'],
-        start: Coordinate.fromList(json['start']),
+        start: ORSCoordinate.fromList(json['start']),
         startIndex: json['start_index'],
-        end: Coordinate.fromList(json['end']),
+        end: ORSCoordinate.fromList(json['end']),
         endIndex: json['end_index'],
         capacity: json['capacity'] == null
             ? null
@@ -79,7 +79,7 @@ class VroomVehicle {
   /// [String] describing the routing profile for this vehicle.
   final String profile;
 
-  /// [Coordinate] object describing the start location of this vehicle.
+  /// [ORSCoordinate] object describing the start location of this vehicle.
   ///
   /// [start] and [end] are optional for a vehicle, as long as at least one of
   /// them is present. If start is omitted, the resulting route will start at
@@ -88,12 +88,12 @@ class VroomVehicle {
   ///
   /// To request a round trip, just specify both [start] and [end] with the same
   /// coordinates.
-  final Coordinate? start;
+  final ORSCoordinate? start;
 
   /// [int] Start index of relevant row and column in custom matrices.
   final int? startIndex;
 
-  /// [Coordinate] object describing the end location of this vehicle.
+  /// [ORSCoordinate] object describing the end location of this vehicle.
   ///
   /// [start] and [end] are optional for a vehicle, as long as at least one of
   /// them is present. If end is omitted, the resulting route will stop at the
@@ -101,7 +101,7 @@ class VroomVehicle {
   ///
   /// To request a round trip, just specify both [start] and [end] with the same
   /// coordinates.
-  final Coordinate? end;
+  final ORSCoordinate? end;
 
   /// [int] End index of relevant row and column in custom matrices.
   final int? endIndex;
@@ -197,7 +197,7 @@ class VroomJob {
   factory VroomJob.fromJson(Map<String, dynamic> json) => VroomJob(
         id: json['id'],
         description: json['description'],
-        location: Coordinate.fromList(json['location']),
+        location: ORSCoordinate.fromList(json['location']),
         locationIndex: json['location_index'],
         setup: json['setup'],
         service: json['service'],
@@ -239,8 +239,8 @@ class VroomJob {
   /// [String] describing this job.
   final String? description;
 
-  /// [Coordinate] describing the location of this job.
-  final Coordinate? location;
+  /// [ORSCoordinate] describing the location of this job.
+  final ORSCoordinate? location;
 
   /// [int] index of relevant row and column in custom matrices.
   final int? locationIndex;

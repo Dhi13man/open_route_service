@@ -3,24 +3,24 @@
 /// an optional [double] Altitude value.
 ///
 /// Should be easily convertible to a LatLng, GeoPoint etc for use in projects.
-class Coordinate {
+class ORSCoordinate {
   /// Generates a coordinate from a [latitude] and [longitude].
-  const Coordinate({
+  const ORSCoordinate({
     required this.latitude,
     required this.longitude,
     this.altitude,
   });
 
-  /// Generates a [Coordinate] from a [Map] having [String] keys
+  /// Generates a [ORSCoordinate] from a [Map] having [String] keys
   /// 'latitude' and 'longitude', respectively each having [double] values.
-  factory Coordinate.fromJson(Map<String, dynamic> json) => Coordinate(
+  factory ORSCoordinate.fromJson(Map<String, dynamic> json) => ORSCoordinate(
         latitude: json['latitude']! as double,
         longitude: json['longitude']! as double,
         altitude: json['longitude'] as double,
       );
 
-  /// Generates a [Coordinate] from a [List] having [double] values.
-  factory Coordinate.fromList(List<dynamic> json) => Coordinate(
+  /// Generates a [ORSCoordinate] from a [List] having [double] values.
+  factory ORSCoordinate.fromList(List<dynamic> json) => ORSCoordinate(
         longitude: (json[0]! as num).toDouble(),
         latitude: (json[1]! as num).toDouble(),
         altitude: json.length > 2 ? (json[2]! as num).toDouble() : 0.0,
@@ -53,7 +53,7 @@ class Coordinate {
       ];
 
   /// Adding two coordinates.
-  Coordinate operator +(Coordinate other) => Coordinate(
+  ORSCoordinate operator +(ORSCoordinate other) => ORSCoordinate(
         latitude: latitude + other.latitude,
         longitude: longitude + other.longitude,
         altitude: (altitude == null && other.altitude == null)
@@ -62,7 +62,7 @@ class Coordinate {
       );
 
   /// Subtracting two coordinates.
-  Coordinate operator -(Coordinate other) => Coordinate(
+  ORSCoordinate operator -(ORSCoordinate other) => ORSCoordinate(
         latitude: latitude - other.latitude,
         longitude: longitude - other.longitude,
         altitude: (altitude == null && other.altitude == null)
@@ -72,7 +72,7 @@ class Coordinate {
 
   @override
   bool operator ==(Object other) =>
-      other is Coordinate &&
+      other is ORSCoordinate &&
       other.latitude == latitude &&
       other.longitude == longitude &&
       other.altitude == altitude;

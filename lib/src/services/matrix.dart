@@ -16,8 +16,8 @@ extension ORSMatrix on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post
-  Future<TimeDistanceMatrix> matrixPostGet({
-    required List<Coordinate> locations,
+  Future<TimeDistanceMatrix> matrixPost({
+    required List<ORSCoordinate> locations,
     List<int>? destinations,
     String? id,
     List<String> metrics = const <String>['duration'],
@@ -39,7 +39,7 @@ extension ORSMatrix on OpenRouteService {
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'locations': locations
           .map<List<double>>(
-            (Coordinate coordinate) =>
+            (ORSCoordinate coordinate) =>
                 <double>[coordinate.longitude, coordinate.latitude],
           )
           .toList(),

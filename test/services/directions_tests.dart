@@ -6,15 +6,15 @@ import 'package:test/test.dart';
 
 void directionsTests({
   required OpenRouteService service,
-  required Coordinate startCoordinate,
-  required Coordinate endCoordinate,
+  required ORSCoordinate startCoordinate,
+  required ORSCoordinate endCoordinate,
 }) {
   test(
     'Fetch and parse route for 2 points using [directionsRouteCoordsGet], for all profiles',
     () async {
       // Validate API for each profile
       for (ORSProfile profile in ORSProfile.values) {
-        final List<Coordinate> routeCoordinates =
+        final List<ORSCoordinate> routeCoordinates =
             await service.directionsRouteCoordsGet(
           startCoordinate: startCoordinate,
           endCoordinate: endCoordinate,
@@ -28,12 +28,12 @@ void directionsTests({
   test(
     'Error Validation for 2 point route in first and last path points [directionsRouteCoordsGet]',
     () async {
-      final List<Coordinate> routeCoordinates =
+      final List<ORSCoordinate> routeCoordinates =
           await service.directionsRouteCoordsGet(
         startCoordinate: startCoordinate,
         endCoordinate: endCoordinate,
       );
-      final Coordinate first = routeCoordinates.first,
+      final ORSCoordinate first = routeCoordinates.first,
           last = routeCoordinates.last;
 
       // Calculate percentage error in first and last path points
@@ -63,9 +63,9 @@ void directionsTests({
   test(
       'Fetch and parse route for multiple points using [directionsMultiRouteCoordsPostGet]',
       () async {
-    final List<Coordinate> routeCoordinates =
-        await service.directionsMultiRouteCoordsPostGet(
-      coordinates: <Coordinate>[
+    final List<ORSCoordinate> routeCoordinates =
+        await service.directionsMultiRouteCoordsPost(
+      coordinates: <ORSCoordinate>[
         startCoordinate,
         endCoordinate,
         startCoordinate,
@@ -77,14 +77,14 @@ void directionsTests({
   test(
       'Cross-validate [directionsRouteCoordsGet] and [directionsMultiRouteCoordsPostGet]',
       () async {
-    final List<Coordinate> routeCoordinates =
+    final List<ORSCoordinate> routeCoordinates =
         await service.directionsRouteCoordsGet(
       startCoordinate: startCoordinate,
       endCoordinate: endCoordinate,
     );
-    final List<Coordinate> routeCoordinatesMulti =
-        await service.directionsMultiRouteCoordsPostGet(
-      coordinates: <Coordinate>[startCoordinate, endCoordinate],
+    final List<ORSCoordinate> routeCoordinatesMulti =
+        await service.directionsMultiRouteCoordsPost(
+      coordinates: <ORSCoordinate>[startCoordinate, endCoordinate],
     );
 
     // Validate that the route coordinates are the same as in each case route
@@ -99,8 +99,8 @@ void directionsTests({
   test('Get Directions API Route Data using [directionsMultiRouteDataPostGet]',
       () async {
     final List<DirectionRouteData> directionRouteData =
-        await service.directionsMultiRouteDataPostGet(
-      coordinates: <Coordinate>[startCoordinate, endCoordinate],
+        await service.directionsMultiRouteDataPost(
+      coordinates: <ORSCoordinate>[startCoordinate, endCoordinate],
     );
     expect(directionRouteData.length, greaterThan(0));
     final DirectionRouteData firstRoute = directionRouteData.first;

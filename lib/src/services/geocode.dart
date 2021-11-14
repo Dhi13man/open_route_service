@@ -29,7 +29,7 @@ extension ORSGeocode on OpenRouteService {
   /// [sources] and using settings [layers], and returns the entire geojson
   /// [GeoJsonFeatureCollection] containing the data.
   ///
-  /// Can be constrained using the various [Coordinate] parameters.
+  /// Can be constrained using the various [ORSCoordinate] parameters.
   ///
   /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
   /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
@@ -42,9 +42,9 @@ extension ORSGeocode on OpenRouteService {
   /// https://github.com/pelias/documentation/blob/master/autocomplete.md
   Future<GeoJsonFeatureCollection> geocodeAutoCompleteGet({
     required String text,
-    Coordinate? focusPointCoordinate,
-    Coordinate? boundaryRectangleMinCoordinate,
-    Coordinate? boundaryRectangleMaxCoordinate,
+    ORSCoordinate? focusPointCoordinate,
+    ORSCoordinate? boundaryRectangleMinCoordinate,
+    ORSCoordinate? boundaryRectangleMaxCoordinate,
     String? boundaryCountry,
     List<String>? sources,
     List<String> layers = const <String>[],
@@ -99,7 +99,7 @@ extension ORSGeocode on OpenRouteService {
   /// [sources] and using settings [layers], and returns the entire geojson
   /// [GeoJsonFeatureCollection] containing the data.
   ///
-  /// Can be constrained using the various [Coordinate] parameters.
+  /// Can be constrained using the various [ORSCoordinate] parameters.
   ///
   /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
   /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
@@ -112,10 +112,10 @@ extension ORSGeocode on OpenRouteService {
   /// https://github.com/pelias/documentation/blob/master/search.md#search-the-world
   Future<GeoJsonFeatureCollection> geocodeSearchGet({
     required String text,
-    Coordinate? focusPointCoordinate,
-    Coordinate? boundaryRectangleMinCoordinate,
-    Coordinate? boundaryRectangleMaxCoordinate,
-    Coordinate? boundaryCircleCoordinate,
+    ORSCoordinate? focusPointCoordinate,
+    ORSCoordinate? boundaryRectangleMinCoordinate,
+    ORSCoordinate? boundaryRectangleMaxCoordinate,
+    ORSCoordinate? boundaryCircleCoordinate,
     double boundaryCircleRadius = 50,
     String? boundaryGid,
     String? boundaryCountry,
@@ -186,7 +186,7 @@ extension ORSGeocode on OpenRouteService {
   /// [GeoJsonFeatureCollection] containing the data. Uses the Structured Search
   /// API endpoint.
   ///
-  /// Can be constrained using the various [Coordinate] parameters.
+  /// Can be constrained using the various [ORSCoordinate] parameters.
   ///
   /// [GeoJsonFeatureCollection] -> [GeoJsonFeatureCollection.features]
   /// is a list of [GeoJsonFeature]s whose [GeoJsonFeature.properties] have all
@@ -210,10 +210,10 @@ extension ORSGeocode on OpenRouteService {
     String? county,
     String? locality,
     String? borough,
-    Coordinate? focusPointCoordinate,
-    Coordinate? boundaryRectangleMinCoordinate,
-    Coordinate? boundaryRectangleMaxCoordinate,
-    Coordinate? boundaryCircleCoordinate,
+    ORSCoordinate? focusPointCoordinate,
+    ORSCoordinate? boundaryRectangleMinCoordinate,
+    ORSCoordinate? boundaryRectangleMaxCoordinate,
+    ORSCoordinate? boundaryCircleCoordinate,
     double boundaryCircleRadius = 50,
     String? boundaryCountry,
     List<String>? sources,
@@ -324,7 +324,7 @@ extension ORSGeocode on OpenRouteService {
   ///
   /// https://github.com/pelias/documentation/blob/master/reverse.md#reverse-geocoding
   Future<GeoJsonFeatureCollection> geocodeReverseGet({
-    required Coordinate point,
+    required ORSCoordinate point,
     double boundaryCircleRadius = 1,
     int size = 10,
     List<String> layers = const <String>[],

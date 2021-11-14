@@ -1,5 +1,11 @@
 # Releases
 
+## [1.1.0] - 14th November, 2021
+
+- **BREAKING:** Renamed `OpenRouteService` methods with even stricter naming convention:
+    ```{API endpoint name} + {functionality name} + Post / Get (Based on type of Request)```
+- **BREAKING:** `Coordinate` Model renamed to `ORSCoordinate` to avoid ambiguity with other location based packages.
+
 ## [1.0.1] - 31st October, 2021
 
 - Restriction applied to `request` parameter of `ORSPois.poisDataPostGet` with `ArgumentError` if restriction not followed, as per API convention. `request` can now only be 'pois', 'stats' or 'list' as per openrouteservice API.

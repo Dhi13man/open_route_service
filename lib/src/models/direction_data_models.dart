@@ -26,9 +26,9 @@ class DirectionRouteData {
               (dynamic segment) => DirectionRouteSegment.fromJson(segment),
             )
             .toList(),
-        bbox: <Coordinate>[
-          Coordinate(longitude: json['bbox'][0], latitude: json['bbox'][1]),
-          Coordinate(longitude: json['bbox'][2], latitude: json['bbox'][3])
+        bbox: <ORSCoordinate>[
+          ORSCoordinate(longitude: json['bbox'][0], latitude: json['bbox'][1]),
+          ORSCoordinate(longitude: json['bbox'][2], latitude: json['bbox'][3])
         ],
         geometry: json['geometry'] as String,
         wayPoints: (json['way_points'] as List<dynamic>)
@@ -43,7 +43,7 @@ class DirectionRouteData {
   final List<DirectionRouteSegment> segments;
 
   /// The bounding box covering the route.
-  final List<Coordinate> bbox;
+  final List<ORSCoordinate> bbox;
 
   /// The geometry of the route as encoded polyline.
   final String geometry;

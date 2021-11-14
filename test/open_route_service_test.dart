@@ -25,14 +25,14 @@ Future<void> main() async {
   }
 
   // Dummy Coordinates
-  const Coordinate dirStartCoordinate =
-      Coordinate(latitude: 37.4220698, longitude: -122.0862784);
-  const Coordinate dirEndCoordinate =
-      Coordinate(latitude: 37.4111466, longitude: -122.0792365);
-  const Coordinate isochroneStartCoordinate =
-      Coordinate(latitude: 49.41461, longitude: 8.681495);
-  const Coordinate isochroneEndCoordinate =
-      Coordinate(latitude: 49.41943, longitude: 8.686507);
+  const ORSCoordinate dirStartCoordinate =
+      ORSCoordinate(latitude: 37.4220698, longitude: -122.0862784);
+  const ORSCoordinate dirEndCoordinate =
+      ORSCoordinate(latitude: 37.4111466, longitude: -122.0792365);
+  const ORSCoordinate isochroneStartCoordinate =
+      ORSCoordinate(latitude: 49.41461, longitude: 8.681495);
+  const ORSCoordinate isochroneEndCoordinate =
+      ORSCoordinate(latitude: 49.41943, longitude: 8.686507);
 
   // Dummy Optimization Jobs and Vehicles
   const String serializedJobs =
@@ -67,7 +67,7 @@ Future<void> main() async {
     'Isochrones API tests:',
     () => isochronesTests(
       service: service,
-      coordinates: <Coordinate>[
+      coordinates: <ORSCoordinate>[
         isochroneStartCoordinate,
         isochroneEndCoordinate,
       ],
@@ -78,7 +78,7 @@ Future<void> main() async {
     'Matrix API tests:',
     () => matrixTests(
       service: service,
-      locations: <Coordinate>[dirStartCoordinate, dirEndCoordinate],
+      locations: <ORSCoordinate>[dirStartCoordinate, dirEndCoordinate],
     ),
   );
 
@@ -107,7 +107,7 @@ Future<void> main() async {
       geocodeQueryText: 'Namibian Brewery',
       geocodeLocalityQueryText: 'Paris',
       geocodeReversePoint:
-          const Coordinate(longitude: 2.294471, latitude: 48.858268),
+          const ORSCoordinate(longitude: 2.294471, latitude: 48.858268),
       reverseGeocodeQueryLocality: 'Paris',
     ),
   );

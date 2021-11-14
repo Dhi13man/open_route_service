@@ -3,14 +3,14 @@ import 'package:test/test.dart';
 
 void poisTests({
   required OpenRouteService service,
-  required Coordinate boundingBoxStart,
-  required Coordinate boundingBoxEnd,
+  required ORSCoordinate boundingBoxStart,
+  required ORSCoordinate boundingBoxEnd,
 }) {
   test(
     'Get POIs Data using geometry using [poisDataPostGet]',
     () async {
       try {
-        final PoisData poisData = await service.poisDataPostGet(
+        final PoisData poisData = await service.poisDataPost(
           request: 'pois',
           geometry: <String, dynamic>{
             'bbox': <List<double>>[

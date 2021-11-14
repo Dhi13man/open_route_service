@@ -11,10 +11,10 @@ Future<void> main() async {
   const double endLng = -122.0792365;
 
   // Form Route between coordinates
-  final List<Coordinate> routeCoordinates =
+  final List<ORSCoordinate> routeCoordinates =
       await client.directionsRouteCoordsGet(
-    startCoordinate: Coordinate(latitude: startLat, longitude: startLng),
-    endCoordinate: Coordinate(latitude: endLat, longitude: endLng),
+    startCoordinate: ORSCoordinate(latitude: startLat, longitude: startLng),
+    endCoordinate: ORSCoordinate(latitude: endLat, longitude: endLng),
   );
 
   // Print the route coordinates

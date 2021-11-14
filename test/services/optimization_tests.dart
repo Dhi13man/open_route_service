@@ -25,7 +25,7 @@ void optimizationTests({
 
       // Test API using parsed data.
       final OptimizationData optimizationData =
-          await service.optimizationDataPostGet(jobs: jobs, vehicles: vehicles);
+          await service.optimizationDataPost(jobs: jobs, vehicles: vehicles);
       // Validate received data.
       expect(optimizationData.code, equals(0));
       expect(optimizationData.routes.length, greaterThan(0));

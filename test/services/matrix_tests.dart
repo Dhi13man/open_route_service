@@ -3,13 +3,13 @@ import 'package:test/test.dart';
 
 void matrixTests({
   required OpenRouteService service,
-  required List<Coordinate> locations,
+  required List<ORSCoordinate> locations,
 }) {
   test(
     'Get Matrix Data (without distances) using [matrixPostGet], for all profiles',
     () async {
       for (ORSProfile profile in ORSProfile.values) {
-        final TimeDistanceMatrix matrix = await service.matrixPostGet(
+        final TimeDistanceMatrix matrix = await service.matrixPost(
           locations: locations,
           profileOverride: profile,
         );
@@ -35,7 +35,7 @@ void matrixTests({
   test(
     'Get Matrix Data (with distances) using [matrixPostGet]',
     () async {
-      final TimeDistanceMatrix matrix = await service.matrixPostGet(
+      final TimeDistanceMatrix matrix = await service.matrixPost(
         locations: locations,
         metrics: <String>['distance', 'duration'],
       );

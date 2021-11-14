@@ -309,7 +309,7 @@ class OptimizationRouteStep {
   factory OptimizationRouteStep.fromJson(Map<String, dynamic> json) =>
       OptimizationRouteStep(
         type: json['type'],
-        location: Coordinate.fromList(json['location'] as List<dynamic>),
+        location: ORSCoordinate.fromList(json['location'] as List<dynamic>),
         arrival: json['arrival'],
         duration: json['duration'],
         id: json['id'],
@@ -327,8 +327,8 @@ class OptimizationRouteStep {
   /// 'start', 'job', 'pickup', 'delivery', 'break' and 'end' respectively.
   final String type;
 
-  /// [Coordinate] of the Route Step's location.
-  final Coordinate location;
+  /// [ORSCoordinate] of the Route Step's location.
+  final ORSCoordinate location;
 
   /// [int] describing the identifier of this Route Step.
   final int? id;

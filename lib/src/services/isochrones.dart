@@ -5,7 +5,7 @@ extension ORServiceIsochrones on OpenRouteService {
       '${OpenRouteService._baseURL}/v2/isochrones';
 
   /// Obtain Isochrone (areas of reachability) Data for the [locations] given
-  /// as a [List] of [Coordinate].
+  /// as a [List] of [ORSCoordinate].
   ///
   /// The Isochrone Service supports time and distance analysis for one single
   /// or multiple locations.
@@ -18,8 +18,8 @@ extension ORServiceIsochrones on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/v2/isochrones/{profile}/post
-  Future<GeoJsonFeatureCollection> isochronesPostGet({
-    required List<Coordinate> locations,
+  Future<GeoJsonFeatureCollection> isochronesPost({
+    required List<ORSCoordinate> locations,
     required List<int> range,
     List<String> attributes = const <String>[],
     String? id,
@@ -45,7 +45,7 @@ extension ORServiceIsochrones on OpenRouteService {
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'locations': locations
           .map<List<double>>(
-            (Coordinate coordinate) => coordinate.toList(),
+            (ORSCoordinate coordinate) => coordinate.toList(),
           )
           .toList(),
       'range': range,

@@ -88,7 +88,7 @@ class TimeDistanceMatrix {
 
 /// A class that denotes a source or destination location data in a Matrix.
 ///
-/// Includes the [snappedDistance] and [location], the [Coordinate]
+/// Includes the [snappedDistance] and [location], the [ORSCoordinate]
 /// of the location.
 class TimeDistanceMatrixLocation {
   const TimeDistanceMatrixLocation(
@@ -100,14 +100,14 @@ class TimeDistanceMatrixLocation {
   factory TimeDistanceMatrixLocation.fromJson(Map<String, dynamic> json) =>
       TimeDistanceMatrixLocation(
         snappedDistance: json['snapped_distance'],
-        location: Coordinate.fromList(json['location'] as List<dynamic>),
+        location: ORSCoordinate.fromList(json['location'] as List<dynamic>),
       );
 
   /// The snapped distance of the location.
   final double snappedDistance;
 
   /// The coordinate of the location.
-  final Coordinate location;
+  final ORSCoordinate location;
 
   /// Generates a [Map] having [String] keys 'snapped_distance' and 'location'
   /// which has [longitude] and [latitude] as a [List] of [double] values.

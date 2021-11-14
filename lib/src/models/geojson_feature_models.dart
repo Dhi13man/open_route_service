@@ -22,13 +22,13 @@ class GeoJsonFeatureCollection {
   factory GeoJsonFeatureCollection.fromJson(Map<String, dynamic> json) =>
       GeoJsonFeatureCollection(
         bbox: ((json['bbox'] ?? <dynamic>[]) as List<dynamic>).length < 4
-            ? <Coordinate>[]
-            : <Coordinate>[
-                Coordinate(
+            ? <ORSCoordinate>[]
+            : <ORSCoordinate>[
+                ORSCoordinate(
                   longitude: json['bbox'][0],
                   latitude: json['bbox'][1],
                 ),
-                Coordinate(
+                ORSCoordinate(
                   longitude: json['bbox'][2],
                   latitude: json['bbox'][3],
                 ),
@@ -42,7 +42,7 @@ class GeoJsonFeatureCollection {
 
   /// The bounding box of the requested feature collection's area.
   /// Should have 2 coordinates.
-  final List<Coordinate> bbox;
+  final List<ORSCoordinate> bbox;
 
   /// The list of features of the requested feature collection.
   final List<GeoJsonFeature> features;
@@ -86,12 +86,12 @@ class GeoJsonFeature {
         geometry = GeoJsonFeatureGeometry.fromJson(json['geometry']),
         bbox = json['bbox'] == null
             ? null
-            : <Coordinate>[
-                Coordinate(
+            : <ORSCoordinate>[
+                ORSCoordinate(
                   longitude: json['bbox'][0],
                   latitude: json['bbox'][1],
                 ),
-                Coordinate(
+                ORSCoordinate(
                   longitude: json['bbox'][2],
                   latitude: json['bbox'][3],
                 ),
@@ -117,7 +117,7 @@ class GeoJsonFeature {
   /// The bounding box of the requested feature's area.
   ///
   /// Should have 2 coordinates.
-  final List<Coordinate>? bbox;
+  final List<ORSCoordinate>? bbox;
 
   /// Converts the [GeoJsonFeature] to a [Map] with keys 'type', 'properties'
   /// and 'geometry'.
@@ -140,7 +140,7 @@ class GeoJsonFeature {
 
 /// The geometry of a [GeoJsonFeature].
 ///
-/// Includes its [type] and [List] of [List] of [Coordinate], [coordinates].
+/// Includes its [type] and [List] of [List] of [ORSCoordinate], [coordinates].
 class GeoJsonFeatureGeometry {
   const GeoJsonFeatureGeometry({required this.type, required this.coordinates});
 
@@ -158,10 +158,10 @@ class GeoJsonFeatureGeometry {
             (((json['coordinates'] as List<dynamic>).first as List<dynamic>)
                     .first is List<dynamic>)
                 ? (json['coordinates'] as List<dynamic>)
-                    .map<List<Coordinate>>(
+                    .map<List<ORSCoordinate>>(
                       (dynamic coords) => (coords as List<dynamic>)
-                          .map<Coordinate>(
-                            (dynamic c) => Coordinate.fromList(
+                          .map<ORSCoordinate>(
+                            (dynamic c) => ORSCoordinate.fromList(
                               c as List<dynamic>,
                             ),
                           )
@@ -170,30 +170,30 @@ class GeoJsonFeatureGeometry {
                     .toList()
                 :
                 // For direction feature geometry
-                <List<Coordinate>>[
+                <List<ORSCoordinate>>[
                     (json['coordinates'] as List<dynamic>)
-                        .map<Coordinate>(
+                        .map<ORSCoordinate>(
                           (dynamic c) =>
-                              Coordinate.fromList(c as List<dynamic>),
+                              ORSCoordinate.fromList(c as List<dynamic>),
                         )
                         .toList()
                   ]
             :
             // For POIs feature geometry
-            <List<Coordinate>>[
-                <Coordinate>[
-                  Coordinate.fromList(json['coordinates'] as List<dynamic>),
+            <List<ORSCoordinate>>[
+                <ORSCoordinate>[
+                  ORSCoordinate.fromList(json['coordinates'] as List<dynamic>),
                 ]
               ];
 
   /// Coordinates associated with the feature geometry.
   ///
-  /// It might either be a proper [List] of [List] of [Coordinate] or a
-  /// [List] of [Coordinate] wrapped in an empty [List], or a [Coordinate]
+  /// It might either be a proper [List] of [List] of [ORSCoordinate] or a
+  /// [List] of [ORSCoordinate] wrapped in an empty [List], or a [ORSCoordinate]
   /// wrapped in an empty [List] which is again wrapped in an empty [List].
   ///
   /// Depends upon which endpoint [GeoJsonFeatureGeometry] was extracted from.
-  final List<List<Coordinate>> coordinates;
+  final List<List<ORSCoordinate>> coordinates;
 
   /// The type of the feature geometry.
   final String type;
@@ -207,8 +207,8 @@ class GeoJsonFeatureGeometry {
         'type': type,
         'coordinates': coordinates
             .map<List<List<double>>>(
-              (List<Coordinate> coordinate) => coordinate
-                  .map<List<double>>((Coordinate c) => c.toList())
+              (List<ORSCoordinate> coordinate) => coordinate
+                  .map<List<double>>((ORSCoordinate c) => c.toList())
                   .toList(),
             )
             .toList(),

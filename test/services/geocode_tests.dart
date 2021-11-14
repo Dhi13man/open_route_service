@@ -5,8 +5,8 @@ void geocodeTests({
   required OpenRouteService service,
   String geocodeQueryText = 'Namibian Brewery',
   String geocodeLocalityQueryText = 'Paris',
-  Coordinate geocodeReversePoint =
-      const Coordinate(longitude: 2.294471, latitude: 48.858268),
+  ORSCoordinate geocodeReversePoint =
+      const ORSCoordinate(longitude: 2.294471, latitude: 48.858268),
   String reverseGeocodeQueryLocality = 'Paris',
 }) {
   test(
@@ -88,7 +88,7 @@ void geocodeTests({
         locality: geocodeLocalityQueryText,
         layers: service.geocodeLayersAvailable.toList(),
       );
-      final Coordinate geocodedCoordinate =
+      final ORSCoordinate geocodedCoordinate =
           geocodeData.features.first.geometry.coordinates.first.first;
 
       // Now, reverse geocode the coordinate received

@@ -11,8 +11,8 @@ extension ORSElevation on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/elevation/point/get
-  Future<ElevationData> elevationDataGet({
-    required Coordinate geometry,
+  Future<ElevationData> elevationPointGet({
+    required ORSCoordinate geometry,
     String formatOut = 'geojson',
     String dataset = 'srtm',
   }) async {
@@ -34,8 +34,8 @@ extension ORSElevation on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/elevation/point/post
-  Future<ElevationData> elevationDataPostGet({
-    required Coordinate geometry,
+  Future<ElevationData> elevationPointPost({
+    required ORSCoordinate geometry,
     String formatIn = 'point',
     String formatOut = 'geojson',
     String dataset = 'srtm',
@@ -67,7 +67,7 @@ extension ORSElevation on OpenRouteService {
   ///
   /// Information about the endpoint, parameters, response etc. can be found at:
   /// https://openrouteservice.org/dev/#/api-docs/elevation/line/post
-  Future<ElevationData> elevationDataLinePostGet({
+  Future<ElevationData> elevationLinePost({
     required Object geometry,
     required String formatIn,
     String formatOut = 'geojson',
