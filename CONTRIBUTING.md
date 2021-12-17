@@ -6,15 +6,15 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service)
 [![Last Commit](https://img.shields.io/github/last-commit/dhi13man/open_route_service)](https://github.com/Dhi13man/open_route_service/commits/main)
 
-Thank you for investing your time in contributing to this project! Any contributions you make have a chance of reflecting in [the actual Package on Pub.dev](https://pub.dev/packages/open_route_service), and brightens up my day. :)
+Thank you for investing your time in contributing to this project! Any contributions you make have a chance of reflecting in [the actual Package on Pub.dev](https://pub.dev/packages/open_route_service/), and brightens up my day. :)
 
 Make sure you go through the [API Documentation](https://openrouteservice.org/dev/#/api-docs/) first!
 
 ## General Steps to Contribute
 
-1. Ensure you have [Dart](https://dart.dev/get-dart)/[Flutter](https://flutter.dev/docs/get-started/install) SDK installed.
+1. Ensure you have [Dart](https://dart.dev/get-dart)/[Flutter](https://flutter.dev/docs/get-started/install/) SDK installed.
 
-2. Fork the [project repository](https://github.com/Dhi13man/open_route_service).
+2. Fork the [project repository](https://github.com/Dhi13man/open_route_service/).
 
 3. Clone the forked repository by running `git clone <forked-repository-git-url>`.
 
@@ -28,9 +28,9 @@ Make sure you go through the [API Documentation](https://openrouteservice.org/de
     1. Data Model files go to `./lib/src/models/`.
     2. API files go to `./lib/src/services/`.
 
-8. Add relevant tests (if any) for the contribution you made to `./test` folder and an appropriate subfolder.
+8. Add relevant tests (if any) for the contribution you made to `./test/` folder and an appropriate subfolder.
 
-9. **Get an [openrouteservice API Key](https://openrouteservice.org/dev/#/signup)** if you haven't already, and set it as the `apiKey` constant in `./test/open_route_service_test.dart` in place of `'test'`.
+9. **Get an [openrouteservice API Key](https://openrouteservice.org/dev/#/signup/)** if you haven't already, and set it as the `apiKey` constant in `./test/open_route_service_test.dart` in place of `'test'`.
 
 10. Run `dart test` to run the tests. **Ensure all tests run and pass before committing and/or pushing!**
 
@@ -55,14 +55,14 @@ Make sure you go through the [API Documentation](https://openrouteservice.org/de
 
 ### Create a new issue
 
-If you spot a problem or bug with the package, search if an [issue](https://www.github.com/dhi13man/open_route_service/issues) already exists. If a related issue doesn't exist, you can open a new issue using a relevant issue form.
+If you spot a problem or bug with the package, search if an [issue](https://www.github.com/dhi13man/open_route_service/issues/) already exists. If a related issue doesn't exist, you can open a new issue using a relevant issue form.
 
 ### Solve an issue
 
-Scan through our existing [issues](https://www.github.com/dhi13man/open_route_service/issues) to find one that interests you. You can narrow down the search using labels as filters. See Labels for more information.
+Scan through our existing [issues](https://www.github.com/dhi13man/open_route_service/issues/) to find one that interests you. You can narrow down the search using labels as filters. See Labels for more information.
 
 ## Overall Guidelines
 
-- Contributions are welcome on [GitHub](https://www.github.com/dhi13man/open_route_service). Please ensure all the tests are running before pushing your changes. Write your own tests too!
+- Contributions are welcome on [GitHub](https://www.github.com/dhi13man/open_route_service/). Please ensure all the tests are running before pushing your changes. Write your own tests too!
 
-- File any [issues or feature requests here,](https://www.github.com/dhi13man/open_route_service/issues) or help me resolve existing ones. :)
+- File any [issues or feature requests here,](https://www.github.com/dhi13man/open_route_service/issues/) or help me resolve existing ones. :)
