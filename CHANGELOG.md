@@ -1,5 +1,9 @@
 # Releases
 
+## [1.1.1] - 06th February, 2022
+
+- Optimize imports as per static analysis.
+
 ## [1.1.0] - 14th November, 2021
 
 - **BREAKING:** Renamed `OpenRouteService` methods with even stricter naming convention:

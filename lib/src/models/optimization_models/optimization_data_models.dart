@@ -1,5 +1,4 @@
-import 'package:open_route_service/open_route_service.dart';
-
+import 'package:open_route_service/src/models/coordinate_model.dart';
 import 'package:open_route_service/src/models/optimization_models/vroom_data_models.dart'
     show VroomVehicleStepType;
 
