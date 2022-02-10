@@ -59,7 +59,6 @@ extension ORServiceIsochrones on OpenRouteService {
       'area_units': areaUnits,
       'units': units,
     }..removeWhere((String _, dynamic value) => value == null);
-    print(queryParameters);
 
     // Fetch and parse the data.
     final Map<String, dynamic> data =
