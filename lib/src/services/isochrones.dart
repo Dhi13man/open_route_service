@@ -37,9 +37,8 @@ extension ORServiceIsochrones on OpenRouteService {
     final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
-    final Uri uri = Uri.parse(
-      '$_isochronesEndpointURL/${OpenRouteService.getProfileString(chosenPathParam)}',
-    );
+    final Uri uri =
+        Uri.parse('$_isochronesEndpointURL/${chosenPathParam.name}');
 
     // Ready data to be sent.
     final Map<String, dynamic> queryParameters = <String, dynamic>{

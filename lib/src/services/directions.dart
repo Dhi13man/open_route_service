@@ -30,7 +30,7 @@ extension ORSDirections on OpenRouteService {
 
     // Build the request URL.
     final Uri uri = Uri.parse(
-      '$_directionsEndpointURL/${OpenRouteService.getProfileString(chosenPathParam)}?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
+      '$_directionsEndpointURL/${chosenPathParam.name}?api_key=$_apiKey&start=$startLng,$startLat&end=$endLng,$endLat',
     );
 
     // Fetch the data.
@@ -99,9 +99,8 @@ extension ORSDirections on OpenRouteService {
     final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
-    final Uri uri = Uri.parse(
-      '$_directionsEndpointURL/${OpenRouteService.getProfileString(chosenPathParam)}/geojson',
-    );
+    final Uri uri =
+        Uri.parse('$_directionsEndpointURL/${chosenPathParam.name}/geojson');
 
     // Ready data to be sent.
     final Map<String, dynamic> queryParameters = <String, dynamic>{
@@ -241,9 +240,8 @@ extension ORSDirections on OpenRouteService {
     final ORSProfile chosenPathParam = profileOverride ?? _profile;
 
     // Build the request URL.
-    final Uri uri = Uri.parse(
-      '$_directionsEndpointURL/${OpenRouteService.getProfileString(chosenPathParam)}',
-    );
+    final Uri uri =
+        Uri.parse('$_directionsEndpointURL/${chosenPathParam.name}');
 
     // Ready data to be sent.
     final Map<String, dynamic> queryParameters = <String, dynamic>{

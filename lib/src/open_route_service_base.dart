@@ -11,6 +11,7 @@ import 'package:open_route_service/src/models/optimization_models/optimization_d
 import 'package:open_route_service/src/models/optimization_models/vroom_data_models.dart';
 import 'package:open_route_service/src/models/pois_data_models.dart';
 
+part 'package:open_route_service/src/models/ors_profile_enum.dart';
 part 'package:open_route_service/src/services/directions.dart';
 part 'package:open_route_service/src/services/elevation.dart';
 part 'package:open_route_service/src/services/geocode.dart';
@@ -58,38 +59,6 @@ class OpenRouteService {
 
   /// The base URL of all the endpoints, https://api.openrouteservice.org
   static const String _baseURL = 'https://api.openrouteservice.org';
-
-  /// Converts the enum [profile] to a [String] which can be used in API request
-  static String getProfileString(ORSProfile profile) {
-    switch (profile) {
-      case ORSProfile.drivingCar:
-        return 'driving-car';
-
-      case ORSProfile.drivingHgv:
-        return 'driving-hgv';
-
-      case ORSProfile.cyclingRoad:
-        return 'cycling-road';
-
-      case ORSProfile.cyclingMountain:
-        return 'cycling-mountain';
-
-      case ORSProfile.cyclingElectric:
-        return 'cycling-electric';
-
-      case ORSProfile.footWalking:
-        return 'foot-walking';
-
-      case ORSProfile.footHiking:
-        return 'foot-hiking';
-
-      case ORSProfile.wheelchair:
-        return 'wheelchair';
-
-      default:
-        return 'foot-walking';
-    }
-  }
 
   /// Get current profile/path parameter.
   ORSProfile get profile => _profile;
@@ -153,19 +122,6 @@ class OpenRouteService {
       );
     }
   }
-}
-
-/// OpenRouteService API profiles as enum values to prevent typos in direct
-/// [String] usage.
-enum ORSProfile {
-  drivingCar,
-  drivingHgv,
-  cyclingRoad,
-  cyclingMountain,
-  cyclingElectric,
-  footWalking,
-  footHiking,
-  wheelchair,
 }
 
 /// Custom Exception class for this package that contains the [message] of the
