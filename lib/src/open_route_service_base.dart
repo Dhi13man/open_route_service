@@ -75,7 +75,7 @@ class OpenRouteService {
     // Fetch the data.
     final http.Response response = await _client.get(uri);
     // Check if the request was successful.
-    if (response.statusCode == 200) {
+    if (response.statusCode / 100 == 2) {
       final String data = response.body;
       return jsonDecode(data);
     } else {
@@ -110,7 +110,7 @@ class OpenRouteService {
       },
     );
     // Check if the request was successful.
-    if (response.statusCode == 200) {
+    if (response.statusCode / 100 == 2) {
       final String data = response.body;
       return jsonDecode(data);
     } else {
