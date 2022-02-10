@@ -1,5 +1,10 @@
 # Releases
 
+## [1.2.1] - [Unreleased]
+
+- Better Response Status-Code verification logic as for posts it won't always be 200.
+- Separated and refined openrouteservice path-profile String and ORSProfile interconversion logic.
+
 ## [1.1.1] - 06th February, 2022
 
 - Optimize imports as per static analysis.
