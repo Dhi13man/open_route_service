@@ -43,7 +43,7 @@ void matrixTests({
       final int numDestinations = matrix.destinations.length;
       final int numSources = matrix.sources.length;
       final int numDurations = matrix.durations.length;
-      final int numDistances = matrix.distances!.length;
+      final int numDistances = matrix.distances.length;
 
       // Check if all the arrays have been received
       expect(numDestinations, greaterThan(0));

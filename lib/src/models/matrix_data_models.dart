@@ -10,7 +10,7 @@ import 'package:open_route_service/open_route_service.dart';
 class TimeDistanceMatrix {
   const TimeDistanceMatrix({
     required this.durations,
-    this.distances,
+    required this.distances,
     required this.destinations,
     required this.sources,
   });
@@ -20,27 +20,27 @@ class TimeDistanceMatrix {
   /// and 'sources'.
   factory TimeDistanceMatrix.fromJson(Map<String, dynamic> json) =>
       TimeDistanceMatrix(
-        durations: (json['durations'] as List<dynamic>)
+        durations: ((json['durations'] as List<dynamic>?) ?? <dynamic>[])
             .map<List<double>>(
               (dynamic duration) => (duration as List<dynamic>)
                   .map<double>((dynamic d) => d as double)
                   .toList(),
             )
             .toList(),
-        distances: (json['distances'] as List<dynamic>?)
-            ?.map<List<double>>(
+        distances: ((json['distances'] as List<dynamic>?) ?? <dynamic>[])
+            .map<List<double>>(
               (dynamic duration) => (duration as List<dynamic>)
                   .map<double>((dynamic d) => d as double)
                   .toList(),
             )
             .toList(),
-        destinations: (json['destinations'] as List<dynamic>)
+        destinations: ((json['destinations'] as List<dynamic>?) ?? <dynamic>[])
             .map<TimeDistanceMatrixLocation>(
               (dynamic destination) =>
                   TimeDistanceMatrixLocation.fromJson(destination),
             )
             .toList(),
-        sources: (json['sources'] as List<dynamic>)
+        sources: ((json['sources'] as List<dynamic>?) ?? <dynamic>[])
             .map<TimeDistanceMatrixLocation>(
                 (dynamic source) => TimeDistanceMatrixLocation.fromJson(source))
             .toList(),
@@ -50,7 +50,7 @@ class TimeDistanceMatrix {
   final List<List<double>> durations;
 
   /// The destinations of the Matrix Routes
-  final List<List<double>>? distances;
+  final List<List<double>> distances;
 
   /// The destination values of the Matrix.
   final List<TimeDistanceMatrixLocation> destinations;
@@ -59,8 +59,9 @@ class TimeDistanceMatrix {
   final List<TimeDistanceMatrixLocation> sources;
 
   /// Converts the [TimeDistanceMatrix] to a [Map] having [String] keys
-  /// 'durations', 'destinations', and 'sources'.
+  /// 'distances', 'durations', 'destinations', and 'sources'.
   Map<String, dynamic> toJson() => <String, dynamic>{
+        'distances': distances,
         'durations': durations,
         'destinations': destinations
             .map<Map<String, dynamic>>(
@@ -78,6 +79,7 @@ class TimeDistanceMatrix {
   @override
   bool operator ==(Object other) =>
       other is TimeDistanceMatrix &&
+      distances == other.distances &&
       destinations == other.destinations &&
       sources == other.sources &&
       durations == other.durations;

@@ -1,5 +1,9 @@
 # Releases
 
+## [1.2.2] - 15th September, 2022
+
+- Matrix Data Models Null Safety Fixes as per [[#12](https://github.com/Dhi13man/open_route_service/issues/12)].
+
 ## [1.2.1] - 10th February, 2022
 
 - Better Response Status-Code verification logic as for posts it won't always be 200.
