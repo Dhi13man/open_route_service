@@ -13,7 +13,7 @@ import 'services/pois_tests.dart';
 import 'package:open_route_service/open_route_service.dart';
 
 Future<void> main() async {
-// TODO: Change the API key to your own API key to ensure that package works.
+  // TODO: Change the API key to your own API key to ensure that package works.
   String apiKey = 'test';
 
   // Change API key from environment if tests are running on Github Actions.
@@ -23,7 +23,6 @@ Future<void> main() async {
     assert(apiKey == 'test');
     apiKey = Platform.environment['ORS_API_KEY']!;
   }
-
   // Dummy Coordinates
   const ORSCoordinate dirStartCoordinate =
       ORSCoordinate(latitude: 37.4220698, longitude: -122.0862784);
