@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:open_route_service/open_route_service.dart';
-import 'package:open_route_service/src/models/direction_data_models.dart';
 import 'package:test/test.dart';
 
 void directionsTests({

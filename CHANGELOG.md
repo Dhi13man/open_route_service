@@ -1,5 +1,9 @@
 # Releases
 
+## [1.2.3] - 24th June, 2023
+
+- Upgraded dependencies to keep up with the latest versions of the packages.
+
 ## [1.2.2] - 15th September, 2022
 
 - Matrix Data Models Null Safety Fixes as per [[#12](https://github.com/Dhi13man/open_route_service/issues/12)].
