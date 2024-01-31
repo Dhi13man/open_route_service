@@ -20,7 +20,7 @@ The package enables the easy integration of the openrouteservice API with releva
 
 ## Contents
 
-- [open_route_service](#open_route_service)
+- [open\_route\_service](#open_route_service)
   - [Contents](#contents)
   - [Features](#features)
   - [Getting started](#getting-started)
