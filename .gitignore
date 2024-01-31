@@ -33,3 +33,6 @@ dotenv*
 # IDE folders
 .vscode
 .idea
+
+# Mac-specific stuff
+.DS_Store
