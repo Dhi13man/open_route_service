@@ -2,12 +2,12 @@
 
 ## [1.2.4] - 6th Feb, 2024
 
+- **MINOR BREAKING:** Removed getter and setter for `profile` in `OpenRouteService` class. It is now final and can only be set via the constructor `defaultProfile` parameter. This system is more concurrency-safe. If it needs to be overridden at the API call level, that can anyway be done by passing in `profileOverride` to the respective API method.
+
 - Made API more flexible by allowing constructor-based overrides in `OpenRouteService` class of:
   - `baseUrl`, the default API Base URL
   - `client`, the HTTP Client being used to make the requests
   - `defaultProfile`, the default profile being used to make the requests.
-
-- **MINOR BREAKING**: Removed getter and setter for `profile` in `OpenRouteService` class. It is now final and can only be set via the constructor `defaultProfile` parameter. This system is more concurrency-safe. If it needs to be overriden at API call level, that can any way be done by passing in `profileOverride` to the respective API method.
 
 - Ternary operator null check replaced with null-aware operator in Vroom and Optimization data models.
 
