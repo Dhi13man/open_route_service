@@ -11,6 +11,8 @@
 
 - Ternary operator null check replaced with null-aware operator in Vroom and Optimization data models.
 
+- Getting `ORSProfile` from `String` name and vice versa is now done using a map internally, making it more readable and maintainable.
+
 ## [1.2.3] - 24th June, 2023
 
 - Upgraded dependencies to keep up with the latest versions of the packages.
