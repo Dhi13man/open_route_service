@@ -1,5 +1,14 @@
 # Releases
 
+## [1.2.4] - 6th Feb, 2024
+
+- Made API more flexible by allowing constructor-based overrides in `OpenRouteService` class of:
+  - `baseUrl`, the default API Base URL
+  - `client`, the HTTP Client being used to make the requests
+  - `defaultProfile`, the default profile being used to make the requests.
+- MINOR BREAKING CHANGE: Removed getter and setter for `profile` in `OpenRouteService` class. It is now final and can only be set via the constructor `defaultProfile` parameter.
+  - This system is more concurrency-safe. If it needs to be overriden at API call level, that can any way be done by passing in `profileOverride` to the respective API method.
+
 ## [1.2.3] - 24th June, 2023
 
 - Upgraded dependencies to keep up with the latest versions of the packages.

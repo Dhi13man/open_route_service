@@ -2,8 +2,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSGeocode on OpenRouteService {
   /// The endpoint of the openrouteservice Geocode API.
-  static const String _geocodeEndpointURL =
-      '${OpenRouteService._baseURL}/geocode';
+  String get _geocodeEndpointURL => '$_baseUrl/geocode';
 
   /// Available Sources for Geocoding
   Set<String> get geocodeSourcesAvailable =>

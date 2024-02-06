@@ -2,8 +2,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSMatrix on OpenRouteService {
   /// The endpoint of the openrouteservice Matrix API.
-  static const String _matrixEndpointURL =
-      '${OpenRouteService._baseURL}/v2/matrix';
+  String get _matrixEndpointURL => '$_baseUrl/v2/matrix';
 
   /// Returns duration, distance matrix for multiple source, destination points.
   ///
@@ -28,7 +27,7 @@ extension ORSMatrix on OpenRouteService {
     ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final ORSProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _defaultProfile;
 
     // Build the request URL.
     final Uri uri = Uri.parse('$_matrixEndpointURL/${chosenPathParam.name}');

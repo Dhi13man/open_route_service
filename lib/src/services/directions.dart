@@ -2,8 +2,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSDirections on OpenRouteService {
   /// The endpoint of the openrouteservice Directions API.
-  static const String _directionsEndpointURL =
-      '${OpenRouteService._baseURL}/v2/directions';
+  String get _directionsEndpointURL => '$_baseUrl/v2/directions';
 
   /// Fetches the Direction Route information for the route between
   /// [startCoordinate] and [endCoordinate] from the openrouteservice API,
@@ -20,7 +19,7 @@ extension ORSDirections on OpenRouteService {
     ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final ORSProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _defaultProfile;
 
     // Extract coordinate information.
     final double startLat = startCoordinate.latitude;
@@ -96,7 +95,7 @@ extension ORSDirections on OpenRouteService {
     ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final ORSProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _defaultProfile;
 
     // Build the request URL.
     final Uri uri =
@@ -237,7 +236,7 @@ extension ORSDirections on OpenRouteService {
     ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final ORSProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _defaultProfile;
 
     // Build the request URL.
     final Uri uri =
