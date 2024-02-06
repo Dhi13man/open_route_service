@@ -266,12 +266,9 @@ class OptimizationRoute {
         'service': service,
         'duration': duration,
         'waiting_time': waitingTime,
-        'steps': steps == null
-            ? null
-            : steps!
-                .map<Map<String, dynamic>>(
-                    (OptimizationRouteStep e) => e.toJson())
-                .toList(),
+        'steps': steps
+            ?.map<Map<String, dynamic>>((OptimizationRouteStep e) => e.toJson())
+            .toList(),
       }..removeWhere((String _, dynamic value) => value == null);
 
   @override
