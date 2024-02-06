@@ -21,27 +21,27 @@ enum ORSProfile {
 /// - Provide a [String] representation of the profile
 /// - Statically get [ORSProfile]s from [String]s.
 extension ORSProfileNamer on ORSProfile {
-  static Map<ORSProfile, String> get _profileToNameMap => <ORSProfile, String>{
-        ORSProfile.drivingCar: 'driving-car',
-        ORSProfile.drivingHgv: 'driving-hgv',
-        ORSProfile.cyclingRoad: 'cycling-road',
-        ORSProfile.cyclingMountain: 'cycling-mountain',
-        ORSProfile.cyclingElectric: 'cycling-electric',
-        ORSProfile.footWalking: 'foot-walking',
-        ORSProfile.footHiking: 'foot-hiking',
-        ORSProfile.wheelchair: 'wheelchair',
-      };
+  static const Map<ORSProfile, String> _profileToNameMap = <ORSProfile, String>{
+    ORSProfile.drivingCar: 'driving-car',
+    ORSProfile.drivingHgv: 'driving-hgv',
+    ORSProfile.cyclingRoad: 'cycling-road',
+    ORSProfile.cyclingMountain: 'cycling-mountain',
+    ORSProfile.cyclingElectric: 'cycling-electric',
+    ORSProfile.footWalking: 'foot-walking',
+    ORSProfile.footHiking: 'foot-hiking',
+    ORSProfile.wheelchair: 'wheelchair',
+  };
 
-  static Map<String, ORSProfile> get _nameToProfileMap => <String, ORSProfile>{
-        'driving-car': ORSProfile.drivingCar,
-        'driving-hgv': ORSProfile.drivingHgv,
-        'cycling-road': ORSProfile.cyclingRoad,
-        'cycling-mountain': ORSProfile.cyclingMountain,
-        'cycling-electric': ORSProfile.cyclingElectric,
-        'foot-walking': ORSProfile.footWalking,
-        'foot-hiking': ORSProfile.footHiking,
-        'wheelchair': ORSProfile.wheelchair,
-      };
+  static const Map<String, ORSProfile> _nameToProfileMap = <String, ORSProfile>{
+    'driving-car': ORSProfile.drivingCar,
+    'driving-hgv': ORSProfile.drivingHgv,
+    'cycling-road': ORSProfile.cyclingRoad,
+    'cycling-mountain': ORSProfile.cyclingMountain,
+    'cycling-electric': ORSProfile.cyclingElectric,
+    'foot-walking': ORSProfile.footWalking,
+    'foot-hiking': ORSProfile.footHiking,
+    'wheelchair': ORSProfile.wheelchair,
+  };
 
   /// Returns the [String] representation of the openrouteservice profile
   /// represented by the enum.
