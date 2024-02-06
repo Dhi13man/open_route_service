@@ -7,7 +7,7 @@
 - Made API more flexible by allowing constructor-based overrides in `OpenRouteService` class of:
   - `baseUrl`, the default API Base URL
   - `client`, the HTTP Client being used to make the requests
-  - `defaultProfile`, the default profile being used to make the requests.
+  - `defaultProfile`, the default openrouteservice route profile being used to make the requests.
 
 - Ternary operator null check replaced with null-aware operator in Vroom and Optimization data models.
 

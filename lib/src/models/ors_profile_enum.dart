@@ -21,39 +21,37 @@ enum ORSProfile {
 /// - Provide a [String] representation of the profile
 /// - Statically get [ORSProfile]s from [String]s.
 extension ORSProfileNamer on ORSProfile {
+  static Map<ORSProfile, String> get _profileToNameMap => <ORSProfile, String>{
+        ORSProfile.drivingCar: 'driving-car',
+        ORSProfile.drivingHgv: 'driving-hgv',
+        ORSProfile.cyclingRoad: 'cycling-road',
+        ORSProfile.cyclingMountain: 'cycling-mountain',
+        ORSProfile.cyclingElectric: 'cycling-electric',
+        ORSProfile.footWalking: 'foot-walking',
+        ORSProfile.footHiking: 'foot-hiking',
+        ORSProfile.wheelchair: 'wheelchair',
+      };
+
+  static Map<String, ORSProfile> get _nameToProfileMap => <String, ORSProfile>{
+        'driving-car': ORSProfile.drivingCar,
+        'driving-hgv': ORSProfile.drivingHgv,
+        'cycling-road': ORSProfile.cyclingRoad,
+        'cycling-mountain': ORSProfile.cyclingMountain,
+        'cycling-electric': ORSProfile.cyclingElectric,
+        'foot-walking': ORSProfile.footWalking,
+        'foot-hiking': ORSProfile.footHiking,
+        'wheelchair': ORSProfile.wheelchair,
+      };
+
   /// Returns the [String] representation of the openrouteservice profile
   /// represented by the enum.
   ///
   /// Throws [ArgumentError] if the enum is not a valid profile.
   String get name {
-    switch (this) {
-      case ORSProfile.drivingCar:
-        return 'driving-car';
-
-      case ORSProfile.drivingHgv:
-        return 'driving-hgv';
-
-      case ORSProfile.cyclingRoad:
-        return 'cycling-road';
-
-      case ORSProfile.cyclingMountain:
-        return 'cycling-mountain';
-
-      case ORSProfile.cyclingElectric:
-        return 'cycling-electric';
-
-      case ORSProfile.footWalking:
-        return 'foot-walking';
-
-      case ORSProfile.footHiking:
-        return 'foot-hiking';
-
-      case ORSProfile.wheelchair:
-        return 'wheelchair';
-
-      default:
-        throw ArgumentError('Unknown ORSProfile: $this');
+    if (_profileToNameMap.containsKey(this)) {
+      return _profileToNameMap[this]!;
     }
+    throw ArgumentError('Unknown ORSProfile: $this');
   }
 
   /// Returns the [ORSProfile] represented by the [String] profileName.
@@ -64,33 +62,9 @@ extension ORSProfileNamer on ORSProfile {
   ///
   /// If the [String] is not one of the above, an [ArgumentError] is thrown.
   static ORSProfile fromName(final String profileName) {
-    switch (profileName) {
-      case 'driving-car':
-        return ORSProfile.drivingCar;
-
-      case 'driving-hgv':
-        return ORSProfile.drivingHgv;
-
-      case 'cycling-road':
-        return ORSProfile.cyclingRoad;
-
-      case 'cycling-mountain':
-        return ORSProfile.cyclingMountain;
-
-      case 'cycling-electric':
-        return ORSProfile.cyclingElectric;
-
-      case 'foot-walking':
-        return ORSProfile.footWalking;
-
-      case 'foot-hiking':
-        return ORSProfile.footHiking;
-
-      case 'wheelchair':
-        return ORSProfile.wheelchair;
-
-      default:
-        throw ArgumentError('Unknown ORSProfile: $profileName');
+    if (_nameToProfileMap.containsKey(profileName)) {
+      return _nameToProfileMap[profileName]!;
     }
+    throw ArgumentError('Unknown ORSProfile: $profileName');
   }
 }
