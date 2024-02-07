@@ -2,8 +2,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSElevation on OpenRouteService {
   /// The endpoint of the openrouteservice Elevation API.
-  static const String _elevationEndpointURL =
-      '${OpenRouteService._baseURL}/elevation';
+  String get _elevationEndpointURL => '$_baseUrl/elevation';
 
   /// Fetches the [ElevationData] by taking a 2D [geometry] and enriching it
   /// with  elevation from a variety of datasets. Uses the GET method for the

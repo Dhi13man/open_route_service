@@ -2,7 +2,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSPois on OpenRouteService {
   /// The endpoint of the openrouteservice Directions API.
-  static const String _poisEndpointURL = '${OpenRouteService._baseURL}/pois';
+  String get _poisEndpointURL => '$_baseUrl/pois';
 
   /// Fetches the information about the Points of Interest (POI) in the area
   /// surrounding a geometry which can either be a bounding box, polygon

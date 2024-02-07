@@ -2,8 +2,7 @@ part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORSOptimization on OpenRouteService {
   /// The endpoint of the openrouteservice Elevation API.
-  static const String _optimizationEndpointURL =
-      '${OpenRouteService._baseURL}/optimization';
+  String get _optimizationEndpointURL => '$_baseUrl/optimization';
 
   /// Get the Optimization Data from openrouteservice for Vehicle routing
   /// problem scheduling, for the input [jobs], [vehicles] and optionally

@@ -1,8 +1,7 @@
 part of 'package:open_route_service/src/open_route_service_base.dart';
 
 extension ORServiceIsochrones on OpenRouteService {
-  static const String _isochronesEndpointURL =
-      '${OpenRouteService._baseURL}/v2/isochrones';
+  String get _isochronesEndpointURL => '$_baseUrl/v2/isochrones';
 
   /// Obtain Isochrone (areas of reachability) Data for the [locations] given
   /// as a [List] of [ORSCoordinate].
@@ -34,7 +33,7 @@ extension ORServiceIsochrones on OpenRouteService {
     ORSProfile? profileOverride,
   }) async {
     // If a path parameter override is provided, use it.
-    final ORSProfile chosenPathParam = profileOverride ?? _profile;
+    final ORSProfile chosenPathParam = profileOverride ?? _defaultProfile;
 
     // Build the request URL.
     final Uri uri =

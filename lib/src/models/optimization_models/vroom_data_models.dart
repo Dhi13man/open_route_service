@@ -143,19 +143,16 @@ class VroomVehicle {
         'capacity': capacity,
         'skills': skills,
         'time_window': timeWindow,
-        'breaks': breaks == null
-            ? null
-            : breaks!
-                .map<Map<String, dynamic>>((VroomVehicleBreak b) => b.toJson())
-                .toList(),
+        'breaks': breaks
+            ?.map<Map<String, dynamic>>((VroomVehicleBreak b) => b.toJson())
+            .toList(),
         'speed_factor': speedFactor,
         'max_tasks': maxTasks,
-        'steps': steps == null
-            ? null
-            : steps!
-                .map<Map<String, dynamic>>(
-                    (VroomVehicleStep step) => step.toJson())
-                .toList(),
+        'steps': steps
+            ?.map<Map<String, dynamic>>(
+              (VroomVehicleStep step) => step.toJson(),
+            )
+            .toList(),
       }..removeWhere((String _, dynamic value) => value == null);
 
   @override

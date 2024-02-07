@@ -41,30 +41,31 @@ part 'package:open_route_service/src/services/pois.dart';
 class OpenRouteService {
   OpenRouteService({
     required String apiKey,
-    ORSProfile profile = ORSProfile.footWalking,
+    String baseUrl = OpenRouteService.defaultBaseUrl,
+    http.Client? client,
+    ORSProfile defaultProfile = ORSProfile.footWalking,
   })  : _apiKey = apiKey,
-        _profile = profile {
-    // Initialize HTTP client
-    _client = http.Client();
+        _baseUrl = baseUrl,
+        _defaultProfile = defaultProfile {
+    // Initialize HTTP client if not provided.
+    _client = client ?? http.Client();
   }
 
   /// The API key used to authenticate the request.
   final String _apiKey;
 
+  /// The base URL of all the endpoints.
+  /// Defaults to [defaultBaseUrl].
+  final String _baseUrl;
+
   /// HTTP Client used to persistently make the request.
   late final http.Client _client;
 
   /// The path parameter determines the routing method.
-  ORSProfile _profile;
+  final ORSProfile _defaultProfile;
 
-  /// The base URL of all the endpoints, https://api.openrouteservice.org
-  static const String _baseURL = 'https://api.openrouteservice.org';
-
-  /// Get current profile/path parameter.
-  ORSProfile get profile => _profile;
-
-  /// Change the profile/path parameter.
-  set setProfile(ORSProfile newPathParam) => _profile = newPathParam;
+  /// The default base URL of all the endpoints, https://api.openrouteservice.org
+  static const String defaultBaseUrl = 'https://api.openrouteservice.org';
 
   /// Performs a GET request on the OpenRouteService API endpoint [uri].
   ///
