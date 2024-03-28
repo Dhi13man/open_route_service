@@ -76,13 +76,15 @@ class GeoJsonFeatureCollection {
 /// Includes its [geometry] and [properties].
 class GeoJsonFeature {
   const GeoJsonFeature({
+    required this.type,
     required this.properties,
     required this.geometry,
     this.bbox,
   });
 
   GeoJsonFeature.fromJson(Map<String, dynamic> json)
-      : properties = json['properties'],
+      : type = json['type'],
+        properties = json['properties'],
         geometry = GeoJsonFeatureGeometry.fromJson(json['geometry']),
         bbox = json['bbox'] == null
             ? null
@@ -96,6 +98,9 @@ class GeoJsonFeature {
                   latitude: json['bbox'][3],
                 ),
               ];
+
+  /// The type of the feature.
+  final String type;
 
   /// The properties of the feature as [Map] of [String] keys and [dynamic]
   /// values to keep up with the API's unconstrained response.
@@ -122,7 +127,7 @@ class GeoJsonFeature {
   /// Converts the [GeoJsonFeature] to a [Map] with keys 'type', 'properties'
   /// and 'geometry'.
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'type': 'Feature',
+        'type': type,
         'properties': properties,
         'geometry': geometry.toJson(),
         if (bbox != null)
@@ -142,49 +147,38 @@ class GeoJsonFeature {
 ///
 /// Includes its [type] and [List] of [List] of [ORSCoordinate], [coordinates].
 class GeoJsonFeatureGeometry {
-  const GeoJsonFeatureGeometry({required this.type, required this.coordinates});
+  const GeoJsonFeatureGeometry({
+    required this.type,
+    required this.coordinates,
+    required this.internalType,
+  });
 
-  /// Generate a [GeoJsonFeatureGeometry] from a received [Map] having keys
-  /// 'type' and 'coordinates'.
-  ///
-  /// Apologize for the completely unreadable [GeoJsonFeatureGeometry.fromJson]
-  /// code, but the Feature Geometry data model is very inconsistent with what
-  /// it wants [coordinates] to be.
-  GeoJsonFeatureGeometry.fromJson(Map<String, dynamic> json)
-      : type = json['type'],
-        coordinates = (json['coordinates'] as List<dynamic>).first is List
-            ?
-            // For Isochrone feature geometry.
-            (((json['coordinates'] as List<dynamic>).first as List<dynamic>)
-                    .first is List<dynamic>)
-                ? (json['coordinates'] as List<dynamic>)
-                    .map<List<ORSCoordinate>>(
-                      (dynamic coords) => (coords as List<dynamic>)
-                          .map<ORSCoordinate>(
-                            (dynamic c) => ORSCoordinate.fromList(
-                              c as List<dynamic>,
-                            ),
-                          )
-                          .toList(),
-                    )
-                    .toList()
-                :
-                // For direction feature geometry
-                <List<ORSCoordinate>>[
-                    (json['coordinates'] as List<dynamic>)
-                        .map<ORSCoordinate>(
-                          (dynamic c) =>
-                              ORSCoordinate.fromList(c as List<dynamic>),
-                        )
-                        .toList()
-                  ]
-            :
-            // For POIs feature geometry
-            <List<ORSCoordinate>>[
-                <ORSCoordinate>[
-                  ORSCoordinate.fromList(json['coordinates'] as List<dynamic>),
-                ]
-              ];
+  factory GeoJsonFeatureGeometry.fromJson(Map<String, dynamic> json) {
+    final dynamic type = json['type'];
+    final dynamic coordinates = json['coordinates'];
+    if (coordinates is List<dynamic>) {
+      final List<dynamic> dynamicList = coordinates;
+      if (dynamicList.first is List<dynamic>) {
+        final List<List<dynamic>> dynamicListList = dynamicList
+            .map<List<dynamic>>((dynamic c) => c as List<dynamic>)
+            .toList();
+        // For Isochrone feature geometry, it has a list of list of coordinates.
+        if (dynamicListList.first.first is List<dynamic>) {
+          return _generateIsochroneGeometry(type, dynamicListList);
+        }
+
+        // For direction feature geometry, it has a list of coordinates.
+        if (dynamicListList.first.first is num) {
+          return _generateDirectionGeometry(type, dynamicListList);
+        }
+      }
+    }
+
+    // For Point feature geometry, it has a single coordinate.
+    return _generatePointGeometry(type, coordinates);
+  }
+
+  final GsonFeatureGeometryCoordinatesType internalType;
 
   /// Coordinates associated with the feature geometry.
   ///
@@ -203,17 +197,102 @@ class GeoJsonFeatureGeometry {
   ///
   /// The [coordinates] are converted to a [List] of [List]s of
   /// [List]s of 2 elements.
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'type': type,
-        'coordinates': coordinates
-            .map<List<List<double>>>(
-              (List<ORSCoordinate> coordinate) => coordinate
-                  .map<List<double>>((ORSCoordinate c) => c.toList())
-                  .toList(),
-            )
-            .toList(),
-      };
+  Map<String, dynamic> toJson() {
+    switch (internalType) {
+      case GsonFeatureGeometryCoordinatesType.listList:
+        return <String, dynamic>{
+          'type': type,
+          'coordinates': coordinates
+              .map<List<List<double>>>(
+                (List<ORSCoordinate> c) => c
+                    .map<List<double>>(
+                      (ORSCoordinate c) => c.toList(),
+                    )
+                    .toList(),
+              )
+              .toList(),
+        };
+      case GsonFeatureGeometryCoordinatesType.list:
+        return <String, dynamic>{
+          'type': type,
+          'coordinates': coordinates
+              .map<List<double>>(
+                (List<ORSCoordinate> c) => c.first.toList(),
+              )
+              .toList(),
+        };
+      case GsonFeatureGeometryCoordinatesType.single:
+        return <String, dynamic>{
+          'type': type,
+          'coordinates': coordinates.first.first.toList(),
+        };
+    }
+  }
 
   @override
   String toString() => toJson().toString();
+
+  /// For Isochrone feature geometry, it has a list of list of coordinates.
+  static GeoJsonFeatureGeometry _generateIsochroneGeometry(
+    String type,
+    List<List<dynamic>> dynamicListList,
+  ) {
+    final List<List<ORSCoordinate>> coordinateListList = dynamicListList
+        .map<List<List<dynamic>>>(
+          (List<dynamic> c) =>
+              c.map<List<dynamic>>((dynamic c) => c as List<dynamic>).toList(),
+        )
+        .map<List<List<num>>>(
+          (List<List<dynamic>> c) => c
+              .map<List<num>>(
+                (List<dynamic> c) =>
+                    c.map<num>((dynamic c) => c as num).toList(),
+              )
+              .toList(),
+        )
+        .map<List<ORSCoordinate>>(
+          (List<List<num>> c) => c
+              .map<ORSCoordinate>((List<num> c) => ORSCoordinate.fromList(c))
+              .toList(),
+        )
+        .toList();
+    return GeoJsonFeatureGeometry(
+      type: type,
+      coordinates: coordinateListList,
+      internalType: GsonFeatureGeometryCoordinatesType.listList,
+    );
+  }
+
+  /// For direction feature geometry, it has a list of coordinates.
+  static _generateDirectionGeometry(
+    String type,
+    List<List<dynamic>> dynamicListList,
+  ) {
+    final List<ORSCoordinate> coordinateList = dynamicListList
+        .map<ORSCoordinate>(
+          (List<dynamic> c) => ORSCoordinate.fromList(
+            c.map<double>((dynamic c) => (c as num).toDouble()).toList(),
+          ),
+        )
+        .toList();
+    return GeoJsonFeatureGeometry(
+      type: type,
+      coordinates: <List<ORSCoordinate>>[coordinateList],
+      internalType: GsonFeatureGeometryCoordinatesType.list,
+    );
+  }
+
+  /// For Point feature geometry, it has a single coordinate.
+  static _generatePointGeometry(String type, dynamic coordinates) {
+    final ORSCoordinate coordinate = ORSCoordinate.fromList(coordinates);
+    return GeoJsonFeatureGeometry(
+      type: type,
+      coordinates: <List<ORSCoordinate>>[
+        <ORSCoordinate>[coordinate],
+      ],
+      internalType: GsonFeatureGeometryCoordinatesType.single,
+    );
+  }
 }
+
+enum GsonFeatureGeometryCoordinatesType { listList, list, single }

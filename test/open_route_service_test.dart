@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'miscellaneous/geojson_tests.dart';
 import 'services/directions_tests.dart';
 import 'services/elevation_tests.dart';
 import 'services/geocode_tests.dart';
@@ -110,4 +111,6 @@ Future<void> main() async {
       reverseGeocodeQueryLocality: 'Paris',
     ),
   );
+
+  group('GeoJSON Compatibility Tests', () => geoJsonTests());
 }
