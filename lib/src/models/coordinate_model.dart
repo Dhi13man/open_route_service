@@ -23,7 +23,7 @@ class ORSCoordinate {
   factory ORSCoordinate.fromList(List<dynamic> json) => ORSCoordinate(
         longitude: (json[0]! as num).toDouble(),
         latitude: (json[1]! as num).toDouble(),
-        altitude: json.length > 2 ? (json[2] as num?)?.toDouble() : 0.0,
+        altitude: json.length > 2 ? (json[2] as num?)?.toDouble() : null,
       );
 
   /// The latitude of the coordinate.
