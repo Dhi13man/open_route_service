@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
-import 'miscellaneous/geojson_test.dart';
+import 'miscellaneous/geojson_tests.dart';
 import 'services/directions_tests.dart';
 import 'services/elevation_tests.dart';
 import 'services/geocode_tests.dart';
