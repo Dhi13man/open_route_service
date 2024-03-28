@@ -112,8 +112,5 @@ Future<void> main() async {
     ),
   );
 
-  group(
-    'GeoJSON Compatibility Tests',
-    geoJsonTests,
-  );
+  group('GeoJSON Compatibility Tests', () => geoJsonTests());
 }

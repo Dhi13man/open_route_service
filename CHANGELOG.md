@@ -2,8 +2,8 @@
 
 ## [1.2.5] - 6th Feb, 2024
 
-- Fixed broken compatibility with `geodart` GeoJSON serialisation/deserialisation.
-- Using `geojson` package as a dev dependency for unit testing compatibility with GeoJSON.
+- Fixed broken compatibility with `geodart` GeoJSON serialisation/deserialisation as reported in [Issue #19](https://github.com/Dhi13man/open_route_service/issues/19).
+- Using `geojson` package as a dev dependency, for unit testing compatibility with GeoJSON.
 
 ## [1.2.4] - 6th Feb, 2024
 
