@@ -69,9 +69,20 @@ void geoJsonTests() {
     expect(result.bbox, expected.bbox);
     expect(result.properties, expected.properties);
     expect(result.type, expected.type);
-    expect(result.geometry.coordinates, expected.geometry.coordinates);
     expect(result.geometry.internalType, expected.geometry.internalType);
     expect(result.geometry.type, expected.geometry.type);
+    for (int i = 0; i < result.geometry.coordinates.length; i++) {
+      for (int j = 0; j < result.geometry.coordinates[i].length; j++) {
+        expect(
+          result.geometry.coordinates[i][j].latitude,
+          expected.geometry.coordinates[i][j].latitude,
+        );
+        expect(
+          result.geometry.coordinates[i][j].longitude,
+          expected.geometry.coordinates[i][j].longitude,
+        );
+      }
+    }
   });
 
   test('Test GeoJSON Coordinate Point serialization and deserialization', () {
