@@ -1,5 +1,10 @@
 # Releases
 
+## [1.2.5] - 6th Feb, 2024
+
+- Fixed broken compatibility with `geodart` GeoJSON serialisation/deserialisation.
+- Using `geojson` package as a dev dependency for unit testing compatibility with GeoJSON.
+
 ## [1.2.4] - 6th Feb, 2024
 
 - **MINOR BREAKING:** Removed getter and setter for `profile` in `OpenRouteService` class. It is now final and can only be set via the constructor `defaultProfile` parameter. This system is more concurrency-safe. If it needs to be overridden at the API call level, that can anyway be done by passing in `profileOverride` to the respective API method.
