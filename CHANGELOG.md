@@ -1,6 +1,11 @@
 # Releases
 
-## [1.2.5] - 6th Feb, 2024
+## [1.2.6] - 6th April, 2024
+
+- Empty checks to prevent breaking when receiving empty collections from openrouteservice. Fixes [Issue #21](https://github.com/Dhi13man/open_route_service/issues/21).
+- Unit Tests for empty GeoJSON Feature serialisation/deserialisation added.
+
+## [1.2.5] - 29th March, 2024
 
 - Fixed broken compatibility with `geodart` GeoJSON serialisation/deserialisation as reported in [Issue #19](https://github.com/Dhi13man/open_route_service/issues/19).
 - Using `geojson` package as a dev dependency, for unit testing compatibility with GeoJSON.

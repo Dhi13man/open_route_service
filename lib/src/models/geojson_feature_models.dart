@@ -53,12 +53,14 @@ class GeoJsonFeatureCollection {
   /// The 'bbox' key is converted to list of 4 [double]s implying 2 coordinates.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'type': 'FeatureCollection',
-        'bbox': <double>[
-          bbox[0].longitude,
-          bbox[0].latitude,
-          bbox[1].longitude,
-          bbox[1].latitude,
-        ],
+        'bbox': bbox.length == 2
+            ? <double>[
+                bbox[0].longitude,
+                bbox[0].latitude,
+                bbox[1].longitude,
+                bbox[1].latitude,
+              ]
+            : <double>[],
         'features': features
             .map<Map<String, dynamic>>(
               (GeoJsonFeature feature) => feature.toJson(),
@@ -156,21 +158,31 @@ class GeoJsonFeatureGeometry {
   factory GeoJsonFeatureGeometry.fromJson(Map<String, dynamic> json) {
     final dynamic type = json['type'];
     final dynamic coordinates = json['coordinates'];
-    if (coordinates is List<dynamic>) {
-      final List<dynamic> dynamicList = coordinates;
-      if (dynamicList.first is List<dynamic>) {
-        final List<List<dynamic>> dynamicListList = dynamicList
-            .map<List<dynamic>>((dynamic c) => c as List<dynamic>)
-            .toList();
-        // For Isochrone feature geometry, it has a list of list of coordinates.
-        if (dynamicListList.first.first is List<dynamic>) {
-          return _generateIsochroneGeometry(type, dynamicListList);
-        }
+    final bool isNotListOrIsEmptyList =
+        coordinates is! List<dynamic> || coordinates.isEmpty;
+    if (isNotListOrIsEmptyList) {
+      return _generateEmptyGeometry(type);
+    }
 
-        // For direction feature geometry, it has a list of coordinates.
-        if (dynamicListList.first.first is num) {
-          return _generateDirectionGeometry(type, dynamicListList);
-        }
+    final List<dynamic> dynamicList = coordinates;
+    final bool isFirstElementList =
+        dynamicList.isNotEmpty && dynamicList.first is List<dynamic>;
+    if (isFirstElementList) {
+      final List<List<dynamic>> dynamicListList = dynamicList
+          .map<List<dynamic>>((dynamic c) => c as List<dynamic>)
+          .toList();
+      // For Isochrone feature geometry, it has a list of list of coordinates.
+      final bool isFirstFirstElementList = dynamicListList.first.isNotEmpty &&
+          dynamicListList.first.first is List<dynamic>;
+      if (isFirstFirstElementList) {
+        return _generateIsochroneGeometry(type, dynamicListList);
+      }
+
+      // For direction feature geometry, it has a list of coordinates.
+      final bool isFirstFirstElementNum = dynamicListList.first.isNotEmpty &&
+          dynamicListList.first.first is num;
+      if (isFirstFirstElementNum) {
+        return _generateDirectionGeometry(type, dynamicListList);
       }
     }
 
@@ -225,6 +237,12 @@ class GeoJsonFeatureGeometry {
         return <String, dynamic>{
           'type': type,
           'coordinates': coordinates.first.first.toList(),
+        };
+
+      case GsonFeatureGeometryCoordinatesType.empty:
+        return <String, dynamic>{
+          'type': type,
+          'coordinates': <List<double>>[],
         };
     }
   }
@@ -293,6 +311,15 @@ class GeoJsonFeatureGeometry {
       internalType: GsonFeatureGeometryCoordinatesType.single,
     );
   }
+
+  /// For Point feature geometry, it has a single coordinate.
+  static _generateEmptyGeometry(String type) {
+    return GeoJsonFeatureGeometry(
+      type: type,
+      coordinates: <List<ORSCoordinate>>[<ORSCoordinate>[]],
+      internalType: GsonFeatureGeometryCoordinatesType.empty,
+    );
+  }
 }
 
-enum GsonFeatureGeometryCoordinatesType { listList, list, single }
+enum GsonFeatureGeometryCoordinatesType { listList, list, single, empty }
