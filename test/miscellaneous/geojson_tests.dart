@@ -10,7 +10,9 @@ void geoJsonTests() {
       ORSCoordinate(latitude: 3.0, longitude: 0.0)
     ];
     final GeoJsonFeatureCollection feature = GeoJsonFeatureCollection(
-        bbox: coordinates, features: <GeoJsonFeature>[]);
+      bbox: coordinates,
+      features: <GeoJsonFeature>[],
+    );
 
     // Act
     final Map<String, dynamic> result = feature.toJson();
@@ -44,6 +46,48 @@ void geoJsonTests() {
         ORSCoordinate(latitude: 3.0, longitude: 0.0),
         ORSCoordinate(latitude: 1.5, longitude: 0.0)
       ],
+      features: <GeoJsonFeature>[],
+    );
+    expect(result.bbox, expected.bbox);
+    expect(result.features, expected.features);
+  });
+
+  test('Test empty GeoJSON Feature Collection serialization', () {
+    // Arrange
+    final GeoJsonFeatureCollection feature = GeoJsonFeatureCollection(
+      bbox: <ORSCoordinate>[],
+      features: <GeoJsonFeature>[],
+    );
+
+    // Act
+    final Map<String, dynamic> result = feature.toJson();
+
+    // Assert
+    expect(
+      result,
+      <String, dynamic>{
+        'type': 'FeatureCollection',
+        'bbox': <double>[],
+        'features': <Map<String, dynamic>>[],
+      },
+    );
+  });
+
+  test('Test empty GeoJSON Feature Collection deserialization', () {
+    // Arrange
+    final Map<String, dynamic> json = <String, dynamic>{
+      'type': 'FeatureCollection',
+      'bbox': <double>[],
+      'features': <Map<String, dynamic>>[],
+    };
+
+    // Act
+    final GeoJsonFeatureCollection result =
+        GeoJsonFeatureCollection.fromJson(json);
+
+    // Assert
+    final GeoJsonFeatureCollection expected = GeoJsonFeatureCollection(
+      bbox: <ORSCoordinate>[],
       features: <GeoJsonFeature>[],
     );
     expect(result.bbox, expected.bbox);
@@ -151,7 +195,7 @@ void geoJsonTests() {
     expect(result.properties, original.properties);
   });
 
-  test('Test GeoJSON Empty Coordinates serialization', () {
+  test('Test empty GeoJSON Coordinates serialization', () {
     // Arrange
     final GeoJsonFeature feature = GeoJsonFeature(
       type: 'Feature',
@@ -180,7 +224,7 @@ void geoJsonTests() {
     );
   });
 
-  test('Test GeoJSON Empty Coordinate deserialization', () {
+  test('Test empty GeoJSON Coordinate deserialization', () {
     // Arrange
     final Map<String, dynamic> json = <String, dynamic>{
       'type': 'Feature',
