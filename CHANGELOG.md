@@ -1,5 +1,11 @@
 # Releases
 
+## [1.2.7] - 2nd February, 2025
+
+- Enhance OpenRouteService class with improved error handling and response parsing.
+  - Refactored error handling in matrix and POIs services to use updated exceptions
+- Added a `close` method to the `OpenRouteService` class to close the underlying HTTP client.
+
 ## [1.2.6] - 6th April, 2024
 
 - Empty checks to prevent breaking when receiving empty collections from openrouteservice. Fixes [Issue #21](https://github.com/Dhi13man/open_route_service/issues/21).
