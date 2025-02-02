@@ -124,7 +124,7 @@ class OpenRouteService {
   ///
   /// Returns the decoded response body if the status code is 2xx.
   /// Throws an [ORSHttpException] if the status code is not 2xx.
-  Future<dynamic> _extractDecodedResponse(http.Response response, Uri uri) {
+  dynamic _extractDecodedResponse(http.Response response, Uri uri) {
     final dynamic parsedResponse = _parseResponse(response, uri);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return parsedResponse;
@@ -146,7 +146,7 @@ class OpenRouteService {
   dynamic _parseResponse(http.Response response, Uri uri) {
     try {
       final String contentType = response.headers['content-type'] ?? '';
-      return contentType.contains('application/json')
+      return contentType.contains('json')
           ? jsonDecode(response.body)
           : response.body;
     } catch (e, trace) {
