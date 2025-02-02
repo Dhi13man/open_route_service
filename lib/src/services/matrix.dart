@@ -32,7 +32,7 @@ extension ORSMatrix on OpenRouteService {
     // Build the request URL.
     final Uri uri = Uri.parse('$_matrixEndpointURL/${chosenPathParam.name}');
 
-    // Ready data to be sent.
+    // Prepare data to be sent.
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'locations': locations
           .map<List<double>>(
@@ -54,17 +54,17 @@ extension ORSMatrix on OpenRouteService {
       final Map<String, dynamic> data =
           await _openRouteServicePost(uri: uri, data: queryParameters);
       return TimeDistanceMatrix.fromJson(data);
-    } on FormatException catch (e) {
-      throw ORSException(
-        '$e; Matrix value can\'t be determined for given inputs, as per '
-        'https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post',
+    } on FormatException catch (e, trace) {
+      throw MatrixORSParsingException(
         uri: uri,
+        cause: e,
+        causeStackTrace: trace,
       );
-    } on TypeError catch (e) {
-      throw ORSException(
-        '$e; Matrix value can\'t be determined for given inputs, as per '
-        'https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post',
+    } on TypeError catch (e, trace) {
+      throw MatrixORSParsingException(
         uri: uri,
+        cause: e,
+        causeStackTrace: trace,
       );
     }
   }

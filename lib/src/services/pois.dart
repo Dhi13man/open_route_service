@@ -38,7 +38,7 @@ extension ORSPois on OpenRouteService {
     // Build the request URL.
     final Uri uri = Uri.parse(_poisEndpointURL);
 
-    // Ready data to be sent.
+    // Prepare data to be sent.
     final Map<String, dynamic> queryParameters = <String, dynamic>{
       'request': request,
       'geometry': geometry,
@@ -52,11 +52,7 @@ extension ORSPois on OpenRouteService {
         await _openRouteServicePost(uri: uri, data: queryParameters);
 
     if (data is Map && data.isEmpty) {
-      throw ORSException(
-        'Empty POIs data received. Check if ORS POIs endpoint is working! '
-        'If endpoint is working, your input might be faulty!',
-        uri: uri,
-      );
+      throw PoisEmptyORSParsingException(uri: uri);
     } else if (data is List) {
       return PoisData.fromJson(data.first);
     } else {
