@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:open_route_service/src/exceptions/base.dart';
+import 'package:open_route_service/src/exceptions/matrix.dart';
+import 'package:open_route_service/src/exceptions/pois.dart';
 
 import 'package:open_route_service/src/models/coordinate_model.dart';
 import 'package:open_route_service/src/models/direction_data_models.dart';
@@ -39,6 +42,12 @@ part 'package:open_route_service/src/services/pois.dart';
 /// The API documentation can be found here:
 /// https://openrouteservice.org/dev/#/api-docs
 class OpenRouteService {
+  /// Constructor.
+  ///
+  /// - [apiKey]: API key for authentication.
+  /// - [baseUrl]: Base URL of the endpoints (defaults to [defaultBaseUrl]).
+  /// - [client]: Optional HTTP client; if not provided, a new instance is created.
+  /// - [defaultProfile]: Default routing profile.
   OpenRouteService({
     required String apiKey,
     String baseUrl = OpenRouteService.defaultBaseUrl,
@@ -51,7 +60,7 @@ class OpenRouteService {
     _client = client ?? http.Client();
   }
 
-  /// The API key used to authenticate the request.
+  /// API key used for authentication.
   final String _apiKey;
 
   /// The base URL of all the endpoints.
@@ -67,34 +76,30 @@ class OpenRouteService {
   /// The default base URL of all the endpoints, https://api.openrouteservice.org
   static const String defaultBaseUrl = 'https://api.openrouteservice.org';
 
-  /// Performs a GET request on the OpenRouteService API endpoint [uri].
+  /// Allows closing the HTTP client when done.
+  void close() {
+    _client.close();
+  }
+
+  /// Performs a GET request on the OpenRouteService API endpoint.
   ///
-  /// Returns [Future] that resolves to json-decoded [http.Response] object body
+  /// - [uri]: The full URI for the API call.
   ///
-  /// Throws an [HttpException] if the request fails.
+  /// Returns a [Future] which resolves with the decoded response body.
+  /// Throws an [ORSHttpException] if the request fails.
   Future<dynamic> _openRouteServiceGet({required Uri uri}) async {
     // Fetch the data.
     final http.Response response = await _client.get(uri);
-    // Check if the request was successful.
-    if (response.statusCode / 100 == 2) {
-      final String data = response.body;
-      return jsonDecode(data);
-    } else {
-      final dynamic errorData = jsonDecode(response.body);
-      throw ORSException(
-        'Status: ${errorData['error'] ?? errorData} '
-        'Code: ${response.statusCode}',
-        uri: uri,
-      );
-    }
+    return _extractDecodedResponse(response, uri);
   }
 
-  /// Performs a POST request on the OpenRouteService API endpoint [uri] with
-  /// the given [data] and [headers].
+  /// Performs a POST request on the OpenRouteService API endpoint.
   ///
-  /// Returns [Future] that resolves to json-decoded [http.Response] object body
+  /// - [uri]: The full URI for the API call.
+  /// - [data]: Request body to be sent in JSON format.
   ///
-  /// Throws an [HttpException] if the request fails.
+  /// Returns a [Future] which resolves with the decoded response body.
+  /// Throws an [ORSHttpException] if the request fails.
   Future<dynamic> _openRouteServicePost({
     required Uri uri,
     required Map<String, dynamic> data,
@@ -110,33 +115,46 @@ class OpenRouteService {
         'Content-Type': 'application/json; charset=utf-8',
       },
     );
-    // Check if the request was successful.
-    if (response.statusCode / 100 == 2) {
-      final String data = response.body;
-      return jsonDecode(data);
+    return _extractDecodedResponse(response, uri);
+  }
+
+  /// Extracts and returns the decoded response.
+  ///
+  /// - [response]: The HTTP response.
+  ///
+  /// Returns the decoded response body if the status code is 2xx.
+  /// Throws an [ORSHttpException] if the status code is not 2xx.
+  dynamic _extractDecodedResponse(http.Response response, Uri uri) {
+    final dynamic parsedResponse = _parseResponse(response, uri);
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return parsedResponse;
     } else {
-      final dynamic errorData = jsonDecode(response.body);
-      throw ORSException(
-        'Status: ${errorData['error'] ?? errorData} '
-        'Code: ${response.statusCode}',
+      throw ORSHttpException(
         uri: uri,
+        statusCode: response.statusCode,
+        errorResponse: parsedResponse,
       );
     }
   }
-}
 
-/// Custom Exception class for this package that contains the [message] of the
-/// error, and the [uri] of the failed request (if any).
-class ORSException implements Exception {
-  @pragma('vm:entry-point')
-  const ORSException(this.message, {this.uri}) : super();
-
-  /// The message of the error.
-  final String message;
-
-  /// The uri of the failed request.
-  final Uri? uri;
-
-  @override
-  String toString() => 'OpenRouteServiceException: $message, at url $uri';
+  /// Parses the HTTP [response] based on its content type.
+  ///
+  /// - [response]: The HTTP response.
+  ///
+  /// Returns parsed JSON if the response contains 'application/json', otherwise the raw body.
+  /// Throws an [ORSParsingException] if parsing fails.
+  dynamic _parseResponse(http.Response response, Uri uri) {
+    try {
+      final String contentType = response.headers['content-type'] ?? '';
+      return contentType.contains('json')
+          ? jsonDecode(response.body)
+          : response.body;
+    } catch (e, trace) {
+      throw ORSParsingException(
+        uri: uri,
+        cause: e is Exception ? e : Exception(e.toString()),
+        causeStackTrace: trace,
+      );
+    }
+  }
 }

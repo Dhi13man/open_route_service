@@ -1,4 +1,5 @@
 import 'package:open_route_service/open_route_service.dart';
+import 'package:open_route_service/src/exceptions/pois.dart';
 import 'package:test/test.dart';
 
 void poisTests({
@@ -25,8 +26,8 @@ void poisTests({
           },
         );
         expect(poisData.features.length, greaterThan(0));
-      } on ORSException catch (e) {
-        if (e.uri!.path.contains('pois')) {
+      } on PoisEmptyORSParsingException catch (e) {
+        if (e.uri?.path.contains('pois') ?? false) {
           print('POIs Endpoint Server failure! But package should be working!');
           return;
         } else {
