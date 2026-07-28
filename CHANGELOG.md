@@ -5,6 +5,7 @@
 - Added explicit return types to private GeoJSON geometry factory helpers.
 - Corrected the effective Dart SDK lower bound and package metadata.
 - Resolved analyzer findings exposed by Dart 3 language mode.
+- Allowed lints 6.x on newer SDKs while preserving Dart 3.0 compatibility and adopted the unnamed-library form.
 
 ## [1.2.7] - 2nd February, 2025
 

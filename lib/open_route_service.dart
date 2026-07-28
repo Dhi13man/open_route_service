@@ -2,7 +2,7 @@
 ///
 /// Made for easy generation of Directions, Isochrones, Time-Distance Matrix,
 /// Pelias Geocoding, etc. using their amazing API.
-library open_route_service;
+library;
 
 export 'package:open_route_service/src/models/coordinate_model.dart';
 export 'package:open_route_service/src/models/direction_data_models.dart';
