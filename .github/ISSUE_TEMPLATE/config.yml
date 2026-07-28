@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Dhi13man/open_route_service/security/advisories/new
+    about: Report vulnerabilities privately instead of opening an issue.

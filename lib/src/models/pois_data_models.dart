@@ -9,10 +9,10 @@ import 'package:open_route_service/open_route_service.dart';
 ///https://openrouteservice.org/dev/#/api-docs/pois
 class PoisData extends GeoJsonFeatureCollection {
   const PoisData({
-    required List<ORSCoordinate> bbox,
-    required List<GeoJsonFeature> features,
+    required super.bbox,
+    required super.features,
     required this.information,
-  }) : super(bbox: bbox, features: features);
+  });
 
   factory PoisData.fromJson(Map<String, dynamic> json) => PoisData(
         bbox: <ORSCoordinate>[

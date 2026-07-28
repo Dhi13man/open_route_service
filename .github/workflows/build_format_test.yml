@@ -27,7 +27,7 @@ jobs:
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
 
       - name: Install dependencies
         run: dart pub get
@@ -39,6 +39,9 @@ jobs:
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: dart analyze
+
+      - name: Validate package publication
+        run: dart pub publish --dry-run
 
       # Ensure we didn't accidentally leak API key, and then run tests using Repository's Secret Environment API key.
       - name: Run tests
