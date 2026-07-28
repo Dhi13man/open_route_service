@@ -10,4 +10,4 @@ Only the latest version published on [pub.dev](https://pub.dev/packages/open_rou
 
 Use [GitHub private vulnerability reporting](https://github.com/Dhi13man/open_route_service/security/advisories/new). Do not open a public issue or include API keys, tokens, or other credentials in a report.
 
-Include the affected version, impact, reproduction steps, and any known mitigation. The maintainer will confirm receipt, assess the report, and coordinate disclosure through the private advisory.
+Include the affected version, impact, reproduction steps, and any known mitigation. The maintainer will acknowledge the report within seven days and assess its severity. Confirmed critical or high-severity vulnerabilities are targeted for a fix or mitigation within 30 days. Disclosure is coordinated through the private advisory.
