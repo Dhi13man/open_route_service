@@ -282,7 +282,7 @@ class GeoJsonFeatureGeometry {
   }
 
   /// For direction feature geometry, it has a list of coordinates.
-  static _generateDirectionGeometry(
+  static GeoJsonFeatureGeometry _generateDirectionGeometry(
     String type,
     List<List<dynamic>> dynamicListList,
   ) {
@@ -301,7 +301,10 @@ class GeoJsonFeatureGeometry {
   }
 
   /// For Point feature geometry, it has a single coordinate.
-  static _generatePointGeometry(String type, dynamic coordinates) {
+  static GeoJsonFeatureGeometry _generatePointGeometry(
+    String type,
+    dynamic coordinates,
+  ) {
     final ORSCoordinate coordinate = ORSCoordinate.fromList(coordinates);
     return GeoJsonFeatureGeometry(
       type: type,
@@ -313,7 +316,7 @@ class GeoJsonFeatureGeometry {
   }
 
   /// For Point feature geometry, it has a single coordinate.
-  static _generateEmptyGeometry(String type) {
+  static GeoJsonFeatureGeometry _generateEmptyGeometry(String type) {
     return GeoJsonFeatureGeometry(
       type: type,
       coordinates: <List<ORSCoordinate>>[<ORSCoordinate>[]],
