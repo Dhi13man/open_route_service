@@ -10,6 +10,8 @@ Thank you for investing your time in contributing to this project! Any contribut
 
 Make sure you go through the [API Documentation](https://openrouteservice.org/dev/#/api-docs/) first!
 
+By participating, you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## General Steps to Contribute
 
 1. Ensure you have [Dart](https://dart.dev/get-dart)/[Flutter](https://flutter.dev/docs/get-started/install/) SDK installed.
@@ -30,11 +32,11 @@ Make sure you go through the [API Documentation](https://openrouteservice.org/de
 
 8. Add relevant tests (if any) for the contribution you made to `./test/` folder and an appropriate subfolder.
 
-9. **Get an [openrouteservice API Key](https://openrouteservice.org/dev/#/signup/)** if you haven't already, and set it as the `apiKey` constant in `./test/open_route_service_test.dart` in place of `'test'`.
+9. **Get an [openrouteservice API Key](https://openrouteservice.org/dev/#/signup/)** if you haven't already. Set `EXEC_ENV` to `github_actions` and `ORS_API_KEY` to the key in your current shell. Never write the key into a repository file.
 
 10. Run `dart test` to run the tests. **Ensure all tests run and pass before committing and/or pushing!**
 
-11. **Replace your `apiKey` with `'test'` again before committing and/or pushing**, or it will get leaked!
+11. Clear `ORS_API_KEY` from your shell after testing.
 
 12. Commit your changes and push them to your local repository by running `git commit -am "my-commit-message" && git push origin <new-branch-name>`.
 

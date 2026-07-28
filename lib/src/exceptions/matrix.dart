@@ -8,14 +8,11 @@ class MatrixORSParsingException extends ORSParsingException {
   /// - [cause]: the underlying exception (if any).
   /// - [causeStackTrace]: the accompanying stack trace (if any).
   const MatrixORSParsingException({
-    Uri? uri,
-    Object? cause,
-    StackTrace? causeStackTrace,
+    super.uri,
+    super.cause,
+    super.causeStackTrace,
   }) : super(
           message:
               'Matrix value cannot be determined from the given inputs as specified in https://openrouteservice.org/dev/#/api-docs/v2/matrix/{profile}/post.',
-          uri: uri,
-          cause: cause,
-          causeStackTrace: causeStackTrace,
         );
 }

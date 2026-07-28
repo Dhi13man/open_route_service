@@ -3,6 +3,8 @@
 ## [1.2.8] - 28th July, 2026
 
 - Added explicit return types to private GeoJSON geometry factory helpers.
+- Corrected the effective Dart SDK lower bound and package metadata.
+- Resolved analyzer findings exposed by Dart 3 language mode.
 
 ## [1.2.7] - 2nd February, 2025
 

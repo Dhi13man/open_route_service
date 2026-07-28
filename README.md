@@ -1,20 +1,14 @@
 # open_route_service
 
-[![License](https://img.shields.io/github/license/dhi13man/open_route_service)](https://github.com/Dhi13man/open_route_service/blob/main/LICENSE)
-[![Language](https://img.shields.io/badge/language-Dart-blue.svg)](https://dart.dev)
-[![Language](https://img.shields.io/badge/language-Flutter-blue.svg)](https://flutter.dev)
-[![Contributors](https://img.shields.io/github/contributors-anon/dhi13man/open_route_service?style=flat)](https://github.com/Dhi13man/open_route_service/graphs/contributors)
-[![GitHub forks](https://img.shields.io/github/forks/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service/network/members)
-[![GitHub Repo stars](https://img.shields.io/github/stars/dhi13man/open_route_service?style=social)](https://github.com/Dhi13man/open_route_service/stargazers)
-[![Last Commit](https://img.shields.io/github/last-commit/dhi13man/open_route_service)](https://github.com/Dhi13man/open_route_service/commits/main)
-[![Build, Format, Test](https://github.com/Dhi13man/open_route_service/workflows/Build,%20Format,%20Test/badge.svg)](https://github.com/Dhi13man/open_route_service/actions)
+[![Build, Format, Test](https://github.com/Dhi13man/open_route_service/actions/workflows/build_format_test.yml/badge.svg)](https://github.com/Dhi13man/open_route_service/actions/workflows/build_format_test.yml)
 [![open_route_service version](https://img.shields.io/pub/v/open_route_service.svg)](https://pub.dev/packages/open_route_service)
+[![pub points](https://img.shields.io/pub/points/open_route_service)](https://pub.dev/packages/open_route_service/score)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Dhi13man/open_route_service/badge)](https://scorecard.dev/viewer/?uri=github.com/Dhi13man/open_route_service)
+[![License: MIT](https://img.shields.io/github/license/Dhi13man/open_route_service)](LICENSE)
 
-[!["Buy Me A Coffee"](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20an%20Ego%20boost&emoji=%F0%9F%98%B3&slug=dhi13man&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00****)](https://www.buymeacoffee.com/dhi13man)
+A Dart and Flutter client for openrouteservice directions, isochrones, matrices, geocoding, points of interest, elevation, and route optimization.
 
-This package is an encapsulation/wrapper made around [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects.
-
-The package enables the easy integration of the openrouteservice API with relevant data models, for generation of Routes and Directions on Maps, Isochrones, Time-Distance Matrix, Pelias Geocoding, POIs, Elevation, routing Optimizations etc, using their amazing API.
+The package provides typed request and response models around the [openrouteservice API](https://openrouteservice.org) for Dart and Flutter projects.
 
 [Contribute to openrouteservice API by donating](https://openrouteservice.org/donations/) to help keep the service free and accessible to everyone. For more information about the API, view the [openrouteservice API documentation](https://openrouteservice.org/dev/#/api-docs).
 
@@ -23,13 +17,16 @@ The package enables the easy integration of the openrouteservice API with releva
 - [open\_route\_service](#open_route_service)
   - [Contents](#contents)
   - [Features](#features)
-  - [Getting started](#getting-started)
-  - [Steps for Usage](#steps-for-usage)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
     - [Example Usage](#example-usage)
+  - [Security](#security)
   - [Contribution Guidelines](#contribution-guidelines)
   - [Dependencies](#dependencies)
   - [Additional information](#additional-information)
     - [Sponsor Message](#sponsor-message)
+  - [License](#license)
 
 ## Features
 
@@ -104,11 +101,16 @@ With all of their internal Optimizations, this includes:
 
 Appropriate tests have also been written for each of the above APIs and can be used to check if the package and/or API are functioning properly.
 
-## Getting started
+## Prerequisites
+
+- Dart 3.0 or a Flutter SDK that includes Dart 3.0 or later.
+- An [openrouteservice API key](https://openrouteservice.org/dev/#/signup).
+
+## Installation
 
 Run `dart pub add open_route_service` or `flutter pub add open_route_service` in your Dart/Flutter project directory to install the package.
 
-## Steps for Usage
+## Usage
 
 1. Import the package where needed:
 
@@ -170,13 +172,13 @@ Future<void> main() async {
 
 ```
 
+## Security
+
+Report vulnerabilities privately by following [SECURITY.md](SECURITY.md). Do not include API keys or other credentials in issues, examples, or pull requests.
+
 ## Contribution Guidelines
 
-- Check the [in-depth Contribution Guide](https://github.com/Dhi13man/open_route_service/blob/main/CONTRIBUTING.md) for exact steps on how to contribute to the package.
-
-- Contributions are welcome on [GitHub](https://www.github.com/dhi13man/open_route_service). Please ensure all the tests are running before pushing your changes. Write your own tests too!
-
-- File any [issues or feature requests here,](https://www.github.com/dhi13man/open_route_service/issues) or help me resolve existing ones. :)
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow and test requirements. Use [GitHub issues](https://github.com/Dhi13man/open_route_service/issues) for reproducible bugs and focused feature requests.
 
 ## Dependencies
 
@@ -194,3 +196,7 @@ Future<void> main() async {
 ### Sponsor Message
 
 The first release of this package was sponsored by [Cashtic](https://cashtic.com/), a Cross-Platform peer-to-peer ATM cash network for Android and Web. Get it on [Google Play!](https://play.google.com/store/apps/details?id=com.cashtic&hl=en&gl=US)
+
+## License
+
+This package is available under the [MIT License](LICENSE).

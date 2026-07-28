@@ -434,9 +434,6 @@ class VroomVehicleStep {
 
       case VroomVehicleStepType.end:
         return 'end';
-
-      default:
-        throw ArgumentError('Invalid VroomVehicleStepType: $type');
     }
   }
 
