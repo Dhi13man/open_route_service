@@ -1,5 +1,9 @@
 # Releases
 
+## [1.2.8] - 28th July, 2026
+
+- Added explicit return types to private GeoJSON geometry factory helpers.
+
 ## [1.2.7] - 2nd February, 2025
 
 - Enhance OpenRouteService class with improved error handling and response parsing.
