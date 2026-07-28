@@ -42,8 +42,13 @@ jobs:
       - name: Validate package publication
         run: dart pub publish --dry-run
 
-      # Ensure we didn't accidentally leak API key, and then run tests using Repository's Secret Environment API key.
-      - name: Run tests
+      - name: Run deterministic tests
+        if: github.actor == 'dependabot[bot]'
+        run: dart test test/open_route_service_test.dart --name 'GeoJSON'
+
+      # Repository secrets are intentionally unavailable to Dependabot pull requests.
+      - name: Run API integration tests
+        if: github.actor != 'dependabot[bot]'
         run: dart test
         env:
           EXEC_ENV: 'github_actions'
