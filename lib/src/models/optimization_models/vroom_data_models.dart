@@ -263,7 +263,7 @@ class VroomJob {
   /// [List] of [int] describing mandatory skills of this job.
   final List<int>? skills;
 
-  /// [int] describing the priority of this job. VALID RANGE: [0, 100].
+  /// [int] describing the priority of this job. Valid range: 0 to 100.
   /// Defaults to 0.
   final int? priority;
 
@@ -369,11 +369,11 @@ class VroomVehicleBreak {
 /// [id] 	id of the task to be performed at this step if type value is job,
 /// pickup, delivery or break
 ///
-/// [service_at] 	hard constraint on service time
+/// `service_at`: hard constraint on service time
 ///
-/// [service_after] 	hard constraint on service time lower bound
+/// `service_after`: hard constraint on service time lower bound
 ///
-/// [service_before] 	hard constraint on service time upper bound
+/// `service_before`: hard constraint on service time upper bound
 ///
 /// View the Vehicles Section to find the Step Model schema.
 /// https://github.com/VROOM-Project/vroom/blob/master/docs/API.md#vehicles

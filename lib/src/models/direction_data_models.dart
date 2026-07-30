@@ -4,7 +4,7 @@ import 'package:open_route_service/open_route_service.dart';
 /// endpoint of Directions API.
 ///
 /// Includes the Route's [summary], [segments], [bbox], [geometry]
-/// and [waypoints].
+/// and [wayPoints].
 ///
 /// https://openrouteservice.org/dev/#/api-docs/v2/directions/{profile}/post
 class DirectionRouteData {

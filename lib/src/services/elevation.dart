@@ -27,7 +27,7 @@ extension ORSElevation on OpenRouteService {
     return ElevationData.fromJson(data);
   }
 
-  /// Fetches the [ElevationData] by taking a 2D [coordinate] and enriching it
+  /// Fetches the [ElevationData] by taking a 2D [geometry] and enriching it
   /// with  elevation from a variety of datasets. Uses the POST method for the
   /// endpoint.
   ///
