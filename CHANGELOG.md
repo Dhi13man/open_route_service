@@ -1,11 +1,15 @@
 # Releases
 
-## [1.2.8] - 28th July, 2026
+## [1.2.8] - 30th July, 2026
 
-- Added explicit return types to private GeoJSON geometry factory helpers.
-- Corrected the effective Dart SDK lower bound and package metadata.
-- Resolved analyzer findings exposed by Dart 3 language mode.
+- Added explicit return types to private GeoJSON geometry factory helpers without changing the public API.
+- Corrected the effective Dart SDK lower bound, refreshed package metadata and topics, and resolved analyzer findings exposed by Dart 3 language mode.
 - Allowed lints 6.x on newer SDKs while preserving Dart 3.0 compatibility and adopted the unnamed-library form.
+- Hardened CI with read-only permissions, immutable action pins, disabled checkout credential persistence, fatal-info analysis, and a package publication dry run.
+- Added a secretless deterministic test lane for Dependabot while retaining the full API integration suite for trusted runs.
+- Added grouped dependency updates and pinned OpenSSF Scorecard analysis with SARIF upload to GitHub code scanning.
+- Added security and community policies, private vulnerability reporting and response targets, structured issue and pull request templates, and safer environment-only API key guidance for contributors.
+- Refocused the README and contribution guidance around package health, verification, support, and release-relevant metadata.
 
 ## [1.2.7] - 2nd February, 2025
 
