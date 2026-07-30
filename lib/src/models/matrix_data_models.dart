@@ -96,9 +96,8 @@ class TimeDistanceMatrixLocation {
   const TimeDistanceMatrixLocation(
       {required this.snappedDistance, required this.location});
 
-  /// Generates a [TimeDistanceMatrixLocation] from a [Map] having [String] keys
-  /// 'latitude' and 'longitude', respectively having [latitude] and [longitude]
-  /// as [double] values.
+  /// Generates a [TimeDistanceMatrixLocation] from a [Map] containing
+  /// `snapped_distance` and `location`, with longitude before latitude.
   factory TimeDistanceMatrixLocation.fromJson(Map<String, dynamic> json) =>
       TimeDistanceMatrixLocation(
         snappedDistance: json['snapped_distance'],
@@ -111,8 +110,8 @@ class TimeDistanceMatrixLocation {
   /// The coordinate of the location.
   final ORSCoordinate location;
 
-  /// Generates a [Map] having [String] keys 'snapped_distance' and 'location'
-  /// which has [longitude] and [latitude] as a [List] of [double] values.
+  /// Generates a [Map] containing `snapped_distance` and `location`, with the
+  /// coordinate encoded as a longitude-latitude [List] of [double] values.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'snapped_distance': snappedDistance,
         'location': <double>[location.longitude, location.latitude],

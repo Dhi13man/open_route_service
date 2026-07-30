@@ -10,6 +10,7 @@
 - Added grouped dependency updates and pinned OpenSSF Scorecard analysis with SARIF upload to GitHub code scanning.
 - Added security and community policies, private vulnerability reporting and response targets, structured issue and pull request templates, and safer environment-only API key guidance for contributors.
 - Refocused the README and contribution guidance around package health, verification, support, and release-relevant metadata.
+- Corrected stale API documentation references and clarified coordinate, range, and external field notation.
 
 ## [1.2.7] - 2nd February, 2025
 
