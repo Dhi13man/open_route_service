@@ -63,7 +63,7 @@ class ElevationData {
   /// Attribution to the source the elevation data has been extracted from.
   final String attribution;
 
-  /// The elevation coordinates in latitude, longitude, then optional altitude order.
+  /// The elevation coordinates in longitude, latitude, then optional altitude order.
   final List<ORSCoordinate> coordinates;
 
   /// The type of the elevation Geometry data.
