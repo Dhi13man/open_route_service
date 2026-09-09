@@ -23,11 +23,12 @@ jobs:
         with:
           persist-credentials: false
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
+      # Pin the SDK that was green with setup-dart 1.8.0. setup-dart 1.8.1
+      # otherwise installs latest stable, which fails dart analyze --fatal-infos.
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
       - uses: dart-lang/setup-dart@6afc89df92d6eb3834022f73cd65adc8cdfcb92d # v1.8.1
+        with:
+          sdk: 3.12.2
 
       - name: Install dependencies
         run: dart pub get
