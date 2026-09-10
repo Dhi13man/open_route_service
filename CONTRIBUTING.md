@@ -29,6 +29,8 @@ By participating, you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 7. Make changes in your local repository to make the contribution you want.
     1. Data Model files go to `./lib/src/models/`.
     2. API files go to `./lib/src/services/`.
+    3. If you change public method names, coordinate handling, profiles, or
+       exceptions, update `skills/`.
 
 8. Add relevant tests (if any) for the contribution you made to `./test/` folder and an appropriate subfolder.
 
