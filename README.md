@@ -110,6 +110,9 @@ Appropriate tests have also been written for each of the above APIs and can be u
 
 Run `dart pub add open_route_service` or `flutter pub add open_route_service` in your Dart/Flutter project directory to install the package.
 
+After adding the package, AI coding agents can load its usage skill with
+`dart run skills@ get`.
+
 ## Usage
 
 1. Import the package where needed:

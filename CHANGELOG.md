@@ -1,5 +1,10 @@
 # Releases
 
+## [Unreleased]
+
+- Ship an Agent Skill under `skills/` so `dart run skills@ get` installs
+  package-specific usage rules.
+
 ## [1.2.8] - 30th July, 2026
 
 - Added explicit return types to private GeoJSON geometry factory helpers without changing the public API.
