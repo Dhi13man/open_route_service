@@ -3,7 +3,7 @@ name: Issue
 about: Report a bug or request a change
 ---
 
-## What happened or what you want
+# What happened or what you want
 
 <!-- One or two sentences. -->
 

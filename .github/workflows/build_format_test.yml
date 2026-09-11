@@ -22,6 +22,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0
 
       # Pin the SDK that was green with setup-dart 1.8.0. setup-dart 1.8.1
       # otherwise installs latest stable, which fails dart analyze --fatal-infos.
@@ -43,13 +44,28 @@ jobs:
       - name: Validate package publication
         run: dart pub publish --dry-run
 
+      - name: Detect whether this pull request is docs-only
+        id: changes
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --no-tags origin "${GITHUB_BASE_REF}"
+          CHANGED="$(git diff --name-only "origin/${GITHUB_BASE_REF}...HEAD")"
+          echo "$CHANGED"
+          if echo "$CHANGED" | grep -qvE '\.(md|MD)$|^\.github/'; then
+            echo "skip_live=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip_live=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run deterministic tests
-        if: github.actor == 'dependabot[bot]'
+        if: github.actor == 'dependabot[bot]' || steps.changes.outputs.skip_live == 'true'
         run: dart test test/open_route_service_test.dart --name 'GeoJSON'
 
       # Repository secrets are intentionally unavailable to Dependabot pull requests.
+      # Live OpenRouteService calls are skipped for docs/.github-only PRs so community
+      # file changes are not blocked by third-party API timeouts.
       - name: Run API integration tests
-        if: github.actor != 'dependabot[bot]'
+        if: github.actor != 'dependabot[bot]' && steps.changes.outputs.skip_live != 'true'
         run: dart test
         env:
           EXEC_ENV: 'github_actions'
